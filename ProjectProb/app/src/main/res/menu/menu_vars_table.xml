@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.sharktech.projectprob.views.VariableTableFragment">
+    <item
+        android:id="@+id/menu_import_data"
+        android:orderInCategory="100"
+        android:title="@string/menu_import_data"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_export_data"
+        android:orderInCategory="100"
+        android:title="@string/menu_export_data"
+        app:showAsAction="never" />
+</menu>

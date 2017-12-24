@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lexer-0.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/lexer_0_2/lexer-0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/out/artifacts/lexer_0_2/lexer-0.2.jar!/" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,42 @@
+<resources >
+    <string name="app_name">Estatistica Fácil</string>
+
+    <!-- Labels -->
+    <string name="txt_default"> - </string>
+    <string name="txt_cmd_line">Linha de comando</string>
+    <string name="txt_data_analyse">Análise dos dados </string>
+    <string name="txt_variables">Tabela de variaveis</string>
+    <string name="txt_variable">Variável x&#772;</string>
+    <string name="txt_arithmetic_avg">Média aritimética </string>
+    <string name="txt_geometric_avg">Média geométrica</string>
+    <string name="txt_weighted_avg">Média ponderada</string>
+    <string name="txt_quadratic_avg">Média quadrática</string>
+    <string name="txt_mode">Moda</string>
+    <string name="txt_kurtosis">Curtose</string>
+    <string name="txt_skewness">Assimetrica</string>
+    <string name="txt_charts">Gráficos</string>
+    <string name="txt_pizza_chart">Pizza</string>
+    <string name="txt_column_chart">Coluna</string>
+    <string name="txt_dispersion_chart">Dispersão</string>
+    <string name="txt_box_chart">Caixa </string>
+    <string name="txt_histogram_chart">Histograma </string>
+
+    <!-- Buttons -->
+    <string name="btn_cmd">&#62;</string>
+
+    <!-- XML and HTML Symbol -->
+    <string name="txt_arithmetic_avg_sym">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>
+    <string name="txt_weighted_avg_sym">x&#772; = &#8721;(&#967;&#161; * &#402;&#161;) / &#8721;(&#402;&#161;)</string>
+    <string name="txt_geometric_avg_sym">x&#772; = &#8305;&#8730;(&#8719;(&#967;&#161; ^ &#402;&#161;)) ^ (1 / &#402;&#161;) </string>
+    <string name="txt_quadratic_avg_sym">x&#772; = &#8730;(&#8721; (&#967;&#161; ^ 2 * &#402;&#161;))</string>
+
+    <!-- Menus -->
+    <string name="menu_import_data">Importar dados (.cvs)</string>
+    <string name="menu_export_data">Exportar dados (.cvs)</string>
+    <string name="menu_data_analyse">@string/txt_data_analyse</string>
+    <string name="menu_variables">@string/txt_variables</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>

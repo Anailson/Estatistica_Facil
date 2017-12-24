@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="graphs">
+        <item>@string/txt_default</item>
+        <item>@string/txt_pizza_chart</item>
+        <item>@string/txt_column_chart</item>
+        <item>@string/txt_dispersion_chart</item>
+        <item>@string/txt_box_chart</item>
+        <item>@string/txt_histogram_chart</item>
+    </string-array>
+</resources>

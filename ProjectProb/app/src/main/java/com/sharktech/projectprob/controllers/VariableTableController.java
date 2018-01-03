@@ -1,46 +1,74 @@
 package com.sharktech.projectprob.controllers;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.customtable.CustomTable;
+import com.sharktech.projectprob.customtable.Variable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import exception.TokenException;
 import lexer.Parser;
-import lexer.Parser.IBaseOperation;
-import lexer.SyntacticParser;
 import lexer.Token;
 import parser.ParserAdd;
 
 
 public class VariableTableController {
 
-    private Activity activity;
-    private Listeners listeners;
+    private Fragment mFragment;
+    private Listeners mListeners;
+    private CustomTable mCustomTable;
 
-    public VariableTableController(Activity activity){
-        this.listeners = new Listeners();
-        this.activity = activity;
+    public VariableTableController(Fragment fragment){
+        this.mListeners = new Listeners();
+        this.mFragment = fragment;
     }
 
     public View.OnClickListener getClickListener(){
-        return listeners;
+        return mListeners;
+    }
+
+    public void buildTable(ViewGroup parent, ArrayList<Variable> vars){
+        mCustomTable = new CustomTable(mFragment.getContext());
+        parent.addView(mCustomTable.build(vars));
+    }
+
+    private void rebuildTable(ViewGroup parent, ArrayList<Variable> vars){
+        if (parent.indexOfChild(mCustomTable) > 0){
+            parent.removeView(mCustomTable);
+        }
+        ((ViewGroup) mCustomTable.getParent()).removeView(mCustomTable);
+
+        parent.addView(mCustomTable.rebuild(vars));
+        mFragment.onResume();
     }
 
     private void add(ParserAdd parser){
-        Log.e("ADD", parser.getValue(Token.COLUMN) + " " + parser.getValue(Token.VAL));
+
+        Activity activity = mFragment.getActivity();
+        if(activity != null) {
+
+            Variable<String> var = new Variable<>(mFragment.getContext(), "Nova Variavel");
+            for(int i = 0; i < 5; i++){
+                var.add("Nova var #" + i);
+            }
+            ArrayList<Variable> vars = MainController.getVariables(mFragment.getContext());
+            vars.add(var);
+            rebuildTable((ViewGroup) activity.findViewById(R.id.content_main), vars);
+        }
     }
 
     private class Listeners implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
-
+            Activity activity = mFragment.getActivity();
             String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString() ;
 
             Parser parser = new Parser();

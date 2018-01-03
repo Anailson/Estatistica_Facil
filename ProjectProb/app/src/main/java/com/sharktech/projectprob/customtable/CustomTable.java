@@ -3,6 +3,7 @@ package com.sharktech.projectprob.customtable;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 
 public class CustomTable extends HorizontalScrollView {
 
-    private ScrollView content;
-    private ArrayList<Variable> variables;
-    private boolean lineCounter;
+    private ScrollView mContent;
+    //private ArrayList<Variable> mVariables;
+    private boolean mLineCounter;
 
     public CustomTable(Context context) {
         super(context);
@@ -29,53 +30,66 @@ public class CustomTable extends HorizontalScrollView {
     }
 
     public void setLineCounter(boolean lineCounter) {
-        this.lineCounter = lineCounter;
+        this.mLineCounter = lineCounter;
     }
 
     private void init() {
 
-        variables = new ArrayList<>();
+        //mVariables = new ArrayList<>();
 
-        content = new ScrollView(getContext());
-        content.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        content.setVerticalScrollBarEnabled(true);
-        //content.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+        mContent = new ScrollView(getContext());
+        mContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mContent.setVerticalScrollBarEnabled(true);
+        //mContent.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
 
         setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setHorizontalScrollBarEnabled(true);
         //setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
-        addView(content);
+        addView(mContent);
     }
-
+/*
     public void add(Variable variable){
-        variables.add(variable);
+        mVariables.add(variable);
     }
 
     public void add(ArrayList<Variable> variables){
-        this.variables.addAll(variables);
+        this.mVariables.addAll(variables);
     }
 
-    public void build() {
+    public void removeAllVariables(){
+        mVariables = new ArrayList<>();
+    }
+*/
+    public ViewGroup build(ArrayList<Variable> variables) {
         LinearLayout layout = getHorizontalLayout();
-        lineCounter = true;
-        int nRows = nRows();
+        mLineCounter = true;
+        int nRows = nRows(variables);
 
-        if (hasVariables()) {
+        if (hasVariables(variables)) {
 
-            if(lineCounter){
+            if(mLineCounter){
                 layout.addView(addLineCounter(nRows));
             }
-            buildColumns(layout, nRows);
+            buildColumns(variables, layout, nRows);
 
         } else {
 
             Variable title = new Variable(getContext(), "Ainda não foi inserida nenhuma variável.");
             layout.addView(title.build());
         }
-        content.addView(layout);
+        mContent.addView(layout);
+        return this;
     }
 
-    private void buildColumns(LinearLayout layout, int nRows){
+    public ViewGroup rebuild(ArrayList<Variable> variables) {
+
+        Log.e("rebuild", variables.size() + "");
+        removeView(mContent);
+        init();
+        return build(variables);
+    }
+
+    private void buildColumns(ArrayList<Variable> variables, LinearLayout layout, int nRows){
 
         for(int col = 0; col < variables.size(); col++) {
             Variable column = variables.get(col);
@@ -95,8 +109,8 @@ public class CustomTable extends HorizontalScrollView {
 
     private Variable addLineCounter(int nRows){
 
-        Variable column = new Variable(getContext(), "#");
-        column.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        Variable<String> column = new Variable<>(getContext(), "#");
+        column.setBackgroundColor(getResources().getColor(R.color.color_primary_light));
         for(int i = 0; i < nRows; i++){
             column.add(String.valueOf(i + 1));
         }
@@ -110,7 +124,7 @@ public class CustomTable extends HorizontalScrollView {
         return layout;
     }
 
-    private boolean hasVariables() {
+    private boolean hasVariables(ArrayList<Variable> variables) {
 
         if (variables.size() < 0) {
             return false;
@@ -124,7 +138,7 @@ public class CustomTable extends HorizontalScrollView {
         return false;
     }
 
-    private int nRows(){
+    private int nRows(ArrayList<Variable> variables){
 
         int nRows = 0;
         for (Variable var : variables) {

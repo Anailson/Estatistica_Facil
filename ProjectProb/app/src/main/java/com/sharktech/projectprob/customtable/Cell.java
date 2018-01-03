@@ -79,7 +79,7 @@ public class Cell<E> extends android.support.v7.widget.AppCompatEditText{
     protected void setHeading() {
 
         position.row = -1;
-        setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimaryLight));
+        setBackgroundColor(getContext().getResources().getColor(R.color.color_primary_light));
         setTypeface(getTypeface(), Typeface.BOLD);
         setTextColor(Color.WHITE);
         setText(value.simpleText());

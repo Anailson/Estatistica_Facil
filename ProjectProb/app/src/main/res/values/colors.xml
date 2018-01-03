@@ -3,11 +3,11 @@
 
     <color name="colorAccent">#ff5500</color>
     <color name="color_default">@android:color/primary_text_light_nodisable</color>
-    <color name="colorPrimary">@color/colorAccent</color>
 
-    <color name="colorPrimaryLight">#f57b2a</color>
-    <color name="colorPrimaryDark">#d44700</color>
+    <color name="color_primary">@color/colorAccent</color>
+    <color name="color_primary_light">#f57b2a</color>
+    <color name="color_primary_dark">#d44700</color>
     <color name="color_error">#D32F2F</color>
-
+    <color name="color_tab_title">@android:color/white</color>
 
 </resources>

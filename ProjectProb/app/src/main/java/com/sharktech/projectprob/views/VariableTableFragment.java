@@ -25,7 +25,7 @@ public class VariableTableFragment extends Fragment {
         Button btnCmd = view.findViewById(R.id.btn_cmd);
 
         btnCmd.setOnClickListener(mController.getClickListener());
-        mController.buildTable(mParent, MainController.getVariables(getContext()));
+        mParent.addView(mController.buildTable());
 
         return view;
     }

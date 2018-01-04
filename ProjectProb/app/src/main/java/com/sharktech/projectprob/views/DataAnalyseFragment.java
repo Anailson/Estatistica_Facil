@@ -16,6 +16,7 @@ import com.sharktech.projectprob.adapters.SpinAdapter;
 import com.sharktech.projectprob.controllers.DataAnalyseController;
 import com.sharktech.projectprob.controllers.MainController;
 import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class DataAnalyseFragment extends Fragment {
     }
 
     private String[] getTitles(){
-        ArrayList<Variable> variables = MainController.getVariables(getContext());
+        ArrayList<Variable> variables = VariablePersistence.getInstance().getVariables(getContext());
         String[] titles = new String[variables.size() + 1];
         titles[0] = getString(R.string.txt_default);
 

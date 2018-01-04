@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customcharts.ChartFactory;
 import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -25,7 +26,7 @@ public class DataAnalyseController {
     public DataAnalyseController(Context context) {
         this.context = context;
         this.listener = new Listeners();
-        this.vars =  MainController.getVariables(context);
+        this.vars =  VariablePersistence.getInstance().getVariables(context);
     }
 
     public AdapterView.OnItemSelectedListener getItemSelectedListener() {

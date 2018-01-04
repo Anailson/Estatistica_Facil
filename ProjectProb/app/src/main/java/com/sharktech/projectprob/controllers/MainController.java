@@ -50,21 +50,5 @@ public class MainController {
     }
 
 
-    public static ArrayList<Variable> getVariables(Context context) {
 
-        ArrayList<Variable> vars = new ArrayList<>();
-        vars.add(getVariable(context, "Integer", new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}));
-        vars.add(getVariable(context, "String",  new String[]{"Um", "Dois", "Três"}));
-        vars.add(getVariable(context, "Character", new Character[]{'U', 'D', 'T', 'Q'}));
-        vars.add(getVariable(context, "Float", new Float[]{1.3f, 2.2f, 3.3f, 4.4f}));
-        return vars;
-    }
-
-    private static <E> Variable getVariable(Context context, String title, E[] values){
-        Variable<E> variable = new Variable<>(context, title);
-        for(E value : values){
-            variable.add(value);
-        }
-        return variable;
-    }
 }

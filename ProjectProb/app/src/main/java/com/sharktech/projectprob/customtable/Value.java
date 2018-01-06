@@ -1,8 +1,5 @@
 package com.sharktech.projectprob.customtable;
 
-
-import java.util.Locale;
-
 public class Value<E> {
 
     private E data;
@@ -18,8 +15,7 @@ public class Value<E> {
     }
 
     String formattedText(){
-        String text = isEmpty() ? " - " : toString();
-        return String.format(Locale.getDefault(), "(%d) %s", count, text);
+        return toString();
     }
 
     public E getData(){

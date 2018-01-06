@@ -11,40 +11,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.interfaces.ICell;
 
-public class Cell<E> extends android.support.v7.widget.AppCompatEditText{
+public class Cell<E> extends android.support.v7.widget.AppCompatEditText {
 
-    private Value<E> value;
-    private Position position;
-    private Listeners listeners;
+    private Position mPosition;
+    private Listeners mListener;
+    private Value<E> mValue;
+    private ICell<E> mCell;
 
-    public Cell(Context context){
-        this(context, null);
+    public Cell(Context context) {
+        this(context, new Value<E>(null));
+    }
+
+    public Cell(Context context, E value){
+        this(context, new Value<>(value));
     }
 
     public Cell(Context context, Value<E> value){
         super(context);
-        this.value = value;
-        this.position = new Position(-1, -1);
-        this.listeners = new Listeners(getContext(), position);
+        this.mValue = value;
+        this.mPosition = new Position(-1, -1);
+        this.mListener = new Listeners(getContext(), mPosition);
+        this.mCell = emptyListener();
 
         init();
     }
 
-    public Float asFloat(){
-        if(value.isNumber()){
-            return Float.valueOf(value.toString());
-        }
-        return 0f;
-    }
-
-    public int getCount(){
-        return value.getCount();
-    }
-
     private void init(){
-
-        setText(value.formattedText());
+        setText(mValue.formattedText());
         setSingleLine(true);
         setTextColor(getResources().getColor(R.color.color_default));
         setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -52,43 +47,31 @@ public class Cell<E> extends android.support.v7.widget.AppCompatEditText{
         setTextSize(16);
         setFocusableInTouchMode(false);
         setImeOptions(EditorInfo.IME_ACTION_DONE);
-        setOnLongClickListener(listeners);
-        setOnFocusChangeListener(listeners);
-        setOnEditorActionListener(listeners);
+        setOnLongClickListener(mListener);
+        setOnFocusChangeListener(mListener);
+        setOnEditorActionListener(mListener);
     }
 
-    private void setGravity() {
+    protected Value<E> getValue() {
+        return mValue;
+    }
 
-        if(position.col >=  0 && position.row >= 0){
-            setGravity(Gravity.START);
-        } else if(position.col >= 0 && position.row < 0) {
-            setGravity(Gravity.CENTER);
-        } else if(position.col < 0 && position.row < 0){
-            setGravity(Gravity.END);
-        }
+    protected void setValue(Value<E> value){
+        this.mValue = value;
     }
 
     protected boolean isEmpty(){
-        return  value.isEmpty();
+        return mValue == null || mValue.isEmpty();
     }
 
-    protected boolean isNumber(){
-        return  value.isNumber();
-    }
-
-    protected void setHeading() {
-
-        position.row = -1;
-        setBackgroundColor(getContext().getResources().getColor(R.color.color_primary_light));
-        setTypeface(getTypeface(), Typeface.BOLD);
-        setTextColor(Color.WHITE);
-        setText(value.simpleText());
+    protected void setCol(int col) {
+        setPosition(col, mPosition.row);
     }
 
     protected void setPosition(int col, int row) {
 
-        if(value != null) {
-            position.setPosition(col, row);
+        if(mValue != null) {
+            mPosition.setPosition(col, row);
         }
         if(col < 0){
             setHeading();
@@ -96,21 +79,95 @@ public class Cell<E> extends android.support.v7.widget.AppCompatEditText{
         setGravity();
     }
 
-    protected void setCol(int col) {
-        setPosition(col, position.row);
+    protected void setListener(ICell<E> listener) {
+        this.mCell = listener;
     }
 
-    @Override
-    public String toString() {
-        return value.formattedText();
+    protected void setHeading() {
+
+        mPosition.row = -1;
+        setBackgroundColor(getContext().getResources().getColor(R.color.color_primary_light));
+        setTypeface(getTypeface(), Typeface.BOLD);
+        setTextColor(Color.WHITE);
+        setText(mValue.simpleText());
     }
 
-    public Value<E> getValue() {
-        return value;
+    protected static <T> Cell<T> newCell(Context context, final T value){
+
+        Cell<T> cell = new Cell<>(context, value);
+        cell.setListener(Cell.defaultListener(value));
+        return cell;
     }
 
-    public void setValue(Value<E> value){
-        this.value = value;
+    protected static <T> Cell<T> emptyCell(Context context) {
+        Cell<T> cell = new Cell<>(context);
+        cell.setListener(Cell.<T>emptyListener());
+        return cell;
+    }
+
+    private static <T> ICell<T> defaultListener(final T value) {
+        return new ICell<T>() {
+
+            @Override
+            public String getTitle() { return value.toString(); }
+
+            @Override
+            public T getElement() { return value; }
+
+            @Override
+            public int getCount() { return 1; }
+
+            @Override
+            public boolean isNumber() { return false; }
+
+            @Override
+            public Float asFloat() { return -1f; }
+        };
+    }
+
+    private static <T> ICell<T> emptyListener() {
+        return new ICell<T>() {
+
+            @Override
+            public String getTitle() { return " - "; }
+
+            @Override
+            public T getElement() { return null; }
+
+            @Override
+            public int getCount() { return 0; }
+
+            @Override
+            public boolean isNumber() { return false; }
+
+            @Override
+            public Float asFloat() { return -1f; }
+
+        };
+    }
+
+
+
+    private void setGravity(){
+        if(mPosition.col >=  0 && mPosition.row >= 0){
+            setGravity(Gravity.START);
+        } else if(mPosition.col >= 0 && mPosition.row < 0) {
+            setGravity(Gravity.CENTER);
+        } else if(mPosition.col < 0 && mPosition.row < 0){
+            setGravity(Gravity.END);
+        }
+    }
+
+    public Integer getCount() {
+        return mCell.getCount();
+    }
+
+    public boolean isNumber() {
+        return mCell.isNumber();
+    }
+
+    public double asFloat() {
+        return mCell.asFloat();
     }
 
     private class Position {
@@ -173,6 +230,5 @@ public class Cell<E> extends android.support.v7.widget.AppCompatEditText{
             }
             return false;
         }
-    }
-}
+    }}
 

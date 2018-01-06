@@ -1,6 +1,7 @@
 package com.sharktech.projectprob.persistence;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.sharktech.projectprob.customtable.Variable;
 
@@ -25,18 +26,23 @@ public class VariablePersistence {
         return mPersistence;
     }
 
-    public ArrayList<Variable> getVariables(Context context, ArrayList<Variable> addVars) {
-        ArrayList<Variable> vars = getVariables(context);
-        vars.addAll(addVars);
-        return vars;
+    public ArrayList<Variable> getVariables(Context context, Variable variable) {
+        add(variable);
+        return getVariables(context);
+    }
+
+    public ArrayList<Variable> getVariables(Context context, ArrayList<Variable> variables) {
+        add(variables);
+        return getVariables(context);
     }
 
     public ArrayList<Variable> getVariables(Context context) {
+        mVariables = new ArrayList<>();
+        //mVariables.add(getVariable(context, "Integer", new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}));
+        //mVariables.add(getVariable(context, "String",  new String[]{"Um", "Dois", "Três"}));
+        //mVariables.add(getVariable(context, "Character", new Character[]{'U', 'D', 'T', 'Q'}));
+        //mVariables.add(getVariable(context, "Float", new Float[]{1.3f, 2.2f, 3.3f, 4.4f}));
 
-        mVariables.add(getVariable(context, "Integer", new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}));
-        mVariables.add(getVariable(context, "String",  new String[]{"Um", "Dois", "Três"}));
-        mVariables.add(getVariable(context, "Character", new Character[]{'U', 'D', 'T', 'Q'}));
-        mVariables.add(getVariable(context, "Float", new Float[]{1.3f, 2.2f, 3.3f, 4.4f}));
         if(mVarsAuxi.size() > 0){
             mVariables.addAll(mVarsAuxi);
         }
@@ -48,10 +54,15 @@ public class VariablePersistence {
         for(E value : values){
             variable.add(value);
         }
+
         return variable;
     }
 
-    public void addVars(ArrayList<Variable> vars) {
-        mVariables.addAll(vars);
+    public void add(ArrayList<Variable> vars) {
+        mVarsAuxi.addAll(vars);
+    }
+
+    public void add(Variable variable){
+        mVarsAuxi.add(variable);
     }
 }

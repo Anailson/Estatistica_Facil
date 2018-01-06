@@ -1,22 +1,26 @@
 package com.sharktech.projectprob.customtable;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.interfaces.ICell;
 import com.sharktech.projectprob.interfaces.IVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class Variable<E> extends LinearLayout implements IVariable<E>{
 
-    private int position;
-    private String title;
-    private ArrayList<Cell<E>> cells;
-    private Analyses analyses;
+    private int mPosition;
+    private Context mContext;
+    private String mTitle;
+    private ArrayList<Cell<E>> mCells;
+    private Analyses mAnalyses;
+    private ICell<E> mCell;
 
     public Variable(Context context) {
         this(context, " No Title ");
@@ -24,74 +28,82 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
 
     public Variable(Context context, String title) {
         super(context);
-        this.position = -1;
-        this.title = title;
-        this.cells = new ArrayList<>();
-        this.analyses = null;
+        this.mPosition = -1;
+        this.mTitle = title;
+        this.mCells = new ArrayList<>();
+        this.mAnalyses = null;
 
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(Context context) {
+        this.mContext = context;
         setOrientation(VERTICAL);
         setBackgroundResource(R.drawable.border_light);
     }
 
     public void setPosition(int position) {
         if (position >= 0) {
-            this.position = position;
-            for (Cell cell : cells) {
+            this.mPosition = position;
+            for (Cell cell : mCells) {
                 cell.setCol(position);
             }
         }
     }
 
+    public void setListener(ICell<E> mCell) {
+        this.mCell = mCell;
+    }
+
     public Analyses calculate() {
-        if (analyses == null) {
-            analyses = new Analyses(cells);
+        if (mAnalyses == null) {
+            mAnalyses = new Analyses(mCells);
         }
-        return analyses;
+        return mAnalyses;
     }
 
-    public void add(E value) {
-        add(new Value<>(value));
+    public void add(E cell) {
+        add(Cell.newCell(mContext, cell));
     }
 
-    public void add(Value<E> value) {
-        cells.add(new Cell<>(getContext(), value));
+    public void add(Cell<E> cell) {
+        mCells.add(cell);
     }
 
-    public void addAll(Value<E>[] values) {
+    public void addAll(Cell<E>[] values) {
         addAll(Arrays.asList(values));
     }
 
-    public void addAll(List<Value<E>> values) {
+    public void addAll(List<Cell<E>> values) {
 
-        for (Value<E> value : values) {
+        for (Cell<E> value : values) {
             add(value);
         }
     }
 
     protected void emptyCell() {
-        add(new Value<E>(null));
+        add(Cell.<E>emptyCell(mContext));
     }
 
     protected Variable build() {
-        String title = position >= 0
-                ? String.format(Locale.getDefault(), "[%d]%s(f) %s", (position + 1), "\n", this.title)
-                : String.format(Locale.getDefault(), "\n %s", this.title);
 
-        Cell cellTitle = new Cell<>(getContext(), new Value<>(title));
-        cellTitle.setCol(position);
+        Cell<String> cellTitle = Cell.newCell(getContext(), mTitle);
+        cellTitle.setCol(mPosition);
         addView(cellTitle);
 
-        for (int row = 0; row < cells.size(); row++) {
-            Cell cell = cells.get(row);
-            cell.setPosition(position, row);
+        for (int row = 0; row < mCells.size(); row++) {
+            Cell cell = mCells.get(row);
+            removeParent(cell);
+            cell.setPosition(mPosition, row);
             addView(cell);
         }
         setHeading();
         return this;
+    }
+
+    private void removeParent(View child){
+        ViewGroup parent = (ViewGroup) child.getParent();
+        if(parent != null) parent.removeView(child);
     }
 
     private void setHeading() {
@@ -106,19 +118,19 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
 
     @Override
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     @Override
     public int nElements() {
-        return cells.size();
+        return mCells.size();
     }
 
     @Override
     public ArrayList<Value> getElements(){
 
         ArrayList<Value> els = new ArrayList<>();
-        for(Cell<E> cell : cells){
+        for(Cell<E> cell : mCells){
             if(!cell.isEmpty()){
                 els.add(cell.getValue());
             }
@@ -128,18 +140,18 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
 
     @Override
     public Value<E> getElement(int index) {
-        return cells.get(index).getValue();
+        return mCells.get(index).getValue();
     }
 
     @Override
     public void setElement(Value<E> value, int index) {
-        cells.get(index).setValue(value);
+        mCells.get(index).setValue(value);
     }
 
     @Override
     public void setBackgroundColor(int color) {
 
-        for (Cell cell : cells) {
+        for (Cell cell : mCells) {
             cell.setHeading();
         }
         super.setBackgroundColor(color);

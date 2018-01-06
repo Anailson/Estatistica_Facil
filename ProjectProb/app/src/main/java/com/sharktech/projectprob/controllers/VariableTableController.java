@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 
@@ -34,55 +35,58 @@ public class VariableTableController {
         return mListeners;
     }
 
-    public void buildTable(ViewGroup parent, ArrayList<Variable> vars){
+    public ViewGroup buildTable(){
         mCustomTable = new CustomTable(mFragment.getContext());
-        parent.addView(mCustomTable.build(vars));
+        ArrayList<Variable> vars = VariablePersistence.getInstance().getVariables(mFragment.getContext());
+        return mCustomTable.build(vars);
     }
 
-    private void rebuildTable(ViewGroup parent, ArrayList<Variable> vars){
-        if (parent.indexOfChild(mCustomTable) > 0){
-            parent.removeView(mCustomTable);
-        }
-        ((ViewGroup) mCustomTable.getParent()).removeView(mCustomTable);
+    private void clearTable(){
 
-        parent.addView(mCustomTable.rebuild(vars));
-        mFragment.onResume();
+        Activity activity = mFragment.getActivity();
+        if(activity != null){
+
+            ViewGroup contentTable = activity.findViewById(R.id.content_table);
+            contentTable.removeView(mCustomTable);
+            //((ViewGroup) mCustomTable.getParent()).removeView(mCustomTable);
+
+            mCustomTable.clear();
+            mFragment.onResume();
+        }
     }
 
     private void add(ParserAdd parser){
 
-        Activity activity = mFragment.getActivity();
-        if(activity != null) {
-
-            Variable<String> var = new Variable<>(mFragment.getContext(), "Nova Variavel");
-            for(int i = 0; i < 5; i++){
-                var.add("Nova var #" + i);
-            }
-            ArrayList<Variable> vars = MainController.getVariables(mFragment.getContext());
-            vars.add(var);
-            rebuildTable((ViewGroup) activity.findViewById(R.id.content_main), vars);
+        Variable<String> var = new Variable<>(mFragment.getContext(), "Nova Variavel");
+        for(int i = 0; i < 5; i++){
+            var.add("Nova var #" + i);
         }
+        VariablePersistence.getInstance().add(var);
+
+        clearTable();
     }
+
 
     private class Listeners implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
             Activity activity = mFragment.getActivity();
-            String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString() ;
+            if (activity != null) {
+                String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString();
 
-            Parser parser = new Parser();
-            parser.register(Token.ADD, new ParserAdd());
-            //Log.e("Map", map.toString() + " " + map.size());
+                Parser parser = new Parser();
+                parser.register(Token.ADD, new ParserAdd());
 
-            try {
-                Parser.IBaseOperation op = parser.analyse(source + " ");
+                try {
+                    Parser.IBaseOperation op = parser.analyse(source + " ");
 
-                switch (op.id()){
-                    case Token.ADD: add((ParserAdd) op); break;
+                    switch (op.id()) {
+                        case Token.ADD: add((ParserAdd) op); break;
+                    }
+                } catch (TokenException e) {
+                    Log.e("Exception", e.getMessage());
                 }
-            } catch (TokenException e) {
-                Log.e("Exception", e.getMessage());
             }
         }
     }

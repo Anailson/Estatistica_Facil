@@ -3,7 +3,6 @@ package com.sharktech.projectprob.customtable;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -11,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.customtable.Variable.IVariable;
+import com.sharktech.projectprob.models.VariableNumber;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class CustomTable extends HorizontalScrollView {
         addView(mContent);
     }
 
-    public ViewGroup build(ArrayList<Variable> variables) {
+    public ViewGroup build(ArrayList<IVariable> variables) {
         LinearLayout layout = getHorizontalLayout();
         mLineCounter = true;
         int nRows = nRows(variables);
@@ -58,7 +59,7 @@ public class CustomTable extends HorizontalScrollView {
 
         } else {
 
-            Variable title = new Variable(getContext(), getContext().getString(R.string.txt_no_variable));
+            Variable title = Variable.newVariable(getContext(), getContext().getString(R.string.txt_no_variable));
             layout.addView(title.build());
         }
         mContent.addView(layout);
@@ -74,11 +75,14 @@ public class CustomTable extends HorizontalScrollView {
         init();
     }
 
-    private void buildColumns(ArrayList<Variable> variables, LinearLayout layout, int nRows){
+    private void buildColumns(ArrayList<IVariable> variables, LinearLayout layout, int nRows){
 
         for(int col = 0; col < variables.size(); col++) {
-            Variable column = variables.get(col);
-            if(column.nElements() < nRows) {
+
+            int nElements = variables.get(col).nElements();
+            Variable<IVariable> column = new Variable<>(getContext(), variables.get(col));
+
+            if(nElements < nRows) {
                 fillColumn(nRows, column);
             }
             column.setPosition(col);
@@ -95,18 +99,20 @@ public class CustomTable extends HorizontalScrollView {
 
     private void fillColumn(int nRows, Variable column){
         for(int i = column.nElements(); i < nRows; i++){
-            column.emptyCell();
+            //column.emptyCell();
         }
     }
 
     private Variable addLineCounter(int nRows){
 
-        Variable<String> column = new Variable<>(getContext(), "#");
-        column.setBackgroundColor(getResources().getColor(R.color.color_primary_light));
+        VariableNumber column = new VariableNumber("#");
         for(int i = 0; i < nRows; i++){
-            column.add(String.valueOf(i + 1));
+            column.add(i + 1);
         }
-        return column.build();
+
+        Variable<VariableNumber> variable = new Variable<>(getContext(), column);
+        variable.setBackgroundColor(getResources().getColor(R.color.color_primary_light));
+        return variable.build();
     }
 
     private LinearLayout getHorizontalLayout(){
@@ -116,12 +122,12 @@ public class CustomTable extends HorizontalScrollView {
         return layout;
     }
 
-    private boolean hasVariables(ArrayList<Variable> variables) {
+    private boolean hasVariables(ArrayList<IVariable> variables) {
 
         if (variables.size() < 0) {
             return false;
         }
-        for (Variable column: variables) {
+        for (IVariable column: variables) {
 
             if (column.nElements() > 0) {
                 return true;
@@ -130,10 +136,10 @@ public class CustomTable extends HorizontalScrollView {
         return false;
     }
 
-    private int nRows(ArrayList<Variable> variables){
+    private int nRows(ArrayList<IVariable> variables){
 
         int nRows = 0;
-        for (Variable var : variables) {
+        for (IVariable var : variables) {
             nRows = nRows > var.nElements() ? nRows : var.nElements();
         }
         return nRows;

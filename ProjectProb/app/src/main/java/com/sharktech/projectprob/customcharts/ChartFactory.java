@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.ViewGroup;
 
+
+import com.sharktech.projectprob.customtable.Variable.IVariable;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.sharktech.projectprob.customtable.Variable;
 
 public class ChartFactory {
 
@@ -27,7 +29,7 @@ public class ChartFactory {
 
     private ChartFactory(){}
 
-    public static PieChart newPieChart(Context context, Variable variable) {
+    public static PieChart newPieChart(Context context, IVariable variable) {
 
         PieChartCustom chart = new PieChartCustom(context);
         configLegend(chart);
@@ -35,7 +37,7 @@ public class ChartFactory {
         return chart.build(variable);
     }
 
-    public static BarChart newBarChart(Context context, Variable variable) {
+    public static BarChart newBarChart(Context context, IVariable variable) {
         BarChartCustom chart = new BarChartCustom(context);
         chart.setDescription(getDescription(variable.getTitle()));
         configLegend(chart);

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.models.VariableString;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class VariableTableController {
 
     public ViewGroup buildTable(){
         mCustomTable = new CustomTable(mFragment.getContext());
-        ArrayList<Variable> vars = VariablePersistence.getInstance().getVariables(mFragment.getContext());
+        ArrayList<Variable.IVariable> vars = VariablePersistence.getInstance().getVariables();
         return mCustomTable.build(vars);
     }
 
@@ -48,7 +49,6 @@ public class VariableTableController {
 
             ViewGroup contentTable = activity.findViewById(R.id.content_table);
             contentTable.removeView(mCustomTable);
-            //((ViewGroup) mCustomTable.getParent()).removeView(mCustomTable);
 
             mCustomTable.clear();
             mFragment.onResume();
@@ -57,12 +57,9 @@ public class VariableTableController {
 
     private void add(ParserAdd parser){
 
-        Variable<String> var = new Variable<>(mFragment.getContext(), "Nova Variavel");
-        for(int i = 0; i < 5; i++){
-            var.add("Nova var #" + i);
-        }
-        VariablePersistence.getInstance().add(var);
-
+        VariableString objects  = new VariableString("Nova Variavel");
+        objects.add(new String[]{ "Valor #1", "Valor #2", "Valor #3", "Valor #4", "Valor #5", "Valor #6"});
+        VariablePersistence.getInstance().add(objects);
         clearTable();
     }
 

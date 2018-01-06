@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.customtable.Cell;
 import com.sharktech.projectprob.customtable.Value;
 import com.sharktech.projectprob.customtable.Variable;
 
@@ -24,7 +25,7 @@ public class PieChartCustom extends PieChart {
         this.context = context;
     }
 
-    protected PieChart build(Variable variable){
+    protected PieChart build(Variable.IVariable variable){
         setTransparentCircleRadius(0);
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
         setHoleRadius(0);
@@ -32,9 +33,10 @@ public class PieChartCustom extends PieChart {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        for(Object o: variable.getElements()){
-            Value val = (Value) o;
-            entries.add(new PieEntry(val.getCount(), val.getData().toString()));
+        for(Cell.ICell o : variable.getElements()){
+
+            Value<Cell.ICell> val = new Value<>(o);
+            entries.add(new PieEntry(val.getCount(), val.simpleText()));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Some Example");

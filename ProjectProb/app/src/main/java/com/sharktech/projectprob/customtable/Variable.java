@@ -6,92 +6,81 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.interfaces.ICell;
-import com.sharktech.projectprob.interfaces.IVariable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Variable<E> extends LinearLayout implements IVariable<E>{
+public class Variable<E extends Variable.IVariable> extends LinearLayout {
 
     private int mPosition;
-    private Context mContext;
-    private String mTitle;
-    private ArrayList<Cell<E>> mCells;
+    private E mVariable;
     private Analyses mAnalyses;
-    private ICell<E> mCell;
+    private ArrayList<Cell<Cell.ICell>> mCells;
 
-    public Variable(Context context) {
-        this(context, " No Title ");
+    public interface IVariable {
+
+        String getTitle();
+
+        int nElements();
+
+        ArrayList<Cell.ICell> getElements();
+
+        Cell.ICell getElement(int index);
+
+        void setElement(Cell.ICell value, int index);
     }
 
-    public Variable(Context context, String title) {
+    public Variable(Context context) {
+        this(context, null);
+    }
+
+    public Variable(Context context, E variable) {
         super(context);
         this.mPosition = -1;
-        this.mTitle = title;
+        this.mVariable = variable;
         this.mCells = new ArrayList<>();
         this.mAnalyses = null;
 
-        init(context);
+        init();
     }
 
-    private void init(Context context) {
-        this.mContext = context;
+    private void init() {
         setOrientation(VERTICAL);
         setBackgroundResource(R.drawable.border_light);
+
+        for(int i = 0; i < mVariable.nElements(); i++){
+            mCells.add(new Cell<>(getContext(), mVariable.getElement(i)));
+        }
     }
 
     public void setPosition(int position) {
         if (position >= 0) {
             this.mPosition = position;
-            for (Cell cell : mCells) {
-                cell.setCol(position);
+
+            for (int i = 0; i < mVariable.nElements(); i++) {
+
+                mCells.get(i).setCol(position);
             }
         }
     }
 
-    public void setListener(ICell<E> mCell) {
-        this.mCell = mCell;
-    }
-
     public Analyses calculate() {
         if (mAnalyses == null) {
-            mAnalyses = new Analyses(mCells);
+            mAnalyses = new Analyses(mVariable.getElements());
         }
         return mAnalyses;
     }
 
-    public void add(E cell) {
-        add(Cell.newCell(mContext, cell));
-    }
-
-    public void add(Cell<E> cell) {
-        mCells.add(cell);
-    }
-
-    public void addAll(Cell<E>[] values) {
-        addAll(Arrays.asList(values));
-    }
-
-    public void addAll(List<Cell<E>> values) {
-
-        for (Cell<E> value : values) {
-            add(value);
-        }
-    }
-
-    protected void emptyCell() {
-        add(Cell.<E>emptyCell(mContext));
+    protected int nElements(){
+        return mVariable.nElements();
     }
 
     protected Variable build() {
 
-        Cell<String> cellTitle = Cell.newCell(getContext(), mTitle);
+        Cell cellTitle = Cell.newCell(getContext(), mVariable.getTitle());
         cellTitle.setCol(mPosition);
         addView(cellTitle);
 
-        for (int row = 0; row < mCells.size(); row++) {
+        for (int row = 0; row < mVariable.nElements(); row++) {
             Cell cell = mCells.get(row);
             removeParent(cell);
             cell.setPosition(mPosition, row);
@@ -116,43 +105,32 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
         }
     }
 
-    @Override
-    public String getTitle() {
-        return mTitle;
+    protected static Variable newVariable(final Context context, final Object variable){
+
+        return new Variable<>(context, new IVariable () {
+            @Override
+            public String getTitle() { return variable.toString(); }
+
+            @Override
+            public int nElements() { return 0; }
+
+            @Override
+            public ArrayList<Cell.ICell> getElements() { return new ArrayList<>(); }
+
+            @Override
+            public Cell.ICell getElement(int index) { return null; }
+
+            @Override
+            public void setElement(Cell.ICell value, int index) {}
+        });
     }
 
-    @Override
-    public int nElements() {
-        return mCells.size();
-    }
-
-    @Override
-    public ArrayList<Value> getElements(){
-
-        ArrayList<Value> els = new ArrayList<>();
-        for(Cell<E> cell : mCells){
-            if(!cell.isEmpty()){
-                els.add(cell.getValue());
-            }
-        }
-        return els;
-    }
-
-    @Override
-    public Value<E> getElement(int index) {
-        return mCells.get(index).getValue();
-    }
-
-    @Override
-    public void setElement(Value<E> value, int index) {
-        mCells.get(index).setValue(value);
-    }
 
     @Override
     public void setBackgroundColor(int color) {
 
-        for (Cell cell : mCells) {
-            cell.setHeading();
+        for (int i = 0; i < mVariable.nElements(); i++) {
+            mCells.get(i).setHeading();
         }
         super.setBackgroundColor(color);
     }
@@ -160,14 +138,14 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
     public class Analyses {
 
         private double avgArithmetic, avgGeometric, avgWeighted, avgQuadratic;
-        private E mode;
+        private Cell.ICell mode;
 
-        private Analyses(ArrayList<Cell<E>> cells) {
+        private Analyses(ArrayList<Cell.ICell> cells) {
 
             calculate(cells);
         }
 
-        private void calculate(ArrayList<Cell<E>> cells){
+        private void calculate(ArrayList<Cell.ICell> cells){
 
             Integer sumFreq = 0;
             Double sumArithmetic = 0d;
@@ -175,13 +153,15 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
             Double sumWeighted = 0d;
             Double sumQuadratic = 0d;
             int countMode = 0;
-            E val = null;
+            Cell.ICell val = null;
 
-            for (Cell<E> cell : cells) {
+            for (int i = 0; i < mVariable.nElements(); i++) {
 
+                Cell cell = mCells.get(i);
                 if(cell.getCount() > countMode){
                     countMode = cell.getCount();
-                    val = cell.getValue().getData();
+
+                    val = cell.getValue();
                 }
 
                 sumFreq += cell.getCount();
@@ -217,7 +197,7 @@ public class Variable<E> extends LinearLayout implements IVariable<E>{
             return avgQuadratic;
         }
 
-        public E mode() {
+        public Cell.ICell mode() {
             return mode;
         }
     }

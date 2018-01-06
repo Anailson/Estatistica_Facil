@@ -1,7 +1,7 @@
 package com.sharktech.projectprob.controllers;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
@@ -19,25 +19,25 @@ import java.util.Locale;
 
 public class DataAnalyseController {
 
-    private Context context;
-    private Listeners listener;
-    private ArrayList<Variable> vars;
+    private Fragment mFragment;
+    private Listeners mListener;
+    private ArrayList<Variable.IVariable> mVariables;
 
-    public DataAnalyseController(Context context) {
-        this.context = context;
-        this.listener = new Listeners();
-        this.vars =  VariablePersistence.getInstance().getVariables(context);
+    public DataAnalyseController(Fragment fragment) {
+        this.mFragment = fragment;
+        this.mListener = new Listeners();
+        this.mVariables =  VariablePersistence.getInstance().getVariables();
     }
 
     public AdapterView.OnItemSelectedListener getItemSelectedListener() {
-        return listener;
+        return mListener;
     }
 
     private void calculate(int position){
 
         if(position >= 0) {
 
-            Variable.Analyses analyses = vars.get(position).calculate();
+            Variable.Analyses analyses  = new Variable<>(mFragment.getContext(), mVariables.get(position)).calculate();
 
             fillText(R.id.txt_arithmetic_avg, analyses.avgArithmetic());
             fillText(R.id.txt_geometric_avg, analyses.avgGeometric());
@@ -45,36 +45,45 @@ public class DataAnalyseController {
             fillText(R.id.txt_quadratic_avg, analyses.avgQuadratic());
             fillText(R.id.txt_mode, analyses.mode() == null ? " = " : analyses.mode().toString());
 
-            Spinner spnVariable = ((Activity) context).findViewById(R.id.spn_graphs);
-            setGraph(spnVariable.getSelectedItemPosition());
-
+            Activity activity = mFragment.getActivity();
+            if(activity != null){
+                Spinner spnVariable = activity.findViewById(R.id.spn_graphs);
+                setGraph(spnVariable.getSelectedItemPosition());
+            }
         } else {
+
             fillText(R.id.txt_arithmetic_avg, "-");
             fillText(R.id.txt_geometric_avg, "-");
             fillText(R.id.txt_weighted_avg, "-");
             fillText(R.id.txt_quadratic_avg, "-");
             fillText(R.id.txt_mode, "-");
+
+            Activity activity = mFragment.getActivity();
+            if(activity != null){
+                RelativeLayout layout = activity.findViewById(R.id.lyt_charts);
+                layout.removeAllViews();
+            }
         }
     }
 
     private void setGraph(int chartIndex){
+        Activity activity = mFragment.getActivity();
+        if(chartIndex > 0 && activity != null){
 
-        if(chartIndex > 0){
-
-            Spinner spnVariable = ((Activity) context).findViewById(R.id.spn_variable);
+            Spinner spnVariable = activity.findViewById(R.id.spn_variable);
             int posVariable = spnVariable.getSelectedItemPosition() - 1;
 
             if(posVariable >= 0){
 
-                RelativeLayout layout = ((Activity) context).findViewById(R.id.lyt_charts);
+                RelativeLayout layout = activity.findViewById(R.id.lyt_charts);
                 layout.removeAllViews();
 
                 switch (chartIndex){
                     case ChartFactory.PIE:
-                        layout.addView(ChartFactory.newPieChart(context, vars.get(posVariable)));
+                        layout.addView(ChartFactory.newPieChart(activity, mVariables.get(posVariable)));
                         break;
                     case ChartFactory.BAR:
-                        layout.addView(ChartFactory.newBarChart(context, vars.get(posVariable)));
+                        layout.addView(ChartFactory.newBarChart(activity, mVariables.get(posVariable)));
                         break;
                     case ChartFactory.DISPERSION:
                         break;
@@ -84,7 +93,7 @@ public class DataAnalyseController {
                         break;
                 }
             } else {
-                Toast.makeText(context, "Nenhuma variável selecionada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Nenhuma variável selecionada", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -94,9 +103,11 @@ public class DataAnalyseController {
     }
 
     private void fillText(int id, String text){
-
-        TextView view = ((Activity)context).findViewById(id);
-        view.setText(text);
+        Activity activity = mFragment.getActivity();
+        if(activity != null) {
+            TextView view = activity.findViewById(id);
+            view.setText(text);
+        }
     }
 
     private class Listeners implements AdapterView.OnItemSelectedListener {

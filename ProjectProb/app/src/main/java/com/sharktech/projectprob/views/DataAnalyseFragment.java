@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.adapters.SpinAdapter;
 import com.sharktech.projectprob.controllers.DataAnalyseController;
-import com.sharktech.projectprob.controllers.MainController;
 import com.sharktech.projectprob.customtable.Variable;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
@@ -28,7 +27,7 @@ public class DataAnalyseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_data_analyse, container, false);
 
-        DataAnalyseController controller = new DataAnalyseController(getContext());
+        DataAnalyseController controller = new DataAnalyseController(this);
         SpinAdapter adapter = new SpinAdapter(getContext());
         Spinner spnVariable = view.findViewById(R.id.spn_variable);
         Spinner spnGraphs = view.findViewById(R.id.spn_graphs);
@@ -51,7 +50,7 @@ public class DataAnalyseFragment extends Fragment {
     }
 
     private String[] getTitles(){
-        ArrayList<Variable> variables = VariablePersistence.getInstance().getVariables(getContext());
+        ArrayList<Variable.IVariable> variables = VariablePersistence.getInstance().getVariables();
         String[] titles = new String[variables.size() + 1];
         titles[0] = getString(R.string.txt_default);
 

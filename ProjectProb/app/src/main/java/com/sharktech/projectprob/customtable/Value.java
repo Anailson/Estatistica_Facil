@@ -1,50 +1,57 @@
 package com.sharktech.projectprob.customtable;
 
-public class Value<E> {
+public class Value<E extends Cell.ICell> {
 
-    private E data;
-    private int count;
+    private E mElement;
+    private int mCount;
 
-    Value(E data) {
-        this.data = data;
-        this.count = isEmpty() ? 0 : 1;
+    Value(E element, int count){
+        this.mElement = element;
+        this.mCount = count;
     }
 
-    String simpleText(){
+    public Value(E element) {
+        this.mElement = element;
+        this.mCount = isEmpty() ? 0 : 1;
+    }
+
+    public String simpleText(){
         return toString();
     }
 
-    String formattedText(){
-        return toString();
+
+    boolean isNumber() {
+        return mElement.isNumber();
     }
 
-    public E getData(){
-        return data;
+    Float asFloat() {
+        return mElement.asFloat();
     }
 
-    public void setData(E value) {
-        this.data = value;
+    E getData(){
+        return mElement;
+    }
+
+    void setData(E value) {
+        this.mElement = value;
     }
 
     public int getCount() {
-        return count;
+        return mCount;
     }
 
-    public int inc(){
-        return count++;
+    int inc(){
+        return mCount++;
     }
 
     boolean isEmpty() {
-        return data == null;
+        return mElement == null;
     }
 
-    boolean isNumber() {
-        return !isEmpty() && data.getClass().getSuperclass() == Number.class;
-    }
 
     @Override
     public String toString() {
 
-        return isEmpty() ? " - " :  data.toString();
+        return isEmpty() ? " - " :  mElement.getTitle();
     }
 }

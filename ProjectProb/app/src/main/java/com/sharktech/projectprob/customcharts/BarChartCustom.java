@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.customtable.Cell;
 import com.sharktech.projectprob.customtable.Value;
 import com.sharktech.projectprob.customtable.Variable;
 
@@ -24,13 +25,15 @@ public class BarChartCustom extends com.github.mikephil.charting.charts.BarChart
         this.context = context;
     }
 
-    protected BarChart build(Variable variable) {
+    protected BarChart build(Variable.IVariable variable) {
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
 
         List<BarEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < variable.getElements().size(); i++) {
-            Value val = (Value) variable.getElements().get(i);
+
+            Value<Cell.ICell> val = new Value<>(variable.getElements().get(i));
+
             BarEntry entry = new BarEntry(i, i);
             entry.setVals(new float[]{val.getCount()});
             entry.setData(val);

@@ -1,16 +1,19 @@
 package com.sharktech.projectprob.persistence;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.Cell.ICell;
+import com.sharktech.projectprob.customtable.Variable.IVariable;
+import com.sharktech.projectprob.models.VariableNumber;
+import com.sharktech.projectprob.models.VariablePersonModel;
+import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
 
 
 public class VariablePersistence {
 
-    private ArrayList<Variable> mVariables, mVarsAuxi;
+    private ArrayList<IVariable> mVariables, mVarsAuxi;
 
     private static VariablePersistence mPersistence;
 
@@ -26,43 +29,106 @@ public class VariablePersistence {
         return mPersistence;
     }
 
-    public ArrayList<Variable> getVariables(Context context, Variable variable) {
-        add(variable);
-        return getVariables(context);
-    }
-
-    public ArrayList<Variable> getVariables(Context context, ArrayList<Variable> variables) {
+    public ArrayList<IVariable> getVariables(IVariable variables) {
         add(variables);
-        return getVariables(context);
+        return getVariables();
     }
 
-    public ArrayList<Variable> getVariables(Context context) {
+    public ArrayList<IVariable> getVariables(ArrayList<IVariable> variables) {
+        add(variables);
+        return getVariables();
+    }
+
+    public ArrayList<IVariable> getVariables() {
         mVariables = new ArrayList<>();
-        //mVariables.add(getVariable(context, "Integer", new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}));
-        //mVariables.add(getVariable(context, "String",  new String[]{"Um", "Dois", "Três"}));
-        //mVariables.add(getVariable(context, "Character", new Character[]{'U', 'D', 'T', 'Q'}));
-        //mVariables.add(getVariable(context, "Float", new Float[]{1.3f, 2.2f, 3.3f, 4.4f}));
+
+
+        VariablePersonModel person = new VariablePersonModel("Pessoa");
+        person.add(new VariablePersonModel.Person[]{
+            new VariablePersonModel.Person("Joao", 22),
+            new VariablePersonModel.Person("Antônio", 35),
+            new VariablePersonModel.Person("Maria", 23),
+            new VariablePersonModel.Person("Mateus", 12),
+            new VariablePersonModel.Person("Francisca", 52)
+        });
+
+        VariableNumber flts = new VariableNumber("Float");
+        flts.add(new Float[]{1.3f, 2.2f, 3.3f, 4.4f});
+
+        VariableNumber ints = new VariableNumber("Integer");
+        ints.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
+
+        VariableString chars = new VariableString("Character");
+        chars.add(new Character[]{'U', 'D', 'T', 'Q', 'C'});
+
+        VariableString strs = new VariableString("String");
+        strs.add(new String[]{"Um", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete"});
+
+        mVariables.add(flts);
+        mVariables.add(ints);
+        mVariables.add(chars);
+        mVariables.add(strs);
+        mVariables.add(person);
 
         if(mVarsAuxi.size() > 0){
             mVariables.addAll(mVarsAuxi);
         }
+
         return mVariables;
     }
 
-    private <E> Variable getVariable(Context context, String title, E[] values){
-        Variable<E> variable = new Variable<>(context, title);
-        for(E value : values){
-            variable.add(value);
+    private IVariable getVariable(Context context, final String title, Object[] values){
+
+        final ArrayList<ICell> cells = new ArrayList<>();
+        for(final Object o : values){
+            cells.add(new ICell() {
+                @Override
+                public String getTitle() { return o.toString();}
+
+                @Override
+                public Object getElement() { return o; }
+
+                @Override
+                public boolean isNumber() { return false; }
+
+                @Override
+                public Float asFloat() { return null; }
+            });
         }
 
-        return variable;
+        return new IVariable () {
+            @Override
+            public String getTitle() {
+                return title;
+            }
+
+            @Override
+            public int nElements() {
+                return cells.size();
+            }
+
+            @Override
+            public ArrayList<ICell> getElements() {
+                return cells;
+            }
+
+            @Override
+            public ICell getElement(int index) {
+                return cells.get(index);
+            }
+
+            @Override
+            public void setElement(ICell value, int index) {
+
+            }
+        };
     }
 
-    public void add(ArrayList<Variable> vars) {
+    public void add(ArrayList<IVariable> vars) {
         mVarsAuxi.addAll(vars);
     }
 
-    public void add(Variable variable){
+    public void add(IVariable variable){
         mVarsAuxi.add(variable);
     }
 }

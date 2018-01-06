@@ -1,6 +1,5 @@
 package com.sharktech.projectprob.controllers;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.customtable.Variable;
 import com.sharktech.projectprob.views.DataAnalyseFragment;
 import com.sharktech.projectprob.views.VariableTableFragment;
-
-import java.util.ArrayList;
 
 public class MainController {
 
@@ -48,7 +44,4 @@ public class MainController {
     private void showToast(String text) {
         Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
     }
-
-
-
 }

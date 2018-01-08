@@ -15,8 +15,9 @@ import com.sharktech.projectprob.models.VariableNumber;
 
 import java.util.ArrayList;
 
-public class CustomTable extends HorizontalScrollView {
-
+public class CustomTable {
+    
+    private HorizontalScrollView mHorizontalContent
     private ScrollView mContent;
     private boolean mLineCounter;
 
@@ -40,9 +41,10 @@ public class CustomTable extends HorizontalScrollView {
         mContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mContent.setVerticalScrollBarEnabled(true);
 
-        setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        setHorizontalScrollBarEnabled(true);
-        addView(mContent);
+        mHorizontalContent = new HorizontalScrollView(getContext());
+        mHorizontalContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mHorizontalContent.setHorizontalScrollBarEnabled(true);
+        mHorizontalContent.addView(mContent);
     }
 
     public ViewGroup build(ArrayList<IVariable> variables) {
@@ -63,12 +65,12 @@ public class CustomTable extends HorizontalScrollView {
             layout.addView(title.build());
         }
         mContent.addView(layout);
-        return this;
+        return mHorizontalContent;
     }
 
     public void clear() {
 
-        removeView(mContent);
+        mHorizontalContent.removeView(mContent);
         ViewGroup parentContent = (ViewGroup) mContent.getParent();
         if(parentContent != null) parentContent.removeView(mContent);
 

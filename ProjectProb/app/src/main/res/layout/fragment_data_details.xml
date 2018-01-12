@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/minimum_gap"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_arithmetic_avg" />
+
+                <TextView
+                    android:id="@+id/txt_arithmetic_avg_sym"
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_arithmetic_avg_sym" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_arithmetic_avg"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9"
+                    android:text="@string/txt_weighted_avg" />
+
+                <TextView
+                    android:id="@+id/txt_weighted_avg_sym"
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_weighted_avg_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_weighted_avg"
+                style="@style/TextViewColoredRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".3"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9"
+                    android:text="@string/txt_geometric_avg" />
+
+                <TextView
+                    android:id="@+id/txt_geometric_avg_sym"
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_geometric_avg_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_geometric_avg"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_quadratic_avg" />
+
+                <TextView
+                    android:id="@+id/txt_quadratic_avg_sym"
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_quadratic_avg_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_quadratic_avg"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_mode" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_mode"
+                style="@style/TextViewColoredRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_kurtosis" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_kurtosis"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_skewness" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_skewness"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/medium_gap"
+                android:paddingRight="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_charts" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spn_graphs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/lyt_charts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
+
+<!--</android.support.constraint.ConstraintLayout>-->

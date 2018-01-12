@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/minimum_gap">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edt_cmd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2"
+            android:hint="@string/txt_cmd_line"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btn_cmd"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_cmd"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
+
+    </LinearLayout>
+
+</FrameLayout>

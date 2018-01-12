@@ -1,8 +1,6 @@
 package com.sharktech.projectprob.customtable;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -15,18 +13,15 @@ import com.sharktech.projectprob.models.VariableNumber;
 
 import java.util.ArrayList;
 
-public class CustomTable extends HorizontalScrollView {
+public class CustomTable {
 
+    private Context mContext;
+    private HorizontalScrollView mHorizontalContent;
     private ScrollView mContent;
     private boolean mLineCounter;
 
     public CustomTable(Context context) {
-        super(context);
-        init();
-    }
-
-    public CustomTable(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this.mContext = context;
         init();
     }
 
@@ -36,13 +31,14 @@ public class CustomTable extends HorizontalScrollView {
 
     private void init() {
 
-        mContent = new ScrollView(getContext());
+        mContent = new ScrollView(mContext);
         mContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mContent.setVerticalScrollBarEnabled(true);
 
-        setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        setHorizontalScrollBarEnabled(true);
-        addView(mContent);
+        mHorizontalContent = new HorizontalScrollView(mContext);
+        mHorizontalContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mHorizontalContent.setHorizontalScrollBarEnabled(true);
+        mHorizontalContent.addView(mContent);
     }
 
     public ViewGroup build(ArrayList<IVariable> variables) {
@@ -59,19 +55,19 @@ public class CustomTable extends HorizontalScrollView {
 
         } else {
 
-            Variable title = Variable.newVariable(getContext(), getContext().getString(R.string.txt_no_variable));
+            Variable title = Variable.newVariable(mContext, mContext.getString(R.string.txt_no_variable));
             layout.addView(title.build());
         }
         mContent.addView(layout);
-        return this;
+        return mHorizontalContent;
     }
 
     public void clear() {
 
-        removeView(mContent);
         ViewGroup parentContent = (ViewGroup) mContent.getParent();
         if(parentContent != null) parentContent.removeView(mContent);
 
+        mHorizontalContent.removeView(mContent);
         init();
     }
 
@@ -80,7 +76,7 @@ public class CustomTable extends HorizontalScrollView {
         for(int col = 0; col < variables.size(); col++) {
 
             int nElements = variables.get(col).nElements();
-            Variable<IVariable> column = new Variable<>(getContext(), variables.get(col));
+            Variable<IVariable> column = new Variable<>(mContext, variables.get(col));
 
             if(nElements < nRows) {
                 fillColumn(nRows, column);
@@ -110,13 +106,13 @@ public class CustomTable extends HorizontalScrollView {
             column.add(i + 1);
         }
 
-        Variable<VariableNumber> variable = new Variable<>(getContext(), column);
-        variable.setBackgroundColor(getResources().getColor(R.color.color_primary_light));
+        Variable<VariableNumber> variable = new Variable<>(mContext, column);
+        variable.setBackgroundColor(mContext.getResources().getColor(R.color.color_primary_light));
         return variable.build();
     }
 
     private LinearLayout getHorizontalLayout(){
-        LinearLayout layout = new LinearLayout(getContext());
+        LinearLayout layout = new LinearLayout(mContext);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         layout.setOrientation(LinearLayout.HORIZONTAL);
         return layout;

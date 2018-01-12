@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.sharktech.projectprob.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Variable<E extends Variable.IVariable> extends LinearLayout {
@@ -16,7 +17,7 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
     private Analyses mAnalyses;
     private ArrayList<Cell<Cell.ICell>> mCells;
 
-    public interface IVariable {
+    public interface IVariable extends Serializable {
 
         String getTitle();
 
@@ -135,7 +136,7 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
         super.setBackgroundColor(color);
     }
 
-    public class Analyses {
+    public class Analyses implements Serializable{
 
         private double avgArithmetic, avgGeometric, avgWeighted, avgQuadratic;
         private Cell.ICell mode;

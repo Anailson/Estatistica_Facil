@@ -48,7 +48,7 @@ public class VariableTableController {
         if(activity != null){
 
             ViewGroup contentTable = activity.findViewById(R.id.content_table);
-            contentTable.removeView(mCustomTable);
+            //contentTable.removeView(mCustomTable);
 
             mCustomTable.clear();
             mFragment.onResume();

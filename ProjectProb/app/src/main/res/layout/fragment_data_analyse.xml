@@ -1,58 +1,60 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sharktech.projectprob.views.DataAnalyseFragment">
+    android:layout_margin="@dimen/minimum_gap"
+    tools:context="com.sharktech.projectprob.views.DataAnalyseView">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TabHost
-        android:id="@+id/tab_host"
+    <LinearLayout
+        android:id="@+id/linear_variable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/TabHostTexColor">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/medium_gap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/medium_gap"
+            android:paddingRight="@dimen/medium_gap">
+
+            <TextView
+                style="@style/TextViewColored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_variable" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spn_variable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:foregroundGravity="right"
+            android:gravity="end" />
+    </LinearLayout>
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_primary_light"
-                android:orientation="horizontal"
-                android:tabStripEnabled="false">
-            </TabWidget>
+    <FrameLayout
+        android:id="@+id/content_data_analyse"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_data_analyse"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_variable">
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/tab_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/minimum_gap">
-
-                    <include
-                        layout="@layout/fragment_data_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/tab_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/minimum_gap"
-                    android:orientation="vertical">
-
-                </FrameLayout>
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
-</FrameLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/nav_data_analyse"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_analyse_data" />
+</android.support.constraint.ConstraintLayout>

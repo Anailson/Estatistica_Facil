@@ -8,7 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.views.DataAnalyseFragment;
+import com.sharktech.projectprob.views.DataAnalyseView;
 import com.sharktech.projectprob.views.VariableTableFragment;
 
 public class MainController {
@@ -26,7 +26,7 @@ public class MainController {
             case R.id.menu_export_data: showToast("ExportData"); break;
             case R.id.menu_import_data: showToast("ImportData"); break;
             case R.id.nav_variables: fragment = new VariableTableFragment(); break;
-            case R.id.nav_data_analyse: fragment = new DataAnalyseFragment(); break;
+            case R.id.nav_data_analyse: fragment = new DataAnalyseView(); break;
         }
         return replaceFragment(fragment) > 0;
     }

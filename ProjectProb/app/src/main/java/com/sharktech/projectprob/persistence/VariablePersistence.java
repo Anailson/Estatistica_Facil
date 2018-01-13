@@ -5,7 +5,7 @@ import android.content.Context;
 import com.sharktech.projectprob.customtable.Cell.ICell;
 import com.sharktech.projectprob.customtable.Variable.IVariable;
 import com.sharktech.projectprob.models.VariableNumber;
-import com.sharktech.projectprob.models.VariablePersonModel;
+import com.sharktech.projectprob.models.VariableObject;
 import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
@@ -43,26 +43,26 @@ public class VariablePersistence {
         mVariables = new ArrayList<>();
 
 
-        VariablePersonModel person = new VariablePersonModel("Pessoa");
-        person.add(new VariablePersonModel.Person[]{
-            new VariablePersonModel.Person("Joao", 22),
-            new VariablePersonModel.Person("Antônio", 35),
-            new VariablePersonModel.Person("Maria", 23),
-            new VariablePersonModel.Person("Mateus", 12),
-            new VariablePersonModel.Person("Francisca", 52)
+        VariableObject person = new VariableObject("Pessoa");
+        person.add(new VariableObject.Person[]{
+            new VariableObject.Person("Joao", 22),
+            new VariableObject.Person("Antônio", 35),
+            new VariableObject.Person("Maria", 23),
+            new VariableObject.Person("Antônio", 35),
+            new VariableObject.Person("Francisca", 52)
         });
 
         VariableNumber flts = new VariableNumber("Float");
-        flts.add(new Float[]{1.3f, 2.2f, 3.3f, 4.4f});
+        flts.add(new Float[]{1.3f, 2.2f, 1.3f, 4.4f});
 
         VariableNumber ints = new VariableNumber("Integer");
-        ints.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
+        ints.add(new Integer[]{1, 2, 3, 2, 5, 1, 7, 3, 5, 4, 8, 1, 7, 1});
 
         VariableString chars = new VariableString("Character");
-        chars.add(new Character[]{'U', 'D', 'T', 'Q', 'C'});
+        chars.add(new Character[]{'U', 'D', 'U', 'T', 'U'});
 
         VariableString strs = new VariableString("String");
-        strs.add(new String[]{"Um", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete"});
+        strs.add(new String[]{"Um", "Dois", "Três", "Dois", "Cinco", "Um", "Sete"});
 
         mVariables.add(flts);
         mVariables.add(ints);

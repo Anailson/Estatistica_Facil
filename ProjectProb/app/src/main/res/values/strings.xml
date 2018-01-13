@@ -3,7 +3,8 @@
 
     <!-- Labels -->
     <string name="txt_default"> - </string>
-    <string name="txt_no_variable">Ainda não foi inserida nenhuma variável.</string>
+    <string name="txt_no_variable_inserted">Ainda não foi inserida nenhuma variável.</string>
+    <string name="txt_no_variable_selected">Nenhuma variável selecionada.</string>
 
     <string name="txt_cmd_line">Linha de comando</string>
     <string name="txt_data_analyse">Análise dos dados </string>

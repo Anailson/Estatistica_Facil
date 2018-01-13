@@ -106,27 +106,6 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
         }
     }
 
-    protected static Variable newVariable(final Context context, final Object variable){
-
-        return new Variable<>(context, new IVariable () {
-            @Override
-            public String getTitle() { return variable.toString(); }
-
-            @Override
-            public int nElements() { return 0; }
-
-            @Override
-            public ArrayList<Cell.ICell> getElements() { return new ArrayList<>(); }
-
-            @Override
-            public Cell.ICell getElement(int index) { return null; }
-
-            @Override
-            public void setElement(Cell.ICell value, int index) {}
-        });
-    }
-
-
     @Override
     public void setBackgroundColor(int color) {
 

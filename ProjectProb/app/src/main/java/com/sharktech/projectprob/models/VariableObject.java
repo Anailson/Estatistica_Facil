@@ -7,48 +7,52 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class VariablePersonModel implements IVariable {
+public class VariableObject implements IVariable {
 
-    private ArrayList<ICell> mPersons;
+    private ArrayList<ICell> mObjects;
     private String mTitle;
 
-    public VariablePersonModel(String mTitle) {
+    public VariableObject(String mTitle) {
         this.mTitle = mTitle;
-        this.mPersons = new ArrayList<>();
+        this.mObjects = new ArrayList<>();
     }
 
-    public void add(Person person) {
-        this.mPersons.add(person);
+    public void add(ICell person) {
+        this.mObjects.add(person);
     }
 
-    public void add(Person[] persons) {
+    public void add(ICell[] persons) {
 
-        mPersons.addAll(Arrays.asList(persons));
+        mObjects.addAll(Arrays.asList(persons));
+    }
+
+    public void add(ArrayList<ICell> cells){
+        mObjects.addAll(cells);
     }
 
     @Override
     public String getTitle() {
-        return "Titulo: " + mTitle;
+        return mTitle.toUpperCase();
     }
 
     @Override
     public int nElements() {
-        return mPersons.size();
+        return mObjects.size();
     }
 
     @Override
     public ArrayList<ICell> getElements() {
-        return mPersons;
+        return mObjects;
     }
 
     @Override
     public ICell getElement(int index) {
-        return mPersons.get(index);
+        return mObjects.get(index);
     }
 
     @Override
     public void setElement(ICell value, int index) {
-        mPersons.set(index, value);
+        mObjects.set(index, value);
     }
 
 

@@ -10,6 +10,7 @@ import android.widget.ScrollView;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.Variable.IVariable;
 import com.sharktech.projectprob.models.VariableNumber;
+import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class CustomTable {
     private Context mContext;
     private HorizontalScrollView mHorizontalContent;
     private ScrollView mContent;
+    private String mNoDataFound;
     private boolean mLineCounter;
 
     public CustomTable(Context context) {
@@ -25,11 +27,20 @@ public class CustomTable {
         init();
     }
 
+    public void setNoDataFound(int noDataFound){
+        setNoDataFound(mContext.getString(noDataFound));
+    }
+
+    public void setNoDataFound(String noDataFound){
+        this.mNoDataFound = noDataFound;
+    }
+
     public void setLineCounter(boolean lineCounter) {
         this.mLineCounter = lineCounter;
     }
 
     private void init() {
+        mNoDataFound = "";
 
         mContent = new ScrollView(mContext);
         mContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -43,7 +54,6 @@ public class CustomTable {
 
     public ViewGroup build(ArrayList<IVariable> variables) {
         LinearLayout layout = getHorizontalLayout();
-        mLineCounter = true;
         int nRows = nRows(variables);
 
         if (hasVariables(variables)) {
@@ -55,7 +65,7 @@ public class CustomTable {
 
         } else {
 
-            Variable title = Variable.newVariable(mContext, mContext.getString(R.string.txt_no_variable));
+            Variable title = new Variable<>(mContext, new VariableString(mNoDataFound));
             layout.addView(title.build());
         }
         mContent.addView(layout);

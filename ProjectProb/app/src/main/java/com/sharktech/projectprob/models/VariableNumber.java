@@ -59,7 +59,7 @@ public class VariableNumber implements Variable.IVariable {
         mValues.set(index, value);
     }
 
-    public class ValueInteger implements Cell.ICell<Number> {
+    public static class ValueInteger implements Cell.ICell<Number> {
 
         private Number mValue;
 

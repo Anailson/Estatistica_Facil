@@ -71,7 +71,7 @@ public class VariableString implements IVariable {
         mValues.add(index,  value);
     }
 
-    protected static class ValueString implements ICell<String> {
+    public static class ValueString implements ICell<String> {
 
         private String value;
 

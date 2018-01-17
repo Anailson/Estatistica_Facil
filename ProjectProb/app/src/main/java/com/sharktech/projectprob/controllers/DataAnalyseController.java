@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 import com.sharktech.projectprob.views.DataAnalyseView;
 import com.sharktech.projectprob.views.DataDetailsView;
@@ -23,7 +23,7 @@ public class DataAnalyseController {
     private Fragment mFragment;
     private Listeners mListener;
     private SparseArray<Fragment> mFragmentsChild;
-    private Variable.IVariable mVariable;
+    private TableColumn.IVariable mVariable;
 
     public DataAnalyseController(Fragment fragment) {
         this.mActualMenu = -1;
@@ -50,7 +50,7 @@ public class DataAnalyseController {
             default: return false;
         }
         mActualMenu = menuResource;
-        mFragmentsChild.put(mActualMenu, fragment);
+        mFragmentsChild.put(menuResource, fragment);
 
         return replaceFragment(fragment);
     }
@@ -67,9 +67,12 @@ public class DataAnalyseController {
     }
 
     private void changeVariable(int position){
-        if(position > 0) {
+        if(position >= 0) {
             mVariable = VariablePersistence.getInstance().getVariables().get(position);
-            ((DataAnalyseView.ChangeVariableListener) mFragmentsChild.get(mActualMenu)).onChangeVariable(mVariable);
+            Fragment fragment = mFragmentsChild.get(mActualMenu);
+            if(fragment instanceof DataAnalyseView.ChangeVariableListener){
+                ((DataAnalyseView.ChangeVariableListener) fragment).onChangeVariable(mVariable);
+            }
         }
     }
 

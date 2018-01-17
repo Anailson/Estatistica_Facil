@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.CustomTable;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.VariableString;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
@@ -38,7 +38,9 @@ public class VariableTableController {
 
     public ViewGroup buildTable(){
         mCustomTable = new CustomTable(mFragment.getContext());
-        ArrayList<Variable.IVariable> vars = VariablePersistence.getInstance().getVariables();
+        mCustomTable.setLineCounter(false);
+        mCustomTable.setNoDataFound(R.string.txt_no_variable_inserted);
+        ArrayList<TableColumn.IVariable> vars = VariablePersistence.getInstance().getVariables();
         return mCustomTable.build(vars);
     }
 

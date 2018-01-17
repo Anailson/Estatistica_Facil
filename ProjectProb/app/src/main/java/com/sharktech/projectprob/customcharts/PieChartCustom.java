@@ -2,6 +2,7 @@ package com.sharktech.projectprob.customcharts;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.icu.text.DecimalFormat;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -9,23 +10,18 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.customtable.Cell;
-import com.sharktech.projectprob.customtable.Value;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.analyse.DataAnalyse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PieChartCustom extends PieChart {
 
-    private Context context;
-
     protected PieChartCustom(Context context) {
         super(context);
-        this.context = context;
     }
 
-    protected PieChart build(Variable.IVariable variable){
+    protected PieChart build(DataAnalyse analyse){
         setTransparentCircleRadius(0);
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
         setHoleRadius(0);
@@ -33,15 +29,17 @@ public class PieChartCustom extends PieChart {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        for(Cell.ICell o : variable.getElements()){
+        for(int i = 0; i < analyse.size(); i++){
 
-            Value<Cell.ICell> val = new Value<>(o);
-            entries.add(new PieEntry(val.getCount(), val.simpleText()));
+            Float value = analyse.getFrequency(i).floatValue();
+            String title = "Valor: " + analyse.getData(i).getTitle();
+            entries.add(new PieEntry(value, title));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Some Example");
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setColor(context.getResources().getColor(R.color.color_primary_light));
+
+        dataSet.setColor(getResources().getColor(R.color.color_primary_light));
         dataSet.setValueTextSize(15);
         dataSet.setSliceSpace(2);
         dataSet.setColors(ChartFactory.COLORS);

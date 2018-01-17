@@ -1,7 +1,7 @@
 package com.sharktech.projectprob.models;
 
-import com.sharktech.projectprob.customtable.Variable.IVariable;
-import com.sharktech.projectprob.customtable.Cell.ICell;
+import com.sharktech.projectprob.customtable.TableColumn.IVariable;
+import com.sharktech.projectprob.customtable.TableCell.ICell;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +12,8 @@ public class VariableObject implements IVariable {
     private ArrayList<ICell> mObjects;
     private String mTitle;
 
-    public VariableObject(String mTitle) {
-        this.mTitle = mTitle;
+    public VariableObject(String title) {
+        this.mTitle = title;
         this.mObjects = new ArrayList<>();
     }
 
@@ -22,7 +22,6 @@ public class VariableObject implements IVariable {
     }
 
     public void add(ICell[] persons) {
-
         mObjects.addAll(Arrays.asList(persons));
     }
 
@@ -56,24 +55,25 @@ public class VariableObject implements IVariable {
     }
 
 
-    public static class Person implements ICell<Person>{
+    public static class ValueObject implements ICell{
 
-        private String mName;
-        private int mAge;
+        private Object mElement;
 
-        public Person(String name, int age) {
-            this.mName = name;
-            this.mAge = age;
+        public ValueObject() {
+            this("");
         }
 
+        public ValueObject(Object object) {
+            this.mElement = object;
+        }
 
         @Override
         public String getTitle() {
-            return String.format(Locale.getDefault(), "Nome: %s. Idade: %d", mName, mAge);
+            return toString();
         }
 
         @Override
-        public Person getElement() {
+        public Object getElement() {
             return this;
         }
 
@@ -83,13 +83,13 @@ public class VariableObject implements IVariable {
         }
 
         @Override
-        public Float asFloat() {
-            return 1f;
+        public Double asNumber() {
+            return 1d;
         }
 
         @Override
         public String toString() {
-            return getTitle();
+            return mElement.toString();
         }
     }
 }

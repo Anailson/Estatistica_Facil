@@ -1,9 +1,7 @@
 package com.sharktech.projectprob.persistence;
 
-import android.content.Context;
-
-import com.sharktech.projectprob.customtable.Cell.ICell;
-import com.sharktech.projectprob.customtable.Variable.IVariable;
+import com.sharktech.projectprob.customtable.TableCell.ICell;
+import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableObject;
 import com.sharktech.projectprob.models.VariableString;
@@ -44,19 +42,20 @@ public class VariablePersistence {
 
 
         VariableObject person = new VariableObject("Pessoa");
-        person.add(new VariableObject.Person[]{
-            new VariableObject.Person("Joao", 22),
-            new VariableObject.Person("Antônio", 35),
-            new VariableObject.Person("Maria", 23),
-            new VariableObject.Person("Antônio", 35),
-            new VariableObject.Person("Francisca", 52)
+        person.add(new VariableObject.ValueObject[]{
+            new VariableObject.ValueObject("Joao 23"),
+            new VariableObject.ValueObject("Antônio 25"),
+            new VariableObject.ValueObject("Maria 23"),
+            new VariableObject.ValueObject("Antônio 25"),
+            new VariableObject.ValueObject("Francisca 52")
         });
 
         VariableNumber flts = new VariableNumber("Float");
         flts.add(new Float[]{1.3f, 2.2f, 1.3f, 4.4f});
 
         VariableNumber ints = new VariableNumber("Integer");
-        ints.add(new Integer[]{1, 2, 3, 2, 5, 1, 7, 3, 5, 4, 8, 1, 7, 1});
+        ints.add(new Integer[]{0, 1, 2, 3, 2});
+        ints.add(new Integer[]{5, 1, 7, 3, 5, 4, 8, 1, 7, 1});
 
         VariableString chars = new VariableString("Character");
         chars.add(new Character[]{'U', 'D', 'U', 'T', 'U'});
@@ -77,51 +76,16 @@ public class VariablePersistence {
         return mVariables;
     }
 
-    private IVariable getVariable(Context context, final String title, Object[] values){
+    private IVariable getVariable(final String title, Object[] values){
 
         final ArrayList<ICell> cells = new ArrayList<>();
         for(final Object o : values){
-            cells.add(new ICell() {
-                @Override
-                public String getTitle() { return o.toString();}
-
-                @Override
-                public Object getElement() { return o; }
-
-                @Override
-                public boolean isNumber() { return false; }
-
-                @Override
-                public Float asFloat() { return null; }
-            });
+            cells.add(new VariableObject.ValueObject(o));
         }
 
-        return new IVariable () {
-            @Override
-            public String getTitle() {
-                return title;
-            }
-
-            @Override
-            public int nElements() {
-                return cells.size();
-            }
-
-            @Override
-            public ArrayList<ICell> getElements() {
-                return cells;
-            }
-
-            @Override
-            public ICell getElement(int index) {
-                return cells.get(index);
-            }
-
-            @Override
-            public void setElement(ICell value, int index) {
-
-            }
-        };
+        VariableObject var = new VariableObject(title);
+        var.add(cells);
+        return var;
     }
 
     public void add(ArrayList<IVariable> vars) {

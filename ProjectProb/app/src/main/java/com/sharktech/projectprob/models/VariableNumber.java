@@ -1,18 +1,18 @@
 package com.sharktech.projectprob.models;
 
 
-import com.sharktech.projectprob.customtable.Cell;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableCell;
+import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.ArrayList;
 
-public class VariableNumber implements Variable.IVariable {
+public class VariableNumber implements TableColumn.IVariable {
 
     private String mTitle;
-    private ArrayList<Cell.ICell> mValues;
+    private ArrayList<TableCell.ICell> mValues;
 
-    public VariableNumber(String mTitle) {
-        this.mTitle = mTitle;
+    public VariableNumber(String title) {
+        this.mTitle = title;
         this.mValues = new ArrayList<>();
     }
 
@@ -45,21 +45,21 @@ public class VariableNumber implements Variable.IVariable {
     }
 
     @Override
-    public ArrayList<Cell.ICell> getElements() {
+    public ArrayList<TableCell.ICell> getElements() {
         return mValues;
     }
 
     @Override
-    public Cell.ICell getElement(int index) {
+    public TableCell.ICell getElement(int index) {
         return mValues.get(index);
     }
 
     @Override
-    public void setElement(Cell.ICell value, int index) {
+    public void setElement(TableCell.ICell value, int index) {
         mValues.set(index, value);
     }
 
-    public static class ValueInteger implements Cell.ICell<Number> {
+    public static class ValueInteger implements TableCell.ICell<Number> {
 
         private Number mValue;
 
@@ -83,8 +83,8 @@ public class VariableNumber implements Variable.IVariable {
         }
 
         @Override
-        public Float asFloat() {
-            return mValue.floatValue();
+        public Double asNumber() {
+            return mValue.doubleValue();
         }
 
         @Override

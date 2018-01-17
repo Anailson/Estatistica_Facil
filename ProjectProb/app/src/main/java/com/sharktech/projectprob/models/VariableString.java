@@ -1,8 +1,8 @@
 package com.sharktech.projectprob.models;
 
 
-import com.sharktech.projectprob.customtable.Cell.ICell;
-import com.sharktech.projectprob.customtable.Variable.IVariable;
+import com.sharktech.projectprob.customtable.TableCell.ICell;
+import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class VariableString implements IVariable {
     private String mTitle;
     private ArrayList<ICell> mValues;
 
-    public VariableString(String mTitle) {
-        this.mTitle = mTitle;
+    public VariableString(String title) {
+        this.mTitle = title;
         this.mValues = new ArrayList<>();
     }
 
@@ -75,7 +75,7 @@ public class VariableString implements IVariable {
 
         private String value;
 
-        private ValueString(String value) {
+        public ValueString(String value) {
             this.value = value;
         }
 
@@ -95,8 +95,8 @@ public class VariableString implements IVariable {
         }
 
         @Override
-        public Float asFloat() {
-            return 1f;
+        public Double asNumber() {
+            return 1d;
         }
 
         @Override

@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
 
-public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCompatEditText {
+public class TableCell<E extends TableCell.ICell> extends android.support.v7.widget.AppCompatEditText {
 
     private Position mPosition;
     private Listeners mListener;
-    private Value<E> mValue;
+    private E mValue;
 
     public interface ICell<E> {
 
@@ -26,18 +26,14 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
 
         boolean isNumber();
 
-        Float asFloat();
+        Double asNumber();
     }
 
-    public Cell(Context context) {
-        this(context, new Value<E>(null));
+    public TableCell(Context context) {
+        this(context, null);
     }
 
-    public Cell(Context context, E element){
-        this(context, new Value<>(element));
-    }
-
-    public Cell(Context context, Value<E> value){
+    public TableCell(Context context, E value){
         super(context);
         this.mValue = value;
         this.mPosition = new Position(-1, -1);
@@ -47,7 +43,7 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
     }
 
     private void init(){
-        setText(mValue.simpleText());
+        setText(mValue.getTitle());
         setSingleLine(true);
         setTextColor(getResources().getColor(R.color.color_default));
         setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -60,16 +56,16 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
         setOnEditorActionListener(mListener);
     }
 
-    protected Cell.ICell getValue() {
-        return mValue.getData();
+    protected TableCell.ICell getValue() {
+        return mValue;
     }
 
-    protected void setValue(Value<E> value){
+    protected void setValue(E value){
         this.mValue = value;
     }
 
     protected boolean isEmpty(){
-        return mValue == null || mValue.isEmpty();
+        return mValue == null;
     }
 
     protected void setCol(int col) {
@@ -93,12 +89,12 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
         setBackgroundColor(getContext().getResources().getColor(R.color.color_primary_light));
         setTypeface(getTypeface(), Typeface.BOLD);
         setTextColor(Color.WHITE);
-        setText(mValue.simpleText());
+        setText(mValue.getTitle());
     }
+/*
+    protected static TableCell newCell(Context context, final Object value){
 
-    protected static Cell newCell(Context context, final Object value){
-
-        return new Cell<Cell.ICell>(context, new Cell.ICell() {
+        return new TableCell<TableCell.ICell>(context, new TableCell.ICell() {
             @Override
             public String getTitle() { return value.toString(); }
 
@@ -109,10 +105,10 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
             public boolean isNumber() { return false; }
 
             @Override
-            public Float asFloat() { return 1f; }
+            public Float asNumber() { return 1f; }
         });
     }
-
+*/
     private void setGravity(){
         if(mPosition.col >=  0 && mPosition.row >= 0){
             setGravity(Gravity.START);
@@ -122,17 +118,17 @@ public class Cell<E extends Cell.ICell> extends android.support.v7.widget.AppCom
             setGravity(Gravity.END);
         }
     }
-
+/*
     public Integer getCount() {
         return mValue.getCount();
     }
-
+*/
     public boolean isNumber() {
         return mValue.isNumber();
     }
 
     public double asFloat() {
-        return mValue.asFloat();
+        return mValue.asNumber();
     }
 
 

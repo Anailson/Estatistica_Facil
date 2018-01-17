@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.DataTableController;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableColumn;
 
 public class DataTableView extends Fragment implements DataAnalyseView.ChangeVariableListener{
 
     private DataTableController mController;
     private ViewGroup mContentTable;
-    private Variable.IVariable mVariable;
+    private TableColumn.IVariable mVariable;
 
-    public static DataTableView newInstance(Variable.IVariable variable){
+    public static DataTableView newInstance(TableColumn.IVariable variable){
         DataTableView fragment = new DataTableView();
         Bundle bundle = new Bundle();
         bundle.putSerializable(DataAnalyseView.ANALYSES, variable);
@@ -31,7 +31,7 @@ public class DataTableView extends Fragment implements DataAnalyseView.ChangeVar
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        if(bundle != null) mVariable = (Variable.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
+        if(bundle != null) mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
 
         View view = inflater.inflate(R.layout.fragment_data_table, container, false);
         mController = new DataTableController(this, mVariable);
@@ -48,7 +48,7 @@ public class DataTableView extends Fragment implements DataAnalyseView.ChangeVar
     }
 
     @Override
-    public void onChangeVariable(Variable.IVariable variable) {
-
+    public void onChangeVariable(TableColumn.IVariable variable) {
+        mController.changeVariable(variable);
     }
 }

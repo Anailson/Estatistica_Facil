@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.adapters.SpinAdapter;
 import com.sharktech.projectprob.controllers.DataAnalyseController;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class DataAnalyseView extends Fragment {
     }
 
     private String[] getTitles(){
-        ArrayList<Variable.IVariable> variables = VariablePersistence.getInstance().getVariables();
+        ArrayList<TableColumn.IVariable> variables = VariablePersistence.getInstance().getVariables();
         String[] titles = new String[variables.size() + 1];
         titles[0] = getString(R.string.txt_default);
 
@@ -61,6 +61,6 @@ public class DataAnalyseView extends Fragment {
     }
 
     public interface ChangeVariableListener{
-        void onChangeVariable(Variable.IVariable variable);
+        void onChangeVariable(TableColumn.IVariable variable);
     }
 }

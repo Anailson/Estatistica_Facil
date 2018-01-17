@@ -1,27 +1,26 @@
 package com.sharktech.projectprob.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.adapters.SpinAdapter;
 import com.sharktech.projectprob.controllers.DataDetailsController;
-import com.sharktech.projectprob.customtable.Variable;
+import com.sharktech.projectprob.customtable.TableColumn;
 
 public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeVariableListener{
 
     private DataDetailsController mController;
-    private Variable.IVariable mVariable;
+    private TableColumn.IVariable mVariable;
 
-    public static DataDetailsView newInstance(Variable.IVariable variable) {
+    public static DataDetailsView newInstance(TableColumn.IVariable variable) {
 
         DataDetailsView fragment = new DataDetailsView();
         Bundle bundle = new Bundle();
@@ -35,7 +34,7 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        if(bundle != null) mVariable = (Variable.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
+        if(bundle != null) mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
 
         mController = new DataDetailsController(this, mVariable);
         View view = inflater.inflate(R.layout.fragment_data_details, container, false);
@@ -56,8 +55,7 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
     }
 
     @Override
-    public void onChangeVariable(Variable.IVariable variable) {
+    public void onChangeVariable(TableColumn.IVariable variable) {
         mController.changeVariable(variable);
-        onResume();
     }
 }

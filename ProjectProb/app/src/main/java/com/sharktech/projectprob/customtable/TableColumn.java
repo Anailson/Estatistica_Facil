@@ -6,16 +6,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.models.VariableString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Variable<E extends Variable.IVariable> extends LinearLayout {
+public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
     private int mPosition;
     private E mVariable;
     private Analyses mAnalyses;
-    private ArrayList<Cell<Cell.ICell>> mCells;
+    private ArrayList<TableCell<TableCell.ICell>> mCells;
 
     public interface IVariable extends Serializable {
 
@@ -23,18 +24,18 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
 
         int nElements();
 
-        ArrayList<Cell.ICell> getElements();
+        ArrayList<TableCell.ICell> getElements();
 
-        Cell.ICell getElement(int index);
+        TableCell.ICell getElement(int index);
 
-        void setElement(Cell.ICell value, int index);
+        void setElement(TableCell.ICell value, int index);
     }
 
-    public Variable(Context context) {
+    public TableColumn(Context context) {
         this(context, null);
     }
 
-    public Variable(Context context, E variable) {
+    public TableColumn(Context context, E variable) {
         super(context);
         this.mPosition = -1;
         this.mVariable = variable;
@@ -49,7 +50,7 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
         setBackgroundResource(R.drawable.border_light);
 
         for(int i = 0; i < mVariable.nElements(); i++){
-            mCells.add(new Cell<>(getContext(), mVariable.getElement(i)));
+            mCells.add(new TableCell<>(getContext(), mVariable.getElement(i)));
         }
     }
 
@@ -75,14 +76,14 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
         return mVariable.nElements();
     }
 
-    protected Variable build() {
+    protected TableColumn build() {
 
-        Cell cellTitle = Cell.newCell(getContext(), mVariable.getTitle());
+        TableCell cellTitle = new TableCell<>(getContext(), new VariableString.ValueString(mVariable.getTitle()));
         cellTitle.setCol(mPosition);
         addView(cellTitle);
 
         for (int row = 0; row < mVariable.nElements(); row++) {
-            Cell cell = mCells.get(row);
+            TableCell cell = mCells.get(row);
             removeParent(cell);
             cell.setPosition(mPosition, row);
             addView(cell);
@@ -99,8 +100,8 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
     private void setHeading() {
         if (getChildCount() > 0) {
 
-            if (getChildAt(0) instanceof Cell) {
-                Cell cell = (Cell) getChildAt(0);
+            if (getChildAt(0) instanceof TableCell) {
+                TableCell cell = (TableCell) getChildAt(0);
                 cell.setHeading();
             }
         }
@@ -118,15 +119,15 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
     public class Analyses implements Serializable{
 
         private double avgArithmetic, avgGeometric, avgWeighted, avgQuadratic;
-        private Cell.ICell mode;
+        private TableCell.ICell mode;
 
-        private Analyses(ArrayList<Cell.ICell> cells) {
+        private Analyses(ArrayList<TableCell.ICell> cells) {
 
             calculate(cells);
         }
 
-        private void calculate(ArrayList<Cell.ICell> cells){
-
+        private void calculate(ArrayList<TableCell.ICell> cells){
+/*
             Integer sumFreq = 0;
             Double sumArithmetic = 0d;
             Double prodGeometric = 1d;
@@ -146,10 +147,10 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
 
                 sumFreq += cell.getCount();
                 if(cell.isNumber()) {
-                    sumArithmetic += cell.asFloat();
-                    prodGeometric *= Math.pow(cell.asFloat(), cell.getCount());
-                    sumWeighted += cell.asFloat() * cell.getCount();
-                    sumQuadratic += Math.pow(cell.asFloat(), 2d) * cell.getCount();
+                    sumArithmetic += cell.asNumber();
+                    prodGeometric *= Math.pow(cell.asNumber(), cell.getCount());
+                    sumWeighted += cell.asNumber() * cell.getCount();
+                    sumQuadratic += Math.pow(cell.asNumber(), 2d) * cell.getCount();
                 }
             }
 
@@ -158,6 +159,7 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
             avgWeighted = cells.isEmpty() ? 0 : sumWeighted / sumFreq;
             avgQuadratic = Math.sqrt(sumQuadratic);
             mode = val;
+            */
         }
 
         public Double avgArithmetic() {
@@ -177,7 +179,7 @@ public class Variable<E extends Variable.IVariable> extends LinearLayout {
             return avgQuadratic;
         }
 
-        public Cell.ICell mode() {
+        public TableCell.ICell mode() {
             return mode;
         }
     }

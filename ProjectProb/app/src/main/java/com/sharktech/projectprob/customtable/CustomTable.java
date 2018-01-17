@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.customtable.Variable.IVariable;
+import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
 
@@ -27,8 +27,8 @@ public class CustomTable {
         init();
     }
 
-    public void setNoDataFound(int noDataFound){
-        setNoDataFound(mContext.getString(noDataFound));
+    public void setNoDataFound(int stringResource){
+        setNoDataFound(mContext.getString(stringResource));
     }
 
     public void setNoDataFound(String noDataFound){
@@ -65,7 +65,7 @@ public class CustomTable {
 
         } else {
 
-            Variable title = new Variable<>(mContext, new VariableString(mNoDataFound));
+            TableColumn title = new TableColumn<>(mContext, new VariableString(mNoDataFound));
             layout.addView(title.build());
         }
         mContent.addView(layout);
@@ -86,7 +86,7 @@ public class CustomTable {
         for(int col = 0; col < variables.size(); col++) {
 
             int nElements = variables.get(col).nElements();
-            Variable<IVariable> column = new Variable<>(mContext, variables.get(col));
+            TableColumn<IVariable> column = new TableColumn<>(mContext, variables.get(col));
 
             if(nElements < nRows) {
                 fillColumn(nRows, column);
@@ -103,20 +103,20 @@ public class CustomTable {
         if(parent != null) parent.removeView(child);
     }
 
-    private void fillColumn(int nRows, Variable column){
+    private void fillColumn(int nRows, TableColumn column){
         for(int i = column.nElements(); i < nRows; i++){
             //column.emptyCell();
         }
     }
 
-    private Variable addLineCounter(int nRows){
+    private TableColumn addLineCounter(int nRows){
 
         VariableNumber column = new VariableNumber("#");
         for(int i = 0; i < nRows; i++){
             column.add(i + 1);
         }
 
-        Variable<VariableNumber> variable = new Variable<>(mContext, column);
+        TableColumn<VariableNumber> variable = new TableColumn<>(mContext, column);
         variable.setBackgroundColor(mContext.getResources().getColor(R.color.color_primary_light));
         return variable.build();
     }

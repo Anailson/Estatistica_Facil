@@ -58,10 +58,10 @@ public class DataDetailsController {
 
         } else {
 
-            fillText(R.id.txt_arithmetic_avg, "-");
-            fillText(R.id.txt_geometric_avg, "-");
-            fillText(R.id.txt_weighted_avg, "-");
-            fillText(R.id.txt_quadratic_avg, "-");
+            fillText(R.id.txt_arithmetic_avg, -1d);
+            fillText(R.id.txt_geometric_avg, -1d);
+            fillText(R.id.txt_weighted_avg, -1d);
+            fillText(R.id.txt_quadratic_avg, -1d);
             fillText(R.id.txt_mode, "-");
 
             removeChartView();
@@ -83,7 +83,10 @@ public class DataDetailsController {
     }
 
     private void fillText(int id, Double value){
-        fillText(id, String.format(Locale.getDefault(),"%.6f", value));
+        String text = value > 0
+                ? String.format(Locale.getDefault(),"%.6f", value)
+                : mFragment.getString(R.string.txt_default);
+        fillText(id, text);
     }
 
     private void fillText(int id, String value){

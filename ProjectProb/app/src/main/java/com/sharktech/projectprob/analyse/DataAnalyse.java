@@ -89,7 +89,7 @@ public class DataAnalyse {
                 sumArithmetic += cell.asNumber();
             }
         }
-        return sumArithmetic / size();
+        return sumArithmetic == 0 ? -1d : sumArithmetic / size();
     }
 
     public Double avgGeometric() {
@@ -108,7 +108,7 @@ public class DataAnalyse {
             }
 
         }
-        return Math.pow(prodGeometric, (1d / sumFreq));
+        return prodGeometric == 1d ? -1d : Math.pow(prodGeometric, (1d / sumFreq));
     }
 
     public Double avgWeighted() {
@@ -125,7 +125,7 @@ public class DataAnalyse {
                 sumWeighted += cell.asNumber() * frequency;
             }
         }
-        return sumWeighted / sumFreq;
+        return sumWeighted == 0d ? -1d : sumWeighted / sumFreq;
     }
 
     public Double avgQuadratic() {
@@ -141,7 +141,7 @@ public class DataAnalyse {
             }
         }
 
-        return Math.sqrt(sumQuadratic);
+        return sumQuadratic == 0d ? -1d : Math.sqrt(sumQuadratic);
     }
 
     private boolean init(){

@@ -36,6 +36,7 @@ public class BarChartCustom extends BarChart{
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(15);
         dataSet.setColor(getResources().getColor(R.color.color_primary_light));
+        dataSet.setColors(ChartFactory.COLORS);
         dataSet.setLabel("Some Bar Label");
 
         setData(new BarData(dataSet));

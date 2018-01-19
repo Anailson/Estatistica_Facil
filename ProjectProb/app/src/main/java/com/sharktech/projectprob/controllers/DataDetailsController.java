@@ -110,7 +110,7 @@ public class DataDetailsController {
                 switch (chartIndex) {
                     case ChartFactory.PIE: chart = ChartFactory.newPieChart(mFragment.getContext(), mAnalyse); break;
                     case ChartFactory.BAR: chart = ChartFactory.newBarChart(mFragment.getContext(), mAnalyse); break;
-                    case ChartFactory.DISPERSION: break;
+                    case ChartFactory.DISPERSION: chart = ChartFactory.newDispersionChart(mFragment.getContext(), mAnalyse); break;
                     case ChartFactory.BOX: break;
                     case ChartFactory.HISTOGRAM: break;
                 }

@@ -42,6 +42,13 @@ public class ChartFactory {
         return chart.build(analyse);
     }
 
+    public static Chart newDispersionChart(Context context, DataAnalyse analyse) {
+        DispersionChart chart = new DispersionChart(context);
+        configLegend(chart);
+        chart.setDescription(getDescription(analyse.getTitle()));
+        return chart.build(analyse);
+    }
+
     private static void configLegend(Chart chart){
         Legend legend = chart.getLegend();
         legend.setEnabled(true);
@@ -52,6 +59,7 @@ public class ChartFactory {
 
     private static Description getDescription(String text){
         Description description = new Description();
+
         description.setText(text);
         description.setTextAlign(Paint.Align.CENTER);
         return description;

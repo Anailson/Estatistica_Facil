@@ -43,13 +43,9 @@ public class DataChartView extends Fragment implements DataAnalyseView.ChangeVar
         spnGraphs.setAdapter(adapter.getAdapter(R.array.graphs));
 
         spnGraphs.setOnItemSelectedListener(mController.getItemSelectedListener());
-        return view;
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         mController.initChart();
+        return view;
     }
 
     @Override

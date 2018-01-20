@@ -33,6 +33,13 @@ public class DataChartController {
 
     public void changeVariable(TableColumn.IVariable variable) {
         mAnalyse.setVariable(variable);
+
+        Spinner spinner = findViewById(R.id.spn_graphs);
+        if(spinner != null){
+            int index = spinner.getSelectedItemPosition() - 1;
+            setGraph(index);
+            mFragment.onResume();
+        }
     }
 
     public void initChart(){
@@ -43,7 +50,7 @@ public class DataChartController {
 
         Spinner spnVariable = findViewById(R.id.spn_variable);
 
-        if(chartIndex >= 0 && spnVariable != null){
+        if(mAnalyse.calculate() && chartIndex >= 0 && spnVariable != null){
 
             int posVariable = spnVariable.getSelectedItemPosition() - 1;
 

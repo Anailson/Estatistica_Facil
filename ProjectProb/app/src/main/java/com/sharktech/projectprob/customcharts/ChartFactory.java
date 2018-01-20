@@ -9,7 +9,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
+import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
 
 public class ChartFactory {
@@ -30,37 +30,26 @@ public class ChartFactory {
     public static PieChart newPieChart(Context context, DataAnalyse analyse) {
 
         PieChartCustom chart = new PieChartCustom(context);
-        configLegend(chart);
-        chart.setDescription(getDescription(analyse.getTitle()));
+        chart.setDescription(getDescription(context, analyse.getTitle()));
         return chart.build(analyse);
     }
 
     public static BarChart newBarChart(Context context, DataAnalyse analyse) {
         BarChartCustom chart = new BarChartCustom(context);
-        configLegend(chart);
-        chart.setDescription(getDescription(analyse.getTitle()));
+        chart.setDescription(getDescription(context, analyse.getTitle()));
         return chart.build(analyse);
     }
 
     public static Chart newDispersionChart(Context context, DataAnalyse analyse) {
         DispersionChart chart = new DispersionChart(context);
-        configLegend(chart);
-        chart.setDescription(getDescription(analyse.getTitle()));
+        chart.setDescription(getDescription(context, analyse.getTitle()));
         return chart.build(analyse);
     }
 
-    private static void configLegend(Chart chart){
-        Legend legend = chart.getLegend();
-        legend.setEnabled(true);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        legend.setForm(Legend.LegendForm.SQUARE);
-    }
-
-    private static Description getDescription(String text){
+    private static Description getDescription(Context context, String text){
         Description description = new Description();
-
         description.setText(text);
+        description.setTextColor(context.getResources().getColor(R.color.color_default));
         description.setTextAlign(Paint.Align.CENTER);
         return description;
     }

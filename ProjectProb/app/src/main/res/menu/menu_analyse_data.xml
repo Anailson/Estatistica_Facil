@@ -9,6 +9,10 @@
         android:id="@+id/menu_details"
         android:icon="@android:drawable/ic_dialog_info"
         android:title="@string/txt_tab_description" />
+    <item
+        android:id="@+id/menu_chart"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/txt_charts" />
 
 
 </menu>

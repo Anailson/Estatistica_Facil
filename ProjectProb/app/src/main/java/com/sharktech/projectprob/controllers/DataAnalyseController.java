@@ -14,6 +14,7 @@ import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 import com.sharktech.projectprob.views.DataAnalyseView;
+import com.sharktech.projectprob.views.DataChartView;
 import com.sharktech.projectprob.views.DataDetailsView;
 import com.sharktech.projectprob.views.DataTableView;
 
@@ -47,6 +48,7 @@ public class DataAnalyseController {
         switch (menuResource) {
             case R.id.menu_details: fragment = DataDetailsView.newInstance(mVariable); break;
             case R.id.menu_table: fragment = DataTableView.newInstance(mVariable); break;
+            case R.id.menu_chart: fragment = DataChartView.newInstance(mVariable); break;
             default: return false;
         }
         mActualMenu = menuResource;

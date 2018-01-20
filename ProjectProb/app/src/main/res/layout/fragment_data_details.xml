@@ -260,42 +260,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="end" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_charts" />
-            </LinearLayout>
-
-            <Spinner
-                android:id="@+id/spn_graphs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:gravity="end" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/lyt_charts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

@@ -7,19 +7,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.controllers.DataDetailsController;
+import com.sharktech.projectprob.adapters.SpinAdapter;
+import com.sharktech.projectprob.controllers.DataChartController;
 import com.sharktech.projectprob.customtable.TableColumn;
 
-public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeVariableListener {
+public class DataChartView extends Fragment implements DataAnalyseView.ChangeVariableListener{
 
-    private DataDetailsController mController;
+    private DataChartController mController;
     private TableColumn.IVariable mVariable;
 
-    public static DataDetailsView newInstance(TableColumn.IVariable variable) {
+    public static DataChartView newInstance(TableColumn.IVariable variable) {
 
-        DataDetailsView fragment = new DataDetailsView();
+        DataChartView fragment = new DataChartView();
         Bundle bundle = new Bundle();
         bundle.putSerializable(DataAnalyseView.ANALYSES, variable);
         fragment.setArguments(bundle);
@@ -31,17 +33,23 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        if (bundle != null)
-            mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
+        if(bundle != null) mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
 
-        mController = new DataDetailsController(this, mVariable);
-        return inflater.inflate(R.layout.fragment_data_details, container, false);
+        mController = new DataChartController(this, mVariable);
+
+        View view = inflater.inflate(R.layout.fragment_data_chart, container, false);
+        Spinner spnGraphs = view.findViewById(R.id.spn_graphs);
+        SpinAdapter adapter = new SpinAdapter(getContext());
+        spnGraphs.setAdapter(adapter.getAdapter(R.array.graphs));
+
+        spnGraphs.setOnItemSelectedListener(mController.getItemSelectedListener());
+        return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mController.calculate();
+        mController.initChart();
     }
 
     @Override

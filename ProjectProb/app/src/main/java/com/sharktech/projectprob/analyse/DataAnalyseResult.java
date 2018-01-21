@@ -82,21 +82,13 @@ class DataAnalyseResult {
             add(PROD_VAL_SQRT_FREQ, new VariableNumber.ValueInteger(data.prodValSqrtFreq()));
         }
         //Averages
-        Log.e("ARITHMETIC", "sumArithmetic " + sumArithmetic  + " size() " + values.size()) ;
         add(ARITHMETIC, sumArithmetic / values.size());
-        Log.e("POUND_ARITHMETIC", "sumPoundArithmetic " + sumPoundArithmetic  + " sumFrequency " + sumFrequency) ;
         add(POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
-        Log.e("GEOMETRIC", "prodGeometric " + prodGeometric  + " size() " + values.size()) ;
         add(GEOMETRIC, Math.pow(prodGeometric, (1 / values.size())));
-        Log.e("POUND_GEOMETRIC", "prodPoundGeometric " + prodPoundGeometric  + " sumFrequency " + sumFrequency) ;
         add(POUND_GEOMETRIC, Math.pow(prodPoundGeometric, (1 / sumFrequency)));
-        Log.e("WEIGHTED", "sumWeighted " + sumPoundArithmetic  + " size() " + values.size()) ;
         add(WEIGHTED, sumWeighted != 0 ? values.size() / sumWeighted : 0);
-        Log.e("POUND_WEIGHTED", "sumPoundWeighted " + sumPoundWeighted  + " sumFrequency " + sumFrequency) ;
         add(POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
-        Log.e("QUADRATIC", "sumQuadratic " + sumQuadratic) ;
         add(QUADRATIC, Math.sqrt(sumQuadratic));
-        Log.e("POUND_QUADRATIC", "sumPoundQuadratic " + sumPoundQuadratic) ;
         add(POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
         setMode(mode);
     }
@@ -127,7 +119,6 @@ class DataAnalyseResult {
     }
 
     private void add(AverageKey key, Double value){
-        Log.e("AVG", key.name() + " " + value);
         mAverages.put(key, value);
     }
 }

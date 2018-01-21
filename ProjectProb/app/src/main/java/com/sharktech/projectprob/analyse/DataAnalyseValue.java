@@ -45,11 +45,13 @@ class DataAnalyseValue {
     }
 
     double divByVal(){
-        return mValue.isNumber() && mValue.asNumber() > 0 ? 1 / mValue.asNumber() : -1d;
+        if (!isNumber()) return -1;
+        return mValue.asNumber() != 0 ? 1 / mValue.asNumber() : 0d;
     }
 
     double divFreqVal(){
-        return mValue.isNumber() && mValue.asNumber() > 0 ? mFrequency / mValue.asNumber() : -1d;
+        if(!isNumber()) return -1;
+        return mValue.asNumber() != 0 ? mFrequency / mValue.asNumber() : 0d;
     }
 
     double sqrtVal(){

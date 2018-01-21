@@ -37,7 +37,7 @@ public class DataTableController {
             analyse.calculate();
             variables.add(getVariable(mVariable.getTitle(), analyse.getData()));
             variables.add(getVariable("Frequencia", analyse.getFrequency()));
-            variables.add(getVariable("Variância", analyse.getVariance()));
+            variables.add(getVariable("Variância", analyse.getProdValFreq()));
         }
 
         mTable = new CustomTable(mFragment.getContext());

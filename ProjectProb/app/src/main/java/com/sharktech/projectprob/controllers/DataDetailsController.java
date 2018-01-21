@@ -32,8 +32,8 @@ public class DataDetailsController {
         if(mAnalyse.calculate()) {
 
             fillText(R.id.txt_arithmetic_avg, mAnalyse.avgArithmetic());
-            fillText(R.id.txt_geometric_avg, mAnalyse.avgGeometric());
-            fillText(R.id.txt_weighted_avg, mAnalyse.avgWeighted());
+            fillText(R.id.txt_geometric_avg, mAnalyse.avgPoundGeometric());
+            fillText(R.id.txt_weighted_avg, mAnalyse.avgPoundWeighted());
             fillText(R.id.txt_quadratic_avg, mAnalyse.avgQuadratic());
             fillText(R.id.txt_mode, mAnalyse.getMode() == null ? " = " : mAnalyse.getMode().getTitle());
         } else {

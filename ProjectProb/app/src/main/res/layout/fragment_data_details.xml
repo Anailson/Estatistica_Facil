@@ -24,32 +24,52 @@
             android:layout_marginBottom="@dimen/medium_gap"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/TextViewColored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txt_averages" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_arithmetic_avg" />
+                    android:text="@string/txt_avg_arithmetic" />
 
                 <TextView
                     android:id="@+id/txt_arithmetic_avg_sym"
                     style="@style/TextViewSmallColored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/minimum_gap"
                     android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_arithmetic_avg_sym" />
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/txt_avg_arithmetic_sym" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_arithmetic_avg"
+                android:id="@+id/txt_avg_arithmetic"
                 style="@style/TextViewColoredRight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -66,28 +86,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingLeft="0dp"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight=".9"
-                    android:text="@string/txt_weighted_avg" />
+                    android:text="@string/txt_avg_arithmetic_pound" />
 
                 <TextView
-                    android:id="@+id/txt_weighted_avg_sym"
                     style="@style/TextViewSmallColored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/minimum_gap"
                     android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_weighted_avg_sym" />
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/txt_avg_arithmetic_pound_sym" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_weighted_avg"
+                android:id="@+id/txt_avg_arithmetic_pound"
                 style="@style/TextViewColoredRight"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -105,28 +128,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingLeft="0dp"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight=".9"
-                    android:text="@string/txt_geometric_avg" />
+                    android:text="@string/txt_avg_geometric" />
 
                 <TextView
-                    android:id="@+id/txt_geometric_avg_sym"
                     style="@style/TextViewSmallColored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/minimum_gap"
                     android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_geometric_avg_sym" />
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/txt_avg_geometric_sym" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_geometric_avg"
+                android:id="@+id/txt_avg_geometric"
                 style="@style/TextViewColoredRight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,27 +170,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_quadratic_avg" />
+                    android:text="@string/txt_avg_geometric_pound" />
 
                 <TextView
-                    android:id="@+id/txt_quadratic_avg_sym"
                     style="@style/TextViewSmallColored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
                     android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_quadratic_avg_sym" />
+                    android:text="@string/txt_avg_geometric_pound_sym" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_quadratic_avg"
+                android:id="@+id/txt_avg_geometric_pound"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingLeft="0dp"
+                android:paddingEnd="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9"
+                    android:text="@string/txt_avg_weighted" />
+
+                <TextView
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_avg_weighted_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_avg_weighted"
                 style="@style/TextViewColoredRight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -182,8 +253,130 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_avg_weighted_pound" />
+
+                <TextView
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_avg_weighted_pound_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_avg_weighted_pound"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_avg_quadratic" />
+
+                <TextView
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_avg_quadratic_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_avg_quadratic"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_avg_quadratic_pound" />
+
+                <TextView
+                    style="@style/TextViewSmallColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/minimum_gap"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/minimum_gap"
+                    android:text="@string/txt_avg_quadratic_pound_sym" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_avg_quadratic_pound"
+                style="@style/TextViewColoredRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/medium_gap"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
@@ -213,8 +406,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
@@ -243,8 +438,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/medium_gap"
-                android:paddingRight="@dimen/medium_gap">
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/medium_gap"
+                android:paddingEnd="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"

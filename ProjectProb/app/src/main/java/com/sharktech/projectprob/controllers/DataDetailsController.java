@@ -31,16 +31,24 @@ public class DataDetailsController {
 
         if(mAnalyse.calculate()) {
 
-            fillText(R.id.txt_arithmetic_avg, mAnalyse.avgArithmetic());
-            fillText(R.id.txt_geometric_avg, mAnalyse.avgPoundGeometric());
-            fillText(R.id.txt_weighted_avg, mAnalyse.avgPoundWeighted());
-            fillText(R.id.txt_quadratic_avg, mAnalyse.avgQuadratic());
+            fillText(R.id.txt_avg_arithmetic, mAnalyse.avgArithmetic());
+            fillText(R.id.txt_avg_arithmetic_pound, mAnalyse.avgArithmeticPound());
+            fillText(R.id.txt_avg_geometric, mAnalyse.avgGeometric());
+            fillText(R.id.txt_avg_geometric_pound, mAnalyse.avgGeometricPound());
+            fillText(R.id.txt_avg_weighted, mAnalyse.avgWeighted());
+            fillText(R.id.txt_avg_weighted_pound, mAnalyse.avgWeightedPound());
+            fillText(R.id.txt_avg_quadratic, mAnalyse.avgQuadratic());
+            fillText(R.id.txt_avg_quadratic_pound, mAnalyse.avgQuadraticPound());
             fillText(R.id.txt_mode, mAnalyse.getMode() == null ? " = " : mAnalyse.getMode().getTitle());
         } else {
-            fillText(R.id.txt_arithmetic_avg, -1d);
-            fillText(R.id.txt_geometric_avg, -1d);
-            fillText(R.id.txt_weighted_avg, -1d);
-            fillText(R.id.txt_quadratic_avg, -1d);
+            fillText(R.id.txt_avg_arithmetic, -1d);
+            fillText(R.id.txt_avg_arithmetic_pound, -1d);
+            fillText(R.id.txt_avg_geometric, -1d);
+            fillText(R.id.txt_avg_geometric_pound, -1d);
+            fillText(R.id.txt_avg_weighted, -1d);
+            fillText(R.id.txt_avg_weighted_pound, -1d);
+            fillText(R.id.txt_avg_quadratic, -1d);
+            fillText(R.id.txt_avg_quadratic_pound, -1d);
             fillText(R.id.txt_mode, "-");
         }
     }

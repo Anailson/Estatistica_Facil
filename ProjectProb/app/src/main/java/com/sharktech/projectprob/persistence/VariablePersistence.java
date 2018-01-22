@@ -54,8 +54,8 @@ public class VariablePersistence {
         flts.add(new Float[]{1.3f, 2.2f, 1.3f, 4.4f});
 
         VariableNumber ints = new VariableNumber("Integer");
-        ints.add(new Integer[]{0, 1, 2, 3, 2});
-        ints.add(new Integer[]{5, 1, 7, 3, 5, 4, 8, 1, 7, 1});
+        ints.add(new Integer[]{1, 2, 3, 2});
+        ints.add(new Integer[]{5, 5, 7, 3, 5, 4, 8, 5, 1, 7, 1});
 
         VariableString chars = new VariableString("Character");
         chars.add(new Character[]{'U', 'D', 'U', 'T', 'U'});

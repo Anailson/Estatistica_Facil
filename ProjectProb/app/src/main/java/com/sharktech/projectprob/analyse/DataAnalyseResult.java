@@ -1,7 +1,5 @@
 package com.sharktech.projectprob.analyse;
 
-import android.util.Log;
-
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableObject;
@@ -15,7 +13,8 @@ import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.*;
 class DataAnalyseResult {
 
     enum ValueKey{
-        DATA, FREQUENCY , PROD_VAL_FREQ, PROD_VAL_SQRT_FREQ
+        DATA, FREQUENCY , PROD_VAL_FREQ, PROD_VAL_SQRT_FREQ,
+        POW_VAL_FREQ, DIV_BY_VAL, DIV_FREQ_VAL, SQRT_VAL, PROD_SQRT_VAL_FREQ
     }
 
     enum AverageKey{
@@ -38,6 +37,11 @@ class DataAnalyseResult {
         mResultMap.put(FREQUENCY, new ArrayList<TableCell.ICell>());
         mResultMap.put(PROD_VAL_FREQ, new ArrayList<TableCell.ICell>());
         mResultMap.put(PROD_VAL_SQRT_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(POW_VAL_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(DIV_BY_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(DIV_FREQ_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(SQRT_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(PROD_SQRT_VAL_FREQ, new ArrayList<TableCell.ICell>());
     }
 
     void clear(){
@@ -47,6 +51,11 @@ class DataAnalyseResult {
         mResultMap.get(FREQUENCY).clear();
         mResultMap.get(PROD_VAL_FREQ).clear();
         mResultMap.get(PROD_VAL_SQRT_FREQ).clear();
+        mResultMap.get(POW_VAL_FREQ).clear();
+        mResultMap.get(DIV_BY_VAL).clear();
+        mResultMap.get(DIV_FREQ_VAL).clear();
+        mResultMap.get(SQRT_VAL).clear();
+        mResultMap.get(PROD_SQRT_VAL_FREQ).clear();
     }
 
     void calculate(ArrayList<DataAnalyseValue> values){
@@ -80,12 +89,31 @@ class DataAnalyseResult {
             add(FREQUENCY, new VariableNumber.ValueInteger(data.getFrequency()));
             add(PROD_VAL_FREQ, new VariableNumber.ValueInteger(data.prodValFreq()));
             add(PROD_VAL_SQRT_FREQ, new VariableNumber.ValueInteger(data.prodValSqrtFreq()));
+            add(POW_VAL_FREQ, new VariableNumber.ValueInteger(data.powValFreq()));
+            add(DIV_BY_VAL, new VariableNumber.ValueInteger(data.divByVal()));
+            add(DIV_FREQ_VAL, new VariableNumber.ValueInteger(data.divFreqVal()));
+            add(SQRT_VAL, new VariableNumber.ValueInteger(data.sqrtVal()));
+            add(PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(data.prodSqrtValFreq()));
         }
+        //Value accumulate (sum and prod)
+        add(DATA, new VariableNumber.ValueInteger(sumArithmetic));
+        add(FREQUENCY, new VariableNumber.ValueInteger(sumFrequency));
+        add(PROD_VAL_FREQ, new VariableNumber.ValueInteger(sumPoundArithmetic));
+        add(PROD_VAL_SQRT_FREQ, new VariableNumber.ValueInteger(prodGeometric));
+        add(POW_VAL_FREQ, new VariableNumber.ValueInteger(prodPoundGeometric));
+        add(DIV_BY_VAL, new VariableNumber.ValueInteger(sumWeighted));
+        add(DIV_FREQ_VAL, new VariableNumber.ValueInteger(sumPoundWeighted));
+        add(SQRT_VAL, new VariableNumber.ValueInteger(sumQuadratic));
+        add(PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(sumPoundQuadratic));
+
         //Averages
+        //TODO verify how to calculate root n.
+        double avgGeo = Math.pow(prodGeometric, (1 / values.size()));
+        double avgGeoPound = Math.pow(prodPoundGeometric, (1 / sumFrequency));
         add(ARITHMETIC, sumArithmetic / values.size());
         add(POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
-        add(GEOMETRIC, Math.pow(prodGeometric, (1 / values.size())));
-        add(POUND_GEOMETRIC, Math.pow(prodPoundGeometric, (1 / sumFrequency)));
+        add(GEOMETRIC, avgGeo);
+        add(POUND_GEOMETRIC, avgGeoPound);
         add(WEIGHTED, sumWeighted != 0 ? values.size() / sumWeighted : 0);
         add(POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
         add(QUADRATIC, Math.sqrt(sumQuadratic));

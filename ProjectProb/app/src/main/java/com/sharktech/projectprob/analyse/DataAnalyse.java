@@ -31,7 +31,6 @@ public class DataAnalyse {
         if(!init()){
             return false;
         }
-
         mResult.calculate(mValues);
         return true;
     }
@@ -72,7 +71,7 @@ public class DataAnalyse {
         return avg(ARITHMETIC);
     }
 
-    public Double avgPoundArithmetic() {
+    public Double avgArithmeticPound() {
         return avg(POUND_ARITHMETIC);
     }
 
@@ -80,7 +79,7 @@ public class DataAnalyse {
         return avg(GEOMETRIC);
     }
 
-    public Double avgPoundGeometric() {
+    public Double avgGeometricPound() {
         return avg(POUND_GEOMETRIC);
     }
 
@@ -88,8 +87,7 @@ public class DataAnalyse {
         return avg(WEIGHTED);
     }
 
-    public Double avgPoundWeighted() {
-
+    public Double avgWeightedPound() {
         return avg(POUND_WEIGHTED);
     }
 
@@ -97,7 +95,7 @@ public class DataAnalyse {
         return avg(QUADRATIC);
     }
 
-    public Double avgPoundQuadratic() {
+    public Double avgQuadraticPound() {
         return avg(POUND_QUADRATIC);
     }
 

@@ -67,6 +67,30 @@ public class DataAnalyse {
         return mResult.get(PROD_VAL_FREQ);
     }
 
+    public ArrayList<ICell> getDivVal() {
+        return mResult.get(DIV_BY_VAL);
+    }
+
+    public ArrayList<ICell> getDivFreqVal() {
+        return mResult.get(DIV_FREQ_VAL);
+    }
+
+    public ArrayList<ICell> getSqrtVal() {
+        return mResult.get(SQRT_VAL);
+    }
+
+    public ArrayList<ICell> getProdSqrtValFreq() {
+        return mResult.get(PROD_SQRT_VAL_FREQ);
+    }
+
+    public ArrayList<ICell> getPowVal() {
+        return mResult.get(POW_VAL);
+    }
+
+    public ArrayList<ICell> getPowValFreq() {
+        return mResult.get(POW_VAL_FREQ);
+    }
+
     public Double avgArithmetic() {
         return avg(ARITHMETIC);
     }

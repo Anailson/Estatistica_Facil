@@ -7,14 +7,12 @@ import com.sharktech.projectprob.models.VariableObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.*;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.*;
 
 class DataAnalyseResult {
 
     enum ValueKey{
-        DATA, FREQUENCY , PROD_VAL_FREQ, PROD_VAL_SQRT_FREQ,
-        POW_VAL_FREQ, DIV_BY_VAL, DIV_FREQ_VAL, SQRT_VAL, PROD_SQRT_VAL_FREQ
+        DATA, FREQUENCY, PROD_VAL_FREQ, POW_VAL, POW_VAL_FREQ,
+        DIV_BY_VAL, DIV_FREQ_VAL, SQRT_VAL, PROD_SQRT_VAL_FREQ
     }
 
     enum AverageKey{
@@ -22,47 +20,45 @@ class DataAnalyseResult {
         WEIGHTED, POUND_WEIGHTED, QUADRATIC, POUND_QUADRATIC
     }
 
-
     private TableCell.ICell mMode;
     private HashMap<AverageKey, Double> mAverages;
     private HashMap<ValueKey, ArrayList<TableCell.ICell>> mResultMap;
-
 
     DataAnalyseResult() {
         this.mMode = new VariableObject.ValueObject();
         this.mAverages = new HashMap<>();
         this.mResultMap = new HashMap<>();
 
-        mResultMap.put(DATA, new ArrayList<TableCell.ICell>());
-        mResultMap.put(FREQUENCY, new ArrayList<TableCell.ICell>());
-        mResultMap.put(PROD_VAL_FREQ, new ArrayList<TableCell.ICell>());
-        mResultMap.put(PROD_VAL_SQRT_FREQ, new ArrayList<TableCell.ICell>());
-        mResultMap.put(POW_VAL_FREQ, new ArrayList<TableCell.ICell>());
-        mResultMap.put(DIV_BY_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(DIV_FREQ_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(SQRT_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(PROD_SQRT_VAL_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.DATA, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.FREQUENCY, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.PROD_VAL_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.POW_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.POW_VAL_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.DIV_BY_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.DIV_FREQ_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.SQRT_VAL, new ArrayList<TableCell.ICell>());
+        mResultMap.put(ValueKey.PROD_SQRT_VAL_FREQ, new ArrayList<TableCell.ICell>());
     }
 
     void clear(){
         mMode = new VariableObject.ValueObject();
 
-        mResultMap.get(DATA).clear();
-        mResultMap.get(FREQUENCY).clear();
-        mResultMap.get(PROD_VAL_FREQ).clear();
-        mResultMap.get(PROD_VAL_SQRT_FREQ).clear();
-        mResultMap.get(POW_VAL_FREQ).clear();
-        mResultMap.get(DIV_BY_VAL).clear();
-        mResultMap.get(DIV_FREQ_VAL).clear();
-        mResultMap.get(SQRT_VAL).clear();
-        mResultMap.get(PROD_SQRT_VAL_FREQ).clear();
+        mResultMap.get(ValueKey.DATA).clear();
+        mResultMap.get(ValueKey.FREQUENCY).clear();
+        mResultMap.get(ValueKey.PROD_VAL_FREQ).clear();
+        mResultMap.get(ValueKey.POW_VAL).clear();
+        mResultMap.get(ValueKey.POW_VAL_FREQ).clear();
+        mResultMap.get(ValueKey.DIV_BY_VAL).clear();
+        mResultMap.get(ValueKey.DIV_FREQ_VAL).clear();
+        mResultMap.get(ValueKey.SQRT_VAL).clear();
+        mResultMap.get(ValueKey.PROD_SQRT_VAL_FREQ).clear();
     }
 
     void calculate(ArrayList<DataAnalyseValue> values){
-        TableCell.ICell mode = null;
-        long frequency = 0, sumFrequency = 0;
 
-        Double sumArithmetic = 0d, sumPoundArithmetic = 0d,
+        TableCell.ICell mode = null;
+        long frequency = 0;
+        Double sumFrequency = 0d, sumArithmetic = 0d, sumPoundArithmetic = 0d,
                 prodGeometric = 1d, prodPoundGeometric = 1d,
                 sumWeighted = 0d, sumPoundWeighted = 0d,
                 sumQuadratic = 0d, sumPoundQuadratic = 0d;
@@ -73,51 +69,53 @@ class DataAnalyseResult {
                 frequency = data.getFrequency();
             }
 
-            sumFrequency += data.getFrequency();
-            sumArithmetic += data.isNumber() ? data.asNumber() : 0d;        //ARITHMETIC
-            sumPoundArithmetic += data.prodValFreq();                       //POUND_ARITHMETIC
-            prodGeometric *= data.isNumber() ? data.asNumber() : 1d;        //GEOMETRIC
-            prodPoundGeometric *= data.powValFreq();                        //POUND_GEOMETRIC
-            sumWeighted += data.isNumber() ? data.divByVal() : 0d;          //WEIGHTED
-            sumPoundWeighted += data.divFreqVal();                          //POUND_WEIGHTED
-            sumQuadratic += data.isNumber() ? data.sqrtVal() : 0d;          //QUADRATIC
-            sumPoundQuadratic += data.prodSqrtValFreq();                    //POUND_QUADRATIC
-
+            if(data.isNumber()){
+                sumFrequency += data.getFrequency();
+                sumArithmetic += data.asNumber();                               //ARITHMETIC
+                sumPoundArithmetic += data.prodValFreq();                       //POUND_ARITHMETIC
+                prodGeometric *= data.asNumber();                               //GEOMETRIC
+                prodPoundGeometric *= data.powValFreq();                        //POUND_GEOMETRIC
+                sumWeighted += data.divByVal();                                 //WEIGHTED
+                sumPoundWeighted += data.divFreqVal();                          //POUND_WEIGHTED
+                sumQuadratic += data.sqrtVal();                                 //QUADRATIC
+                sumPoundQuadratic += data.prodSqrtValFreq();                    //POUND_QUADRATIC
+            }
 
             //Values
-            add(DATA, data.getValue());
-            add(FREQUENCY, new VariableNumber.ValueInteger(data.getFrequency()));
-            add(PROD_VAL_FREQ, new VariableNumber.ValueInteger(data.prodValFreq()));
-            add(PROD_VAL_SQRT_FREQ, new VariableNumber.ValueInteger(data.prodValSqrtFreq()));
-            add(POW_VAL_FREQ, new VariableNumber.ValueInteger(data.powValFreq()));
-            add(DIV_BY_VAL, new VariableNumber.ValueInteger(data.divByVal()));
-            add(DIV_FREQ_VAL, new VariableNumber.ValueInteger(data.divFreqVal()));
-            add(SQRT_VAL, new VariableNumber.ValueInteger(data.sqrtVal()));
-            add(PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(data.prodSqrtValFreq()));
+            add(ValueKey.DATA, data.getValue());
+            add(ValueKey.FREQUENCY, new VariableNumber.ValueInteger(data.getFrequency()));
+            add(ValueKey.PROD_VAL_FREQ, new VariableNumber.ValueInteger(data.prodValFreq()));
+            add(ValueKey.POW_VAL, new VariableNumber.ValueInteger(data.asNumber()));
+            add(ValueKey.POW_VAL_FREQ, new VariableNumber.ValueInteger(data.powValFreq()));
+            add(ValueKey.DIV_BY_VAL, new VariableNumber.ValueInteger(data.divByVal()));
+            add(ValueKey.DIV_FREQ_VAL, new VariableNumber.ValueInteger(data.divFreqVal()));
+            add(ValueKey.SQRT_VAL, new VariableNumber.ValueInteger(data.sqrtVal()));
+            add(ValueKey.PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(data.prodSqrtValFreq()));
         }
+
         //Value accumulate (sum and prod)
-        add(DATA, new VariableNumber.ValueInteger(sumArithmetic));
-        add(FREQUENCY, new VariableNumber.ValueInteger(sumFrequency));
-        add(PROD_VAL_FREQ, new VariableNumber.ValueInteger(sumPoundArithmetic));
-        add(PROD_VAL_SQRT_FREQ, new VariableNumber.ValueInteger(prodGeometric));
-        add(POW_VAL_FREQ, new VariableNumber.ValueInteger(prodPoundGeometric));
-        add(DIV_BY_VAL, new VariableNumber.ValueInteger(sumWeighted));
-        add(DIV_FREQ_VAL, new VariableNumber.ValueInteger(sumPoundWeighted));
-        add(SQRT_VAL, new VariableNumber.ValueInteger(sumQuadratic));
-        add(PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(sumPoundQuadratic));
+        add(ValueKey.DATA, sumArithmetic);
+        add(ValueKey.FREQUENCY, sumFrequency);
+        add(ValueKey.PROD_VAL_FREQ, sumPoundArithmetic);
+        add(ValueKey.POW_VAL, prodGeometric);
+        add(ValueKey.POW_VAL_FREQ, prodPoundGeometric);
+        add(ValueKey.DIV_BY_VAL, sumWeighted);
+        add(ValueKey.DIV_FREQ_VAL, sumPoundWeighted);
+        add(ValueKey.SQRT_VAL, sumQuadratic);
+        add(ValueKey.PROD_SQRT_VAL_FREQ, sumPoundQuadratic);
 
         //Averages
         //TODO verify how to calculate root n.
         double avgGeo = Math.pow(prodGeometric, (1 / values.size()));
         double avgGeoPound = Math.pow(prodPoundGeometric, (1 / sumFrequency));
-        add(ARITHMETIC, sumArithmetic / values.size());
-        add(POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
-        add(GEOMETRIC, avgGeo);
-        add(POUND_GEOMETRIC, avgGeoPound);
-        add(WEIGHTED, sumWeighted != 0 ? values.size() / sumWeighted : 0);
-        add(POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
-        add(QUADRATIC, Math.sqrt(sumQuadratic));
-        add(POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
+        add(AverageKey.ARITHMETIC, sumArithmetic / values.size());
+        add(AverageKey.POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
+        add(AverageKey.GEOMETRIC, avgGeo);
+        add(AverageKey.POUND_GEOMETRIC, avgGeoPound);
+        add(AverageKey.WEIGHTED, sumWeighted != 0 ? values.size() / sumWeighted : 0);
+        add(AverageKey.POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
+        add(AverageKey.QUADRATIC, Math.sqrt(sumQuadratic));
+        add(AverageKey.POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
         setMode(mode);
     }
 
@@ -140,6 +138,10 @@ class DataAnalyseResult {
     private void setMode(TableCell.ICell mode) {
         if(mode == null) throw new IllegalArgumentException("Mode cannot be null");
         this.mMode = mode;
+    }
+
+    private void add(ValueKey key, Double value){
+        add(key, new VariableNumber.ValueInteger(value));
     }
 
     private void add(ValueKey key, TableCell.ICell cell){

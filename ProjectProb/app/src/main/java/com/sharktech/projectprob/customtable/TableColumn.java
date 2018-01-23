@@ -15,7 +15,6 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
     private int mPosition;
     private E mVariable;
-    private Analyses mAnalyses;
     private ArrayList<TableCell<TableCell.ICell>> mCells;
 
     public interface IVariable extends Serializable {
@@ -40,7 +39,6 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
         this.mPosition = -1;
         this.mVariable = variable;
         this.mCells = new ArrayList<>();
-        this.mAnalyses = null;
 
         init();
     }
@@ -63,13 +61,6 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
                 mCells.get(i).setCol(position);
             }
         }
-    }
-
-    public Analyses calculate() {
-        if (mAnalyses == null) {
-            mAnalyses = new Analyses(mVariable.getElements());
-        }
-        return mAnalyses;
     }
 
     protected int nElements(){
@@ -114,73 +105,5 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
             mCells.get(i).setHeading();
         }
         super.setBackgroundColor(color);
-    }
-
-    public class Analyses implements Serializable{
-
-        private double avgArithmetic, avgGeometric, avgWeighted, avgQuadratic;
-        private TableCell.ICell mode;
-
-        private Analyses(ArrayList<TableCell.ICell> cells) {
-
-            calculate(cells);
-        }
-
-        private void calculate(ArrayList<TableCell.ICell> cells){
-/*
-            Integer sumFreq = 0;
-            Double sumArithmetic = 0d;
-            Double prodGeometric = 1d;
-            Double sumWeighted = 0d;
-            Double sumQuadratic = 0d;
-            int countMode = 0;
-            Cell.ICell val = null;
-
-            for (int i = 0; i < mVariable.nElements(); i++) {
-
-                Cell cell = mCells.get(i);
-                if(cell.getCount() > countMode){
-                    countMode = cell.getCount();
-
-                    val = cell.getValue();
-                }
-
-                sumFreq += cell.getCount();
-                if(cell.isNumber()) {
-                    sumArithmetic += cell.asNumber();
-                    prodGeometric *= Math.pow(cell.asNumber(), cell.getCount());
-                    sumWeighted += cell.asNumber() * cell.getCount();
-                    sumQuadratic += Math.pow(cell.asNumber(), 2d) * cell.getCount();
-                }
-            }
-
-            avgArithmetic = cells.isEmpty() ? 0 : sumArithmetic / cells.size();
-            avgGeometric = Math.pow(prodGeometric, (1d / sumFreq));
-            avgWeighted = cells.isEmpty() ? 0 : sumWeighted / sumFreq;
-            avgQuadratic = Math.sqrt(sumQuadratic);
-            mode = val;
-            */
-        }
-
-        public Double avgArithmetic() {
-
-            return avgArithmetic;
-        }
-
-        public Double avgGeometric() {
-            return avgGeometric;
-        }
-
-        public Double avgWeighted() {
-            return avgWeighted;
-        }
-
-        public Double avgQuadratic() {
-            return avgQuadratic;
-        }
-
-        public TableCell.ICell mode() {
-            return mode;
-        }
     }
 }

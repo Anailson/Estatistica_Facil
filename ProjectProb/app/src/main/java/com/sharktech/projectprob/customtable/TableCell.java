@@ -26,7 +26,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
 
         boolean isNumber();
 
-        Double asNumber();
+        Long asNumber();
     }
 
     public TableCell(Context context) {
@@ -64,10 +64,6 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         this.mValue = value;
     }
 
-    protected boolean isEmpty(){
-        return mValue == null;
-    }
-
     protected void setCol(int col) {
         setPosition(col, mPosition.row);
     }
@@ -91,24 +87,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         setTextColor(Color.WHITE);
         setText(mValue.getTitle());
     }
-/*
-    protected static TableCell newCell(Context context, final Object value){
 
-        return new TableCell<TableCell.ICell>(context, new TableCell.ICell() {
-            @Override
-            public String getTitle() { return value.toString(); }
-
-            @Override
-            public Object getElement() { return value; }
-
-            @Override
-            public boolean isNumber() { return false; }
-
-            @Override
-            public Float asNumber() { return 1f; }
-        });
-    }
-*/
     private void setGravity(){
         if(mPosition.col >=  0 && mPosition.row >= 0){
             setGravity(Gravity.START);
@@ -118,16 +97,12 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
             setGravity(Gravity.END);
         }
     }
-/*
-    public Integer getCount() {
-        return mValue.getCount();
-    }
-*/
+
     public boolean isNumber() {
         return mValue.isNumber();
     }
 
-    public double asFloat() {
+    public long asFloat() {
         return mValue.asNumber();
     }
 

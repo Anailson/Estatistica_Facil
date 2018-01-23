@@ -15,7 +15,7 @@ import com.sharktech.projectprob.analyse.DataAnalyse;
 public class ChartFactory {
 
     static final int WIDTH = ViewGroup.LayoutParams.MATCH_PARENT;
-    static final int HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
+    static final int HEIGHT = 1000;
     static final int[] COLORS = new int[]{Color.BLUE, Color.CYAN, Color.GRAY, Color.GREEN,
             Color.YELLOW,Color.DKGRAY, Color.RED, Color.MAGENTA, Color.LTGRAY, Color.WHITE};
 

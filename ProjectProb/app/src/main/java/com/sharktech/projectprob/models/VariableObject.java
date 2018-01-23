@@ -83,8 +83,8 @@ public class VariableObject implements IVariable {
         }
 
         @Override
-        public Double asNumber() {
-            return 1d;
+        public Long asNumber() {
+            return 1L;
         }
 
         @Override

@@ -83,8 +83,8 @@ public class VariableObject implements IVariable {
         }
 
         @Override
-        public Long asNumber() {
-            return 1L;
+        public Float asNumber() {
+            return 1f;
         }
 
         @Override

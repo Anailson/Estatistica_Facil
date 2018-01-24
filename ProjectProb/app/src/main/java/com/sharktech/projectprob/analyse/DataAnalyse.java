@@ -43,7 +43,7 @@ public class DataAnalyse {
         return mResult.get(DATA, index);
     }
 
-    public Long getFrequency(int index){
+    public float getFrequency(int index){
         return mResult.get(FREQUENCY, index).asNumber();
     }
 

@@ -30,7 +30,7 @@ public class BarChartCustom extends BarChart{
         List<LegendEntry> legends = new ArrayList<>();
 
         for (int i = 0; i < analyse.size(); i++) {
-            entries.add(newEntry(i, new float[]{analyse.getFrequency(i).floatValue()}));
+            entries.add(newEntry(i, new float[]{analyse.getFrequency(i)}));
             legends.add(newLegend(analyse.getData(i).getTitle()));
         }
 

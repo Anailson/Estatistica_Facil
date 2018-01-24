@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
 
+import java.util.Locale;
+
 public class TableCell<E extends TableCell.ICell> extends android.support.v7.widget.AppCompatEditText {
 
     private Position mPosition;
@@ -26,7 +28,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
 
         boolean isNumber();
 
-        Long asNumber();
+        Float asNumber();
     }
 
     public TableCell(Context context) {
@@ -43,7 +45,10 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
     }
 
     private void init(){
-        setText(mValue.getTitle());
+
+
+
+        setText(getTitle());
         setSingleLine(true);
         setTextColor(getResources().getColor(R.color.color_default));
         setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -88,6 +93,16 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         setText(mValue.getTitle());
     }
 
+    private String getTitle(){
+        if(isNumber()) {
+            int rounded = Math.round(mValue.asNumber());
+            return mValue.asNumber() - rounded == 0
+                    ? String.valueOf(rounded)
+                    : String.format(Locale.getDefault(), "%.6f", mValue.asNumber());
+        }
+        return mValue.getTitle();
+    }
+
     private void setGravity(){
         if(mPosition.col >=  0 && mPosition.row >= 0){
             setGravity(Gravity.START);
@@ -102,7 +117,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         return mValue.isNumber();
     }
 
-    public long asFloat() {
+    public float asFloat() {
         return mValue.asNumber();
     }
 

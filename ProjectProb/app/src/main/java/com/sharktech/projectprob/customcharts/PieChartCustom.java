@@ -2,7 +2,6 @@ package com.sharktech.projectprob.customcharts;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.icu.text.DecimalFormat;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,7 +30,7 @@ public class PieChartCustom extends PieChart {
 
         for(int i = 0; i < analyse.size(); i++){
 
-            Float value = analyse.getFrequency(i).floatValue();
+            Float value = analyse.getFrequency(i);
             String title = "Valor: " + analyse.getData(i).getTitle();
             entries.add(new PieEntry(value, title));
         }

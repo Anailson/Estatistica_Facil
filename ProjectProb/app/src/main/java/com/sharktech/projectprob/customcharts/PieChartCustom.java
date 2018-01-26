@@ -30,7 +30,7 @@ public class PieChartCustom extends PieChart {
 
         for(int i = 0; i < analyse.size(); i++){
 
-            Float value = analyse.getFrequency(i);
+            float value = (float) analyse.getFrequency(i);
             String title = "Valor: " + analyse.getData(i).getTitle();
             entries.add(new PieEntry(value, title));
         }

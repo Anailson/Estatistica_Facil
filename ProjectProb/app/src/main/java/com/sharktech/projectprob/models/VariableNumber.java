@@ -83,8 +83,8 @@ public class VariableNumber implements TableColumn.IVariable {
         }
 
         @Override
-        public Float asNumber() {
-            return mValue.floatValue();
+        public Double asNumber() {
+            return mValue.doubleValue();
         }
 
         @Override

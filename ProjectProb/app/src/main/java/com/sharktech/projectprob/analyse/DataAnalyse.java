@@ -43,11 +43,16 @@ public class DataAnalyse {
         return mResult.get(DATA, index);
     }
 
-    public float getFrequency(int index){
+    public double getFrequency(int index){
         return mResult.get(FREQUENCY, index).asNumber();
     }
 
-    public ICell getMode(){
+    public boolean hasMode(){
+        int nModes = mResult.getMode().size();
+        return nModes == 0 || nModes == mValues.size();
+    }
+
+    public ArrayList<ICell> getMode(){
         return mResult.getMode();
     }
 

@@ -95,8 +95,8 @@ public class VariableString implements IVariable {
         }
 
         @Override
-        public Float asNumber() {
-            return 1f;
+        public Double asNumber() {
+            return 1d;
         }
 
         @Override

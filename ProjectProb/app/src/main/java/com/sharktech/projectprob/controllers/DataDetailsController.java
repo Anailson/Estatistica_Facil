@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.Locale;
@@ -31,6 +32,17 @@ public class DataDetailsController {
 
         if(mAnalyse.calculate()) {
 
+            String modeText;
+            if(mAnalyse.hasMode()){
+                StringBuilder sBuilder = new StringBuilder();
+                for(TableCell.ICell cell : mAnalyse.getMode()){
+                    sBuilder.append(cell.getTitle()).append(", ");
+                }
+                modeText = sBuilder.substring(0, sBuilder.lastIndexOf(", "));
+            }else {
+                modeText = "Amodal";
+            }
+
             fillText(R.id.txt_avg_arithmetic, mAnalyse.avgArithmetic());
             fillText(R.id.txt_avg_arithmetic_pound, mAnalyse.avgArithmeticPound());
             fillText(R.id.txt_avg_geometric, mAnalyse.avgGeometric());
@@ -39,7 +51,7 @@ public class DataDetailsController {
             fillText(R.id.txt_avg_weighted_pound, mAnalyse.avgWeightedPound());
             fillText(R.id.txt_avg_quadratic, mAnalyse.avgQuadratic());
             fillText(R.id.txt_avg_quadratic_pound, mAnalyse.avgQuadraticPound());
-            fillText(R.id.txt_mode, mAnalyse.getMode() == null ? " = " : mAnalyse.getMode().getTitle());
+            fillText(R.id.txt_mode, modeText);
         } else {
             fillText(R.id.txt_avg_arithmetic, -1d);
             fillText(R.id.txt_avg_arithmetic_pound, -1d);
@@ -49,7 +61,7 @@ public class DataDetailsController {
             fillText(R.id.txt_avg_weighted_pound, -1d);
             fillText(R.id.txt_avg_quadratic, -1d);
             fillText(R.id.txt_avg_quadratic_pound, -1d);
-            fillText(R.id.txt_mode, "-");
+            fillText(R.id.txt_mode, -1d);
         }
     }
 

@@ -28,34 +28,34 @@ class DataAnalyseValue {
         return mValue.isNumber();
     }
 
-    float asNumber(){
+    double asNumber(){
         return mValue.asNumber();
     }
 
-    float prodValFreq(){
-        return mValue.isNumber() ? mValue.asNumber() * mFrequency : -1f;
+    double prodValFreq(){
+        return mValue.isNumber() ? mValue.asNumber() * mFrequency : -1d;
     }
 
-    float powValFreq(){
-        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), mFrequency) : -1f;
+    double powValFreq(){
+        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), mFrequency) : -1d;
     }
 
-    float divByVal(){
-        if (!isNumber()) return  -1L;
-        return mValue.asNumber() != 0 ? 1 / mValue.asNumber() : 0f;
+    double divByVal(){
+        if (!isNumber()) return  -1d;
+        return mValue.asNumber() != 0 ? 1 / mValue.asNumber() : 0d;
     }
 
-    float divFreqVal(){
+    double divFreqVal(){
         if(!isNumber()) return -1L;
-        return mValue.asNumber() != 0 ? mFrequency / mValue.asNumber() : 0f;
+        return mValue.asNumber() != 0 ? mFrequency / mValue.asNumber() : 0d;
     }
 
-    float sqrtVal(){
-        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), 2) : -1f;
+    double sqrtVal(){
+        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), 2) : -1d;
     }
 
-    float prodSqrtValFreq(){
-        return mValue.isNumber() ? (float) Math.sqrt(mValue.asNumber()) * mFrequency : -1f;
+    double prodSqrtValFreq(){
+        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), 2) * mFrequency : -1d;
     }
 
     @Override

@@ -28,7 +28,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
 
         boolean isNumber();
 
-        Float asNumber();
+        Double asNumber();
     }
 
     public TableCell(Context context) {
@@ -95,7 +95,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
 
     private String getTitle(){
         if(isNumber()) {
-            int rounded = Math.round(mValue.asNumber());
+            long rounded = Math.round(mValue.asNumber());
             return mValue.asNumber() - rounded == 0
                     ? String.valueOf(rounded)
                     : String.format(Locale.getDefault(), "%.6f", mValue.asNumber());
@@ -117,7 +117,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         return mValue.isNumber();
     }
 
-    public float asFloat() {
+    public double asFloat() {
         return mValue.asNumber();
     }
 

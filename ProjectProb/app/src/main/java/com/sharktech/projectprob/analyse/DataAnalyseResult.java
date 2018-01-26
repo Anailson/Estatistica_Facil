@@ -1,8 +1,9 @@
 package com.sharktech.projectprob.analyse;
 
+import android.util.Log;
+
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.models.VariableNumber;
-import com.sharktech.projectprob.models.VariableObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +21,12 @@ class DataAnalyseResult {
         WEIGHTED, POUND_WEIGHTED, QUADRATIC, POUND_QUADRATIC
     }
 
-    private TableCell.ICell mMode;
+    private ArrayList<TableCell.ICell> mModes;
     private HashMap<AverageKey, Double> mAverages;
     private HashMap<ValueKey, ArrayList<TableCell.ICell>> mResultMap;
 
     DataAnalyseResult() {
-        this.mMode = new VariableObject.ValueObject();
+        this.mModes = new ArrayList<>();
         this.mAverages = new HashMap<>();
         this.mResultMap = new HashMap<>();
 
@@ -41,7 +42,7 @@ class DataAnalyseResult {
     }
 
     void clear(){
-        mMode = new VariableObject.ValueObject();
+        mModes.clear();
 
         mResultMap.get(ValueKey.DATA).clear();
         mResultMap.get(ValueKey.FREQUENCY).clear();
@@ -56,7 +57,6 @@ class DataAnalyseResult {
 
     void calculate(ArrayList<DataAnalyseValue> values){
 
-        TableCell.ICell mode = null;
         long frequency = 0;
         Double sumFrequency = 0d, sumArithmetic = 0d, sumPoundArithmetic = 0d,
                 prodGeometric = 1d, prodPoundGeometric = 1d,
@@ -64,8 +64,11 @@ class DataAnalyseResult {
                 sumQuadratic = 0d, sumPoundQuadratic = 0d;
 
         for (DataAnalyseValue data : values){
-            if(data.getFrequency() > frequency){
-                mode = data.getValue();
+            if(data.getFrequency() == frequency){
+                mModes.add(data.getValue());
+            } else if(data.getFrequency() > frequency){
+                mModes.clear();
+                mModes.add(data.getValue());
                 frequency = data.getFrequency();
             }
 
@@ -83,14 +86,14 @@ class DataAnalyseResult {
 
             //Values
             add(ValueKey.DATA, data.getValue());
-            add(ValueKey.FREQUENCY, new VariableNumber.ValueInteger(data.getFrequency()));
-            add(ValueKey.PROD_VAL_FREQ, new VariableNumber.ValueInteger(data.prodValFreq()));
-            add(ValueKey.POW_VAL, new VariableNumber.ValueInteger(data.asNumber()));
-            add(ValueKey.POW_VAL_FREQ, new VariableNumber.ValueInteger(data.powValFreq()));
-            add(ValueKey.DIV_BY_VAL, new VariableNumber.ValueInteger(data.divByVal()));
-            add(ValueKey.DIV_FREQ_VAL, new VariableNumber.ValueInteger(data.divFreqVal()));
-            add(ValueKey.SQRT_VAL, new VariableNumber.ValueInteger(data.sqrtVal()));
-            add(ValueKey.PROD_SQRT_VAL_FREQ, new VariableNumber.ValueInteger(data.prodSqrtValFreq()));
+            add(ValueKey.FREQUENCY, (double) data.getFrequency());
+            add(ValueKey.PROD_VAL_FREQ, data.prodValFreq());
+            add(ValueKey.POW_VAL, data.asNumber());
+            add(ValueKey.POW_VAL_FREQ, data.powValFreq());
+            add(ValueKey.DIV_BY_VAL, data.divByVal());
+            add(ValueKey.DIV_FREQ_VAL, data.divFreqVal());
+            add(ValueKey.SQRT_VAL, data.sqrtVal());
+            add(ValueKey.PROD_SQRT_VAL_FREQ, data.prodSqrtValFreq());
         }
 
         //Value accumulate (sum and prod)
@@ -108,6 +111,7 @@ class DataAnalyseResult {
         //TODO verify how to calculate root n.
         double avgGeo = Math.pow(prodGeometric, (1 / values.size()));
         double avgGeoPound = Math.pow(prodPoundGeometric, (1 / sumFrequency));
+        Log.e("ROOT_N", "avgGeo " + avgGeo + " avgGeoPound " + avgGeoPound);
         add(AverageKey.ARITHMETIC, sumArithmetic / values.size());
         add(AverageKey.POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
         add(AverageKey.GEOMETRIC, avgGeo);
@@ -116,11 +120,10 @@ class DataAnalyseResult {
         add(AverageKey.POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
         add(AverageKey.QUADRATIC, Math.sqrt(sumQuadratic));
         add(AverageKey.POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
-        setMode(mode);
     }
 
-    TableCell.ICell getMode() {
-        return mMode;
+    ArrayList<TableCell.ICell> getMode() {
+        return mModes;
     }
 
     Double get(AverageKey key){
@@ -135,10 +138,6 @@ class DataAnalyseResult {
         return mResultMap.get(key);
     }
 
-    private void setMode(TableCell.ICell mode) {
-        if(mode == null) throw new IllegalArgumentException("Mode cannot be null");
-        this.mMode = mode;
-    }
 
     private void add(ValueKey key, Double value){
         add(key, new VariableNumber.ValueInteger(value));

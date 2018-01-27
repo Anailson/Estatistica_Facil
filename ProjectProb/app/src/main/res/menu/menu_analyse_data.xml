@@ -6,6 +6,10 @@
         android:icon="@android:drawable/ic_dialog_dialer"
         android:title="@string/txt_tab_table" />
     <item
+        android:id="@+id/menu_class"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/txt_tab_class" />
+    <item
         android:id="@+id/menu_details"
         android:icon="@android:drawable/ic_dialog_info"
         android:title="@string/txt_tab_description" />

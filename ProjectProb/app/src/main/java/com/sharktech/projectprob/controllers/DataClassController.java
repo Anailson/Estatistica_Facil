@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.view.ViewGroup;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.analyse.DataAnalyse;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.TableColumn;
-import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
 
@@ -27,15 +27,8 @@ public class DataClassController {
     }
 
     public ViewGroup buildTable() {
-        ArrayList<TableColumn.IVariable> variables = new ArrayList<>();
-
-
-        if (mVariable != null){
-
-            VariableString variable = new VariableString("Classes");
-            variable.add(new String[]{"oi", "tudo", "bem"});
-            variables.add(variable);
-        }
+        DataAnalyse analyse = new DataAnalyse(mVariable);
+        ArrayList<TableColumn.IVariable> variables = analyse.initClasses();
 
         mTable = new CustomTable(mFragment.getContext());
         mTable.setLineCounter(true);

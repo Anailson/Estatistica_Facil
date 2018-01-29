@@ -5,34 +5,62 @@ import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.ArrayList;
 
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.*;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.*;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.ARITHMETIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.GEOMETRIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_ARITHMETIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_GEOMETRIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_QUADRATIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_WEIGHTED;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.QUADRATIC;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.WEIGHTED;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DATA;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DIV_BY_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DIV_FREQ_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.FREQUENCY;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.POW_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.POW_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.PROD_SQRT_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.PROD_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.SQRT_VAL;
 
 public class DataAnalyse {
 
+    private boolean mInitialized;
     private TableColumn.IVariable mVariable;
     private ArrayList<DataAnalyseValue> mValues;
     private DataAnalyseResult mResult;
 
     public DataAnalyse(TableColumn.IVariable variable) {
+        this.mInitialized = false;
         this.mVariable = variable;
         this.mValues = new ArrayList<>();
         this.mResult = new DataAnalyseResult();
     }
 
     public void setVariable(TableColumn.IVariable mVariable) {
+        this.mInitialized = false;
         this.mVariable = mVariable;
         this.mValues.clear();
         this.mResult.clear();
     }
 
     public boolean calculate(){
-
-        if(!init()){
+        init();
+        if(!mInitialized){
             return false;
         }
         mResult.calculate(mValues);
         return true;
+    }
+
+    public ArrayList<TableColumn.IVariable> initClasses(){
+
+        if(mVariable != null) {
+            DataAnalyseClass dClass = new DataAnalyseClass();
+            dClass.initClasses(mVariable.getElements());
+            return dClass.getClasses();
+        }
+        return new ArrayList<>();
     }
 
     public int size(){
@@ -137,6 +165,7 @@ public class DataAnalyse {
     }
 
     private boolean init(){
+        if(mInitialized) return true;
 
         if(mVariable == null || mVariable.nElements() == 0) return false;
 
@@ -149,7 +178,7 @@ public class DataAnalyse {
                 mValues.add(new DataAnalyseValue(cell));
             }
         }
-        return true;
+        return mInitialized = true;
     }
 
     private int indexOf(ICell cell){

@@ -35,7 +35,7 @@ public abstract class SyntacticParser {
         throw new TokenException(new Token(Token.ANY, "", position), TokenException.CMD_UNEXPECTED_END + " " + msgErr);
     }
 
-    private boolean hasTokens() {
+    protected boolean hasTokens() {
         return index < tokens.size();
     }
 

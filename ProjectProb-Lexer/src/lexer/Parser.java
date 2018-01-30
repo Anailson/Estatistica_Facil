@@ -37,6 +37,7 @@ public class Parser {
     private ArrayList<Token> lexical(String sourceCode) throws TokenException{
 
         ArrayList<Token> tokens = new ArrayList<>();
+
         try {
             sourceCode += " ";
             Lexer scanner = new Lexer(new StringReader(sourceCode));
@@ -73,6 +74,6 @@ public class Parser {
 
         int id();
 
-        Token getValue(int type) throws Exception;
+        Token getValue(int type);
     }
 }

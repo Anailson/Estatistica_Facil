@@ -8,15 +8,15 @@ public class Token {
     public static final int EMPTY = -2;
 
     public static final int ADD = 2;
-    public static final int ADD_VAR = 3;
     public static final int DELETE = 4;
-    public static final int DELETE_VAR = 5;
     public static final int EDIT = 6;
     public static final int COLUMN = 8;
+    public static final int ROW = 9;
     public static final int VAL = 10;
     public static final int NUMBER = 11;
     public static final int TEXT = 12;
     public static final int VALUES = 13;
+    public static final int NEW = 14;
 
     private int pos;
     private Type type;
@@ -67,12 +67,12 @@ public class Token {
     public static String name(int type){
 
         switch (type){
+            case NEW: return "NEW";
             case ADD: return "ADD";
-            case ADD_VAR: return "ADD_VAR";
             case DELETE: return "DELETE";
-            case DELETE_VAR: return "DELETE_VAR";
             case EDIT: return "EDIT";
             case COLUMN: return "COLUMN";
+            case ROW: return "ROW";
             case VAL: return "VAL";
             case NUMBER: return "NUMBER";
             case TEXT: return "TEXT";

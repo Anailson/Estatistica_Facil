@@ -48,7 +48,7 @@ public class DataAnalyseController {
         Fragment fragment;
         switch (menuResource) {
             case R.id.menu_table: fragment = DataTableView.newInstance(mVariable); break;
-            case R.id.menu_class: fragment = DataClassView.newInstance(mVariable); break;
+            //case R.id.menu_class: fragment = DataClassView.newInstance(mVariable); break;
             case R.id.menu_details: fragment = DataDetailsView.newInstance(mVariable); break;
             case R.id.menu_chart: fragment = DataChartView.newInstance(mVariable); break;
             default: return false;

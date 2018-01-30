@@ -42,6 +42,10 @@ public class DataChartController {
         }
     }
 
+    public void hasNoVariable(){
+        removeChartView();
+    }
+
     public void initChart(){
         setGraph(-1);
     }

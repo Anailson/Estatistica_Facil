@@ -35,17 +35,22 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
             mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
 
         mController = new DataDetailsController(this, mVariable);
+        mController.calculate();
         return inflater.inflate(R.layout.fragment_data_details, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mController.calculate();
     }
 
     @Override
     public void onChangeVariable(TableColumn.IVariable variable) {
         mController.changeVariable(variable);
+    }
+
+    @Override
+    public void onHasNoVariable() {
+        mController.hasNoVariable();
     }
 }

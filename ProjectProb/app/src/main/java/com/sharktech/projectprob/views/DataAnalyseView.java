@@ -62,5 +62,7 @@ public class DataAnalyseView extends Fragment {
 
     public interface ChangeVariableListener{
         void onChangeVariable(TableColumn.IVariable variable);
+
+        void onHasNoVariable();
     }
 }

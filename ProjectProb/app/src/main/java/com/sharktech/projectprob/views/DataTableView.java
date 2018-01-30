@@ -15,7 +15,6 @@ import com.sharktech.projectprob.customtable.TableColumn;
 public class DataTableView extends Fragment implements DataAnalyseView.ChangeVariableListener{
 
     private DataTableController mController;
-    private ViewGroup mContentTable;
     private TableColumn.IVariable mVariable;
 
     public static DataTableView newInstance(TableColumn.IVariable variable){
@@ -33,9 +32,10 @@ public class DataTableView extends Fragment implements DataAnalyseView.ChangeVar
         Bundle bundle = getArguments();
         if(bundle != null) mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
 
-        View view = inflater.inflate(R.layout.fragment_data_table, container, false);
         mController = new DataTableController(this, mVariable);
-        mContentTable = view.findViewById(R.id.content_data_table);
+        View view = inflater.inflate(R.layout.fragment_data_table, container, false);
+        ViewGroup mContentTable = view.findViewById(R.id.content_data_table);
+        mContentTable.addView(mController.buildTable());
 
         return view;
     }
@@ -43,12 +43,15 @@ public class DataTableView extends Fragment implements DataAnalyseView.ChangeVar
     @Override
     public void onResume() {
         super.onResume();
-        ViewGroup table = mController.buildTable();
-        mContentTable.addView(table);
     }
 
     @Override
     public void onChangeVariable(TableColumn.IVariable variable) {
         mController.changeVariable(variable);
+    }
+
+    @Override
+    public void onHasNoVariable() {
+        mController.hasNoVariable();
     }
 }

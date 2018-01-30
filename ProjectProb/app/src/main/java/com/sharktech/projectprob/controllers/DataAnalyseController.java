@@ -71,11 +71,15 @@ public class DataAnalyseController {
     }
 
     private void changeVariable(int position){
+        Fragment fragment = mFragmentsChild.get(mActualMenu);
         if(position >= 0) {
             mVariable = VariablePersistence.getInstance().getVariables().get(position);
-            Fragment fragment = mFragmentsChild.get(mActualMenu);
             if(fragment instanceof DataAnalyseView.ChangeVariableListener){
                 ((DataAnalyseView.ChangeVariableListener) fragment).onChangeVariable(mVariable);
+            }
+        }else {
+            if(fragment instanceof DataAnalyseView.ChangeVariableListener){
+                ((DataAnalyseView.ChangeVariableListener) fragment).onHasNoVariable();
             }
         }
     }

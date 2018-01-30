@@ -1,6 +1,7 @@
 package com.sharktech.projectprob.controllers;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.sharktech.projectprob.R;
@@ -22,6 +23,18 @@ public class DataClassController {
 
     public void changeVariable(TableColumn.IVariable variable) {
         this.mVariable = variable;
+        mTable.clear();
+
+        View view = mFragment.getView();
+        if(view != null){
+            ViewGroup mContentTable = view.findViewById(R.id.content_class_table);
+            mContentTable.addView(buildTable());
+        }
+        mFragment.onResume();
+    }
+
+    public void hasNoVariable(){
+        mVariable = null;
         mTable.clear();
         mFragment.onResume();
     }

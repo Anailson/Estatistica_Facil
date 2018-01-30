@@ -52,4 +52,9 @@ public class DataChartView extends Fragment implements DataAnalyseView.ChangeVar
     public void onChangeVariable(TableColumn.IVariable variable) {
         mController.changeVariable(variable);
     }
+
+    @Override
+    public void onHasNoVariable() {
+        mController.hasNoVariable();
+    }
 }

@@ -25,7 +25,12 @@ public class DataDetailsController {
 
     public void changeVariable(TableColumn.IVariable variable) {
         mAnalyse.setVariable(variable);
+        calculate();
         mFragment.onResume();
+    }
+
+    public void hasNoVariable(){
+        defaultValues();
     }
 
     public void calculate(){
@@ -53,16 +58,21 @@ public class DataDetailsController {
             fillText(R.id.txt_avg_quadratic_pound, mAnalyse.avgQuadraticPound());
             fillText(R.id.txt_mode, modeText);
         } else {
-            fillText(R.id.txt_avg_arithmetic, -1d);
-            fillText(R.id.txt_avg_arithmetic_pound, -1d);
-            fillText(R.id.txt_avg_geometric, -1d);
-            fillText(R.id.txt_avg_geometric_pound, -1d);
-            fillText(R.id.txt_avg_weighted, -1d);
-            fillText(R.id.txt_avg_weighted_pound, -1d);
-            fillText(R.id.txt_avg_quadratic, -1d);
-            fillText(R.id.txt_avg_quadratic_pound, -1d);
-            fillText(R.id.txt_mode, -1d);
+            defaultValues();
         }
+    }
+
+    private void defaultValues(){
+
+        fillText(R.id.txt_avg_arithmetic, -1d);
+        fillText(R.id.txt_avg_arithmetic_pound, -1d);
+        fillText(R.id.txt_avg_geometric, -1d);
+        fillText(R.id.txt_avg_geometric_pound, -1d);
+        fillText(R.id.txt_avg_weighted, -1d);
+        fillText(R.id.txt_avg_weighted_pound, -1d);
+        fillText(R.id.txt_avg_quadratic, -1d);
+        fillText(R.id.txt_avg_quadratic_pound, -1d);
+        fillText(R.id.txt_mode, -1d);
     }
 
     private <T extends View> T findViewById(int id){

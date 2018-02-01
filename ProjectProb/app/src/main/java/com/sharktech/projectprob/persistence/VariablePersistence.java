@@ -18,36 +18,17 @@ public class VariablePersistence {
     private VariablePersistence() {
         this.mVariables = new ArrayList<>();
         this.mVarsAuxi = new ArrayList<>();
+        init();
     }
 
-    public static VariablePersistence getInstance(){
-        if(mPersistence == null){
-            mPersistence = new VariablePersistence();
-        }
-        return mPersistence;
-    }
-
-    public ArrayList<IVariable> getVariables(IVariable variables) {
-        add(variables);
-        return getVariables();
-    }
-
-    public ArrayList<IVariable> getVariables(ArrayList<IVariable> variables) {
-        add(variables);
-        return getVariables();
-    }
-
-    public ArrayList<IVariable> getVariables() {
-        mVariables = new ArrayList<>();
-
-
+    private void init(){
         VariableObject person = new VariableObject("Pessoa");
         person.add(new VariableObject.ValueObject[]{
-            new VariableObject.ValueObject("Joao 23"),
-            new VariableObject.ValueObject("Antônio 25"),
-            new VariableObject.ValueObject("Maria 23"),
-            new VariableObject.ValueObject("Antônio 25"),
-            new VariableObject.ValueObject("Francisca 52")
+                new VariableObject.ValueObject("Joao 23"),
+                new VariableObject.ValueObject("Antônio 25"),
+                new VariableObject.ValueObject("Maria 23"),
+                new VariableObject.ValueObject("Antônio 25"),
+                new VariableObject.ValueObject("Francisca 52")
         });
 
         VariableNumber flts = new VariableNumber("Float");
@@ -75,7 +56,35 @@ public class VariablePersistence {
         mVariables.add(chars);
         mVariables.add(strs);
         mVariables.add(person);
+    }
 
+    public static VariablePersistence getInstance(){
+        if(mPersistence == null){
+            mPersistence = new VariablePersistence();
+        }
+        return mPersistence;
+    }
+
+    public ArrayList<IVariable> getVariables(IVariable variables) {
+        add(variables);
+        return getVariables();
+    }
+
+    public ArrayList<IVariable> getVariables(ArrayList<IVariable> variables) {
+        add(variables);
+        return getVariables();
+    }
+
+    public int size(){
+        return getVariables().size();
+    }
+
+    public IVariable getVariable(int index){
+        return getVariables().get(index);
+    }
+
+    public ArrayList<IVariable> getVariables() {
+        //mVariables = new ArrayList<>();
         if(mVarsAuxi.size() > 0){
             mVariables.addAll(mVarsAuxi);
         }

@@ -6,19 +6,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.TableColumn;
-import com.sharktech.projectprob.models.VariableString;
+import com.sharktech.projectprob.parser.VariableParser;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 
 import exception.TokenException;
-import lexer.Parser;
-import lexer.Token;
-import parser.ParserAdd;
 
 
 public class VariableTableController {
@@ -26,67 +24,72 @@ public class VariableTableController {
     private Fragment mFragment;
     private Listeners mListeners;
     private CustomTable mCustomTable;
+    private VariableParser mParser;
 
-    public VariableTableController(Fragment fragment){
+    public VariableTableController(Fragment fragment) {
         this.mListeners = new Listeners();
         this.mFragment = fragment;
+        this.mParser = new VariableParser();
     }
 
-    public View.OnClickListener getClickListener(){
+    public View.OnClickListener getClickListener() {
         return mListeners;
     }
 
-    public ViewGroup buildTable(){
+    public ViewGroup buildTable() {
         mCustomTable = new CustomTable(mFragment.getContext());
         mCustomTable.setLineCounter(false);
         mCustomTable.setNoDataFound(R.string.txt_no_variable_inserted);
         ArrayList<TableColumn.IVariable> vars = VariablePersistence.getInstance().getVariables();
+
+
+
+        for(TableColumn.IVariable variable : vars){
+            Log.e("Size pos", variable.getTitle() + " size: " + variable.nElements());
+        }
+
+
         return mCustomTable.build(vars);
     }
 
-    private void clearTable(){
-
-        Activity activity = mFragment.getActivity();
-        if(activity != null){
-
-            ViewGroup contentTable = activity.findViewById(R.id.content_table);
-            //contentTable.removeView(mCustomTable);
-
+    private void clearTable() {
+        View view = mFragment.getView();
+        if (view != null) {
+            ViewGroup contentTable = view.findViewById(R.id.content_table);
+            contentTable.removeAllViews();
             mCustomTable.clear();
             mFragment.onResume();
         }
     }
 
-    private void add(ParserAdd parser){
 
-        VariableString objects  = new VariableString("Nova Variavel");
-        objects.add(new String[]{ "Valor #1", "Valor #2", "Valor #3", "Valor #4", "Valor #5", "Valor #6"});
-        VariablePersistence.getInstance().add(objects);
-        clearTable();
-    }
-
-
-    private class Listeners implements View.OnClickListener{
+    private class Listeners implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
             Activity activity = mFragment.getActivity();
             if (activity != null) {
                 String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString();
-
-                Parser parser = new Parser();
-                parser.register(Token.ADD, new ParserAdd());
-
-                try {
-                    Parser.IBaseOperation op = parser.analyse(source + " ");
-
-                    switch (op.id()) {
-                        case Token.ADD: add((ParserAdd) op); break;
-                    }
-                } catch (TokenException e) {
-                    Log.e("Exception", e.getMessage());
-                }
+                mParser.analyse(source, new OnPostAnalyse());
             }
+        }
+    }
+
+    private class OnPostAnalyse implements VariableParser.IParserResult {
+
+        @Override
+        public void onSuccess() {
+
+            clearTable();
+            //buildTable();
+        }
+
+        @Override
+        public void onError(TokenException e) {
+            Toast.makeText(mFragment.getContext(),
+                    "Exception " + e.getMessage() + "\n\n" + e.getTokenInfo(),
+                    Toast.LENGTH_LONG)
+                    .show();
         }
     }
 }

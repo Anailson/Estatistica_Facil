@@ -29,9 +29,11 @@ ROW             = "row"
 VAL             = "val"
 
 NUMBER          = [0-9]+
-LETTER          = [a-zA-Z_-]+
-TEXT            = {LETTER}({NUMBER} | {LETTER} | "-" | "_")+
-VALUES          = {NUMBER}({DIVIDER}{NUMBER})+ | {TEXT}({DIVIDER}{TEXT})+
+LETTER          = [a-zA-Z]
+CHARACTER       = [-_]
+TEXT            = {LETTER}({NUMBER} | {LETTER} | {CHARACTER})+
+VALUE           = {NUMBER} | {LETTER} | {TEXT}
+VALUES          = {VALUE}({DIVIDER}{VALUE})+
 
 %%
 

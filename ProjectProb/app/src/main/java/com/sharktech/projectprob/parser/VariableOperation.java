@@ -1,5 +1,6 @@
 package com.sharktech.projectprob.parser;
 
+import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
@@ -7,6 +8,7 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import lexer.Token;
 import parser.ParserAdd;
+import parser.ParserEdit;
 import parser.ParserNew;
 
 class VariableOperation {
@@ -64,6 +66,31 @@ class VariableOperation {
         return type;
     }
 
+    VariableParser.Error edit(ParserEdit parser){
+
+        VariablePersistence persistence = VariablePersistence.getInstance();
+
+        int col = Integer.parseInt(parser.getValue(Token.COLUMN).getText());
+        int row = Integer.parseInt(parser.getValue(Token.ROW).getText());
+        Token val = parser.getValue(Token.VAL);
+        TableColumn.IVariable variable = persistence.getVariable(col);
+        VariableParser.Error error = type(val, variable);
+
+        TableCell.ICell cell = null;
+
+        if(error == VariableParser.Error.MATCH_NUMBER) {
+            Integer valNum = Integer.parseInt(val.getText());
+            cell = new VariableNumber.ValueInteger(valNum);
+        } else if(error == VariableParser.Error.MATCH_TEXT) {
+            cell = new VariableString.ValueString(val.getText());
+        }
+
+        if(cell != null) {
+            variable.setElement(cell, row);
+        }
+        return error;
+    }
+
     private void addNumber(TableColumn.IVariable variable, String value) {
         ((VariableNumber) variable).add(Integer.valueOf(value));
     }
@@ -87,7 +114,7 @@ class VariableOperation {
 
     private VariableParser.Error type(String[] values) {
         if (values.length > 0) {
-            return values[0].matches("[0-9]+")
+            return isNumber(values[0])
                     ? VariableParser.Error.MATCH_NUMBER
                     : VariableParser.Error.MATCH_TEXT;
         }
@@ -96,7 +123,7 @@ class VariableOperation {
 
     private VariableParser.Error type(String[] values, TableColumn.IVariable variable) {
         if (values.length > 0) {
-            boolean isNumber = values[0].matches("[0-9]+");
+            boolean isNumber = isNumber(values[0]);
             Class cls = variable.getClass();
 
             if(isNumber && cls == VariableNumber.class) return VariableParser.Error.MATCH_NUMBER;
@@ -117,5 +144,9 @@ class VariableOperation {
         else if (type == Token.TEXT && cls != VariableString.class) return VariableParser.Error.ERR_TEXT_NUMBER;
         else if (type == Token.VALUES) return VariableParser.Error.MATCH_MANY_VALUES;
         return VariableParser.Error.ERR_GENERAL;
+    }
+
+    private boolean isNumber(String values){
+        return values.matches("[0-9]+");
     }
 }

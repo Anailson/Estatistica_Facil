@@ -52,6 +52,7 @@ public class VariableParser {
             switch (op.id()) {
                 case Token.NEW: error = operation.newVar((ParserNew) op); break;
                 case Token.ADD: error = operation.add((ParserAdd) op); break;
+                case Token.EDIT: error = operation.edit((ParserEdit) op); break;
             }
 
         } catch (TokenException e) {

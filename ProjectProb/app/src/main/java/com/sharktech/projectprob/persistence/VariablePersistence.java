@@ -84,9 +84,10 @@ public class VariablePersistence {
     }
 
     public ArrayList<IVariable> getVariables() {
-        //mVariables = new ArrayList<>();
+
         if(mVarsAuxi.size() > 0){
             mVariables.addAll(mVarsAuxi);
+            mVarsAuxi.clear();
         }
 
         return mVariables;

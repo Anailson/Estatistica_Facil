@@ -2,7 +2,6 @@ package com.sharktech.projectprob.controllers;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -42,13 +41,6 @@ public class VariableTableController {
         mCustomTable.setNoDataFound(R.string.txt_no_variable_inserted);
         ArrayList<TableColumn.IVariable> vars = VariablePersistence.getInstance().getVariables();
 
-
-
-        for(TableColumn.IVariable variable : vars){
-            Log.e("Size pos", variable.getTitle() + " size: " + variable.nElements());
-        }
-
-
         return mCustomTable.build(vars);
     }
 
@@ -86,7 +78,7 @@ public class VariableTableController {
         @Override
         public void onError(TokenException e) {
             Toast.makeText(mFragment.getContext(),
-                    "Exception " + e.getMessage() + "\n\n" + e.getTokenInfo(),
+                    "Exception " + e.getTokenInfo(),
                     Toast.LENGTH_LONG)
                     .show();
         }

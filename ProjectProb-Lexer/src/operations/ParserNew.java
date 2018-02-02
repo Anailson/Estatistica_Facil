@@ -7,12 +7,14 @@ import lexer.Token;
 
 public class ParserNew extends SyntacticParser implements Parser.IBaseOperation{
 
-    private Token title;
+    private Token title, val;
 
     @Override
     protected Parser.IBaseOperation parse(Token token) throws TokenException {
         eat(Token.COLUMN);
         title = eat(Token.TEXT);
+        eat(Token.VAL);
+        val = eat(Token.VALUES, Token.NUMBER, Token.TEXT);
         return this;
     }
 
@@ -23,6 +25,9 @@ public class ParserNew extends SyntacticParser implements Parser.IBaseOperation{
 
     @Override
     public Token getValue(int type) {
-        return type == Token.TEXT ? title : new Token(Token.ANY, Token.name(Token.ANY), 0);
+
+        if(type == Token.TEXT) return title;
+        else if(type == Token.VAL) return  val;
+        return new Token(Token.ANY, Token.name(Token.ANY), 0);
     }
 }

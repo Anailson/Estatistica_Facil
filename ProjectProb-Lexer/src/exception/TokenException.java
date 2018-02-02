@@ -25,6 +25,14 @@ public class TokenException extends Exception{
         this.error = error;
     }
 
+    public String getText(){
+        return unexpected.getText();
+    }
+
+    public int position(){
+        return unexpected.getPosition();
+    }
+
     public String getTokenInfo(){
         return unexpected.isInvalid()
             ? String.format(Locale.getDefault(), "Posicao '%d'.", unexpected.getPosition())

@@ -29,7 +29,8 @@ ROW             = "row"
 VAL             = "val"
 
 NUMBER          = [0-9]+
-TEXT            = [a-zA-Z_]+
+LETTER          = [a-zA-Z_-]+
+TEXT            = {LETTER}({NUMBER} | {LETTER} | "-" | "_")+
 VALUES          = {NUMBER}({DIVIDER}{NUMBER})+ | {TEXT}({DIVIDER}{TEXT})+
 
 %%

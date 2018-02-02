@@ -1,5 +1,8 @@
 package com.sharktech.projectprob.parser;
 
+import android.content.Context;
+
+import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
@@ -14,6 +17,7 @@ import parser.ParserNew;
 
 public class VariableParser {
 
+    private Context mContext;
     private Parser mParser;
     private IParserResult mResult;
 
@@ -21,7 +25,8 @@ public class VariableParser {
         ERR_GENERAL, MATCH_MANY_VALUES, MATCH_NUMBER, MATCH_TEXT, ERR_NUMBER_TEXT, ERR_TEXT_NUMBER,
     }
 
-    public VariableParser() {
+    public VariableParser(Context context) {
+        this.mContext = context;
         this.mParser = new Parser();
         this.mResult = new IParserResult() {
             @Override
@@ -60,19 +65,19 @@ public class VariableParser {
 
     private void result(Error err, Token lastToken) {
 
-        String msg = "";
+        int msgResource = -1;
         if (err == Error.MATCH_TEXT || err == Error.MATCH_NUMBER || err == Error.MATCH_MANY_VALUES) {
             mResult.onSuccess();
             return;
         } else if (err == Error.ERR_TEXT_NUMBER) {
-            msg = "Era esperado um valor nao numerico";
+            msgResource = R.string.err_text_number;
         } else if (err == Error.ERR_NUMBER_TEXT) {
-            msg = "Era esperado um valor numerico";
+            msgResource = R.string.err_number_text;
         } else if (err == Error.ERR_GENERAL) {
-            msg = "Erro desconhecido";
+            msgResource = R.string.err_general;
         }
 
-        mResult.onError(new TokenException(lastToken, msg));
+        mResult.onError(new TokenException(lastToken, mContext.getString(msgResource)));
     }
 
     static Error instanceOf(Token token, TableColumn.IVariable var) {

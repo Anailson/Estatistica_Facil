@@ -57,6 +57,10 @@
 
     <!--<string name="txt_avg_geometric_sym">x&#772; = &#8305;&#8730;(&#8719;(&#967;&#161; ^ &#402;&#161;)) ^ (1 / &#402;&#161;) </string>-->
 
+    <!-- Errors -->
+    <string name="err_text_number">Era esperado um valor numérico</string>
+    <string name="err_number_text">Era esperado um valor literal</string>
+    <string name="err_general">Erro desconhecido</string>
 
     <!-- Menus -->
     <string name="menu_import_data">Importar dados (.cvs)</string>

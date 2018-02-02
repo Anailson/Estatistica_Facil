@@ -29,7 +29,7 @@ public class VariableTableController {
     public VariableTableController(Fragment fragment) {
         this.mListeners = new Listeners();
         this.mFragment = fragment;
-        this.mParser = new VariableParser();
+        this.mParser = new VariableParser(fragment.getContext());
     }
 
     public View.OnClickListener getClickListener() {

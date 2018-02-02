@@ -53,6 +53,7 @@ public class VariableParser {
         try {
             Parser.IBaseOperation op = mParser.analyse(source);
             switch (op.id()) {
+                case Token.NEW: error = operation.newVar((ParserNew) op); break;
                 case Token.ADD: error = operation.add((ParserAdd) op); break;
             }
 

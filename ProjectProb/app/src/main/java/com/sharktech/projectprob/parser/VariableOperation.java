@@ -7,6 +7,7 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import lexer.Token;
 import parser.ParserAdd;
+import parser.ParserNew;
 
 class VariableOperation {
 
@@ -21,12 +22,12 @@ class VariableOperation {
     }
 
     VariableParser.Error add(ParserAdd parser) {
-        VariablePersistence persistence = VariablePersistence.getInstance();
+
         int col = Integer.parseInt(parser.getValue(Token.COLUMN).getText()) - 1;
         Token val = parser.getValue(Token.VAL);
         mLastToken = val;
 
-        TableColumn.IVariable variable = persistence.getVariable(col);
+        TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(col);
         VariableParser.Error err = VariableParser.instanceOf(val, variable);
 
         if (err == VariableParser.Error.MATCH_NUMBER) addNumber(variable, val.getText());
@@ -40,6 +41,26 @@ class VariableOperation {
             else return VariableParser.Error.ERR_GENERAL;
         }
         return err;
+    }
+
+    VariableParser.Error newVar(ParserNew parser){
+        String title = parser.getValue(Token.TEXT).getText();
+        String[] values = parser.getValue(Token.VAL).getText().split(",");
+        VariableParser.Error type = type(values);
+
+        TableColumn.IVariable var = null;
+        if(type == VariableParser.Error.MATCH_NUMBER) {
+            var = new VariableNumber(title);
+            addNumber(var, values);
+        } else if(type == VariableParser.Error.MATCH_TEXT) {
+            var = new VariableString(title);
+            addString(var, values);
+        }
+
+        if(type != VariableParser.Error.ERR_GENERAL) {
+            VariablePersistence.getInstance().add(var);
+        }
+        return type;
     }
 
     private void addNumber(TableColumn.IVariable variable, String value) {

@@ -3,9 +3,6 @@ package com.sharktech.projectprob.parser;
 import android.content.Context;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.customtable.TableColumn;
-import com.sharktech.projectprob.models.VariableNumber;
-import com.sharktech.projectprob.models.VariableString;
 
 import exception.TokenException;
 import lexer.Parser;
@@ -79,18 +76,6 @@ public class VariableParser {
         }
 
         mResult.onError(new TokenException(lastToken, mContext.getString(msgResource)));
-    }
-
-    static Error instanceOf(Token token, TableColumn.IVariable var) {
-        int type = token.getType();
-        Class cls = var.getClass();
-
-        if (type == Token.NUMBER && cls == VariableNumber.class) return Error.MATCH_NUMBER;
-        else if (type == Token.TEXT && cls == VariableString.class) return Error.MATCH_TEXT;
-        else if (type == Token.NUMBER && cls != VariableNumber.class) return Error.ERR_NUMBER_TEXT;
-        else if (type == Token.TEXT && cls != VariableString.class) return Error.ERR_TEXT_NUMBER;
-        else if (type == Token.VALUES) return Error.MATCH_MANY_VALUES;
-        return Error.ERR_GENERAL;
     }
 
     public interface IParserResult {

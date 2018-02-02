@@ -28,14 +28,14 @@ class VariableOperation {
         mLastToken = val;
 
         TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(col);
-        VariableParser.Error err = VariableParser.instanceOf(val, variable);
+        VariableParser.Error err = type(val, variable);
 
         if (err == VariableParser.Error.MATCH_NUMBER) addNumber(variable, val.getText());
         else if (err == VariableParser.Error.MATCH_TEXT) addString(variable, val.getText());
         else if (err == VariableParser.Error.MATCH_MANY_VALUES) {
 
             String[] values = val.getText().replaceAll(" ", "").split(",");
-            VariableParser.Error type = type(values);
+            VariableParser.Error type = type(values, variable);
             if (type == VariableParser.Error.MATCH_NUMBER) addNumber(variable, values);
             else if (type == VariableParser.Error.MATCH_TEXT) addString(variable, values);
             else return VariableParser.Error.ERR_GENERAL;
@@ -45,7 +45,8 @@ class VariableOperation {
 
     VariableParser.Error newVar(ParserNew parser){
         String title = parser.getValue(Token.TEXT).getText();
-        String[] values = parser.getValue(Token.VAL).getText().split(",");
+        mLastToken = parser.getValue(Token.VAL);
+        String[] values = mLastToken.getText().split(",");
         VariableParser.Error type = type(values);
 
         TableColumn.IVariable var = null;
@@ -86,11 +87,35 @@ class VariableOperation {
 
     private VariableParser.Error type(String[] values) {
         if (values.length > 0) {
-
             return values[0].matches("[0-9]+")
                     ? VariableParser.Error.MATCH_NUMBER
                     : VariableParser.Error.MATCH_TEXT;
         }
+        return VariableParser.Error.ERR_GENERAL;
+    }
+
+    private VariableParser.Error type(String[] values, TableColumn.IVariable variable) {
+        if (values.length > 0) {
+            boolean isNumber = values[0].matches("[0-9]+");
+            Class cls = variable.getClass();
+
+            if(isNumber && cls == VariableNumber.class) return VariableParser.Error.MATCH_NUMBER;
+            else if(!isNumber && cls == VariableString.class) return VariableParser.Error.MATCH_TEXT;
+            else if(isNumber && cls != VariableNumber.class) return VariableParser.Error.ERR_NUMBER_TEXT;
+            else if(!isNumber && cls != VariableString.class) return VariableParser.Error.ERR_TEXT_NUMBER;
+        }
+        return VariableParser.Error.ERR_GENERAL;
+    }
+
+    private VariableParser.Error type(Token token, TableColumn.IVariable var) {
+        int type = token.getType();
+        Class cls = var.getClass();
+
+        if (type == Token.NUMBER && cls == VariableNumber.class) return VariableParser.Error.MATCH_NUMBER;
+        else if (type == Token.TEXT && cls == VariableString.class) return VariableParser.Error.MATCH_TEXT;
+        else if (type == Token.NUMBER && cls != VariableNumber.class) return VariableParser.Error.ERR_NUMBER_TEXT;
+        else if (type == Token.TEXT && cls != VariableString.class) return VariableParser.Error.ERR_TEXT_NUMBER;
+        else if (type == Token.VALUES) return VariableParser.Error.MATCH_MANY_VALUES;
         return VariableParser.Error.ERR_GENERAL;
     }
 }

@@ -58,10 +58,8 @@ public class VariableTableController {
             ViewGroup contentTable = view.findViewById(R.id.content_table);
             contentTable.removeAllViews();
             mCustomTable.clear();
-            mFragment.onResume();
         }
     }
-
 
     private class Listeners implements View.OnClickListener {
 
@@ -70,7 +68,8 @@ public class VariableTableController {
             Activity activity = mFragment.getActivity();
             if (activity != null) {
                 String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString();
-                mParser.analyse(source, new OnPostAnalyse());
+                mParser.setParserResultListener(new OnPostAnalyse());
+                mParser.analyse(source);
             }
         }
     }
@@ -81,7 +80,7 @@ public class VariableTableController {
         public void onSuccess() {
 
             clearTable();
-            //buildTable();
+            mFragment.onResume();
         }
 
         @Override

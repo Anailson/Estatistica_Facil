@@ -68,7 +68,7 @@ public class VariableString implements IVariable {
 
     @Override
     public void setElement(ICell value, int index) {
-        mValues.add(index,  value);
+        mValues.set(index,  value);
     }
 
     public static class ValueString implements ICell<String> {

@@ -59,7 +59,9 @@ public class VariableTableController {
         public void onClick(View v) {
             Activity activity = mFragment.getActivity();
             if (activity != null) {
-                String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString();
+                EditText editText = activity.findViewById(R.id.edt_cmd);
+                String source = editText.getText().toString();
+                editText.setText("");
                 mParser.setParserResultListener(new OnPostAnalyse());
                 mParser.analyse(source);
             }

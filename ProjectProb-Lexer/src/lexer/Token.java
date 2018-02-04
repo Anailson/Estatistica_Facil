@@ -8,6 +8,7 @@ public class Token {
     public static final int EMPTY = -2;
 
     public static final int ADD = 2;
+    public static final int VAR = 3;
     public static final int DELETE = 4;
     public static final int EDIT = 6;
     public static final int COLUMN = 8;
@@ -69,6 +70,7 @@ public class Token {
         switch (type){
             case NEW: return "NEW";
             case ADD: return "ADD";
+            case VAR: return "VAR";
             case DELETE: return "DELETE";
             case EDIT: return "EDIT";
             case COLUMN: return "COLUMN";

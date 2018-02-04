@@ -22,7 +22,7 @@ public class ParserDelete extends SyntacticParser implements Parser.IBaseOperati
             eat(Token.ROW);
             row = eat(Token.NUMBER);
         }else {
-            row = new Token(Token.ROW, "-1", col.getPosition() + 1);
+            row = new Token(Token.EMPTY, "", col.getPosition() + 1);
         }
         return this;
     }

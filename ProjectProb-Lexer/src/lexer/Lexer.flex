@@ -22,6 +22,7 @@ DIVIDER         = "," | {SPACE}"," | ","{SPACE} | {SPACE}","{SPACE}
 
 NEW             = "new"
 ADD             = "add"
+VAR             = "var"
 DELETE          = "del"
 EDIT            = "edt"
 COLUMN          = "col"
@@ -39,6 +40,7 @@ VALUES          = {TEXT}({DIVIDER}{TEXT})+ | {NUMBER}({DIVIDER}{NUMBER})+
 {SPACE}         {break;}
 {NEW}           {return token(Token.NEW);}
 {ADD}           {return token(Token.ADD);}
+{VAR}           {return token(Token.VAR);}
 {DELETE}        {return token(Token.DELETE);}
 {EDIT}          {return token(Token.EDIT);}
 {COLUMN}        {return token(Token.COLUMN);}

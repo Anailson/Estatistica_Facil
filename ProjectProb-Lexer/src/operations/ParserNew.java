@@ -11,7 +11,7 @@ public class ParserNew extends SyntacticParser implements Parser.IBaseOperation{
 
     @Override
     protected Parser.IBaseOperation parse(Token token) throws TokenException {
-        eat(Token.COLUMN);
+        eat(Token.VAR);
         title = eat(Token.TEXT);
         eat(Token.VAL);
         val = eat(Token.VALUES, Token.NUMBER, Token.TEXT);

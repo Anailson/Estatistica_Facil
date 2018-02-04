@@ -112,4 +112,8 @@ public class VariablePersistence {
     public void add(IVariable variable){
         mVarsAuxi.add(variable);
     }
+
+    public void remove(int index){
+        mVariables.remove(index);
+    }
 }

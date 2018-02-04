@@ -106,6 +106,30 @@ class VariableOperation {
     }
 
     void finish(ParserDelete parser) {
+
+        VariablePersistence persistence = VariablePersistence.getInstance();
+        Token lastToken;
+        int col = indexOf(lastToken = parser.getValue(Token.COLUMN));
+        if(col < 0 || col >= persistence.size()){
+            result(lastToken, VariableParser.Error.ERR_COL_INDEX);
+            return;
+        }
+
+        lastToken = parser.getValue(Token.ROW);
+        if(lastToken.getType() != Token.EMPTY){
+            TableColumn.IVariable variable = persistence.getVariable(col);
+            int row = indexOf(lastToken);
+            if(row < 0 || row >= variable.nElements()){
+                result(lastToken, VariableParser.Error.ERR_ROW_INDEX);
+                return;
+            }
+            variable.getElements().remove(row);
+        }else{
+            lastToken = parser.getValue(Token.COLUMN);
+            persistence.remove(col);
+        }
+
+        result(lastToken, VariableParser.Error.MATCH_TEXT);
     }
 
     private void result(Token lastToken, VariableParser.Error err) {

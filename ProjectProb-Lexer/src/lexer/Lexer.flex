@@ -31,9 +31,8 @@ VAL             = "val"
 NUMBER          = [0-9]+
 LETTER          = [a-zA-Z]
 CHARACTER       = [-_]
-TEXT            = {LETTER}({NUMBER} | {LETTER} | {CHARACTER})+
-VALUE           = {NUMBER} | {LETTER} | {TEXT}
-VALUES          = {VALUE}({DIVIDER}{VALUE})+
+TEXT            = {LETTER} | {LETTER}({NUMBER} | {LETTER} | {CHARACTER})+
+VALUES          = {TEXT}({DIVIDER}{TEXT})+ | {NUMBER}({DIVIDER}{NUMBER})+
 
 %%
 

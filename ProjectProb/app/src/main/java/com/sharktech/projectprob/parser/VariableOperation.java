@@ -8,47 +8,51 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import lexer.Token;
 import parser.ParserAdd;
+import parser.ParserDelete;
 import parser.ParserEdit;
 import parser.ParserNew;
 
 class VariableOperation {
 
-    private Token mLastToken;
+    private VariableParser.IParserResult mResult;
 
-    VariableOperation() {
-        this.mLastToken = null;
+    VariableOperation(VariableParser.IParserResult result) {
+        this.mResult = result;
     }
 
-    Token getLastToken() {
-        return mLastToken;
-    }
+    void finish(ParserAdd parser) {
+        Token lastToken;
+        VariablePersistence persistence = VariablePersistence.getInstance();
 
-    VariableParser.Error add(ParserAdd parser) {
-
-        int col = Integer.parseInt(parser.getValue(Token.COLUMN).getText()) - 1;
-        Token val = parser.getValue(Token.VAL);
-        mLastToken = val;
+        int col = indexOf(lastToken = parser.getValue(Token.COLUMN));
+        if(col < 0 || col >= persistence.size()){
+            result(lastToken, VariableParser.Error.ERR_COL_INDEX);
+            return;
+        }
+        lastToken = parser.getValue(Token.VAL);
 
         TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(col);
-        VariableParser.Error err = type(val, variable);
+        VariableParser.Error err = type(lastToken, variable);
 
-        if (err == VariableParser.Error.MATCH_NUMBER) addNumber(variable, val.getText());
-        else if (err == VariableParser.Error.MATCH_TEXT) addString(variable, val.getText());
+        if (err == VariableParser.Error.MATCH_NUMBER) addNumber(variable, lastToken.getText());
+        else if (err == VariableParser.Error.MATCH_TEXT) addString(variable, lastToken.getText());
         else if (err == VariableParser.Error.MATCH_MANY_VALUES) {
 
-            String[] values = val.getText().replaceAll(" ", "").split(",");
+            String[] values = lastToken.getText().replaceAll(" ", "").split(",");
             VariableParser.Error type = type(values, variable);
-            if (type == VariableParser.Error.MATCH_NUMBER) addNumber(variable, values);
-            else if (type == VariableParser.Error.MATCH_TEXT) addString(variable, values);
-            else return VariableParser.Error.ERR_GENERAL;
+            if ((err = type) == VariableParser.Error.MATCH_NUMBER) addNumber(variable, values);
+            else if ((err = type) == VariableParser.Error.MATCH_TEXT) addString(variable, values);
+            else err = VariableParser.Error.ERR_GENERAL;
         }
-        return err;
+
+        result(lastToken, err);
     }
 
-    VariableParser.Error newVar(ParserNew parser){
+    void finish(ParserNew parser){
         String title = parser.getValue(Token.TEXT).getText();
-        mLastToken = parser.getValue(Token.VAL);
-        String[] values = mLastToken.getText().split(",");
+        Token lastToken = parser.getValue(Token.VAL);
+
+        String[] values = lastToken.getText().split(",");
         VariableParser.Error type = type(values);
 
         TableColumn.IVariable var = null;
@@ -60,35 +64,57 @@ class VariableOperation {
             addString(var, values);
         }
 
-        if(type != VariableParser.Error.ERR_GENERAL) {
+        if(type == VariableParser.Error.MATCH_NUMBER || type == VariableParser.Error.MATCH_TEXT) {
             VariablePersistence.getInstance().add(var);
         }
-        return type;
+
+        result(lastToken, type);
     }
 
-    VariableParser.Error edit(ParserEdit parser){
+    void finish(ParserEdit parser){
 
         VariablePersistence persistence = VariablePersistence.getInstance();
+        Token lastToken;
 
-        int col = Integer.parseInt(parser.getValue(Token.COLUMN).getText());
-        int row = Integer.parseInt(parser.getValue(Token.ROW).getText());
-        Token val = parser.getValue(Token.VAL);
+        int col = indexOf(lastToken = parser.getValue(Token.COLUMN));
+        if(col < 0 || col >= persistence.size()){
+            result(lastToken, VariableParser.Error.ERR_COL_INDEX);
+            return;
+        }
         TableColumn.IVariable variable = persistence.getVariable(col);
-        VariableParser.Error error = type(val, variable);
+        int row = indexOf(lastToken = parser.getValue(Token.ROW));
+        if(row < 0 || row >= variable.nElements()){
+            result(lastToken, VariableParser.Error.ERR_ROW_INDEX);
+            return;
+        }
 
+        lastToken = parser.getValue(Token.VAL);
+        VariableParser.Error error = type(lastToken, variable);
         TableCell.ICell cell = null;
 
         if(error == VariableParser.Error.MATCH_NUMBER) {
-            Integer valNum = Integer.parseInt(val.getText());
+            Integer valNum = Integer.parseInt(lastToken.getText());
             cell = new VariableNumber.ValueInteger(valNum);
         } else if(error == VariableParser.Error.MATCH_TEXT) {
-            cell = new VariableString.ValueString(val.getText());
+            cell = new VariableString.ValueString(lastToken.getText());
         }
 
         if(cell != null) {
             variable.setElement(cell, row);
         }
-        return error;
+        result(lastToken, error);
+    }
+
+    void finish(ParserDelete parser) {
+    }
+
+    private void result(Token lastToken, VariableParser.Error err) {
+
+        if (err == VariableParser.Error.MATCH_TEXT || err == VariableParser.Error.MATCH_NUMBER) {
+            mResult.onSuccess();
+        } else {
+            mResult.onError(err, lastToken);
+        }
     }
 
     private void addNumber(TableColumn.IVariable variable, String value) {
@@ -148,5 +174,9 @@ class VariableOperation {
 
     private boolean isNumber(String values){
         return values.matches("[0-9]+");
+    }
+
+    private int indexOf(Token token){
+        return Integer.parseInt(token.getText()) - 1;
     }
 }

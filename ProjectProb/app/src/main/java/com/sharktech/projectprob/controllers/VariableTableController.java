@@ -15,7 +15,7 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 
-import exception.TokenException;
+import lexer.Token;
 
 
 public class VariableTableController {
@@ -28,7 +28,7 @@ public class VariableTableController {
     public VariableTableController(Fragment fragment) {
         this.mListeners = new Listeners();
         this.mFragment = fragment;
-        this.mParser = new VariableParser(fragment.getContext());
+        this.mParser = new VariableParser();
     }
 
     public View.OnClickListener getClickListener() {
@@ -78,9 +78,9 @@ public class VariableTableController {
         }
 
         @Override
-        public void onError(TokenException e) {
+        public void onError(VariableParser.Error error, Token token) {
             Toast.makeText(mFragment.getContext(),
-                    "Exception " + e.getTokenInfo(),
+                    "Exception " + error.name() + " token " + token.getText() + " position " + token.getPosition(),
                     Toast.LENGTH_LONG)
                     .show();
         }

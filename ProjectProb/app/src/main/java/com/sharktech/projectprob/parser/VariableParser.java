@@ -15,7 +15,7 @@ public class VariableParser {
 
     public enum Error {
         ERR_GENERAL, MATCH_MANY_VALUES, MATCH_NUMBER, MATCH_TEXT, ERR_NUMBER_TEXT, ERR_TEXT_NUMBER,
-        ERR_COL_INDEX, ERR_ROW_INDEX
+        ERR_COL_INDEX, ERR_ROW_INDEX, ERR_UNKNOWN_COMMAND
     }
 
     public VariableParser() {
@@ -51,7 +51,7 @@ public class VariableParser {
             }
 
         } catch (TokenException e) {
-            mResult.onError(Error.ERR_GENERAL, e.getToken());
+            mResult.onError(Error.ERR_UNKNOWN_COMMAND, e.getToken());
         }
     }
 

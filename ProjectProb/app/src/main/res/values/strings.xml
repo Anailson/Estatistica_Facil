@@ -34,6 +34,8 @@
 
     <!-- Buttons -->
     <string name="btn_cmd">&#62;</string>
+    <string name="btn_ok">Ok</string>
+    <string name="btn_cancel">Cancelar</string>
 
     <!-- XML and HTML Symbol -->
     <string name="txt_avg_arithmetic_sym">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>
@@ -58,9 +60,16 @@
     <!--<string name="txt_avg_geometric_sym">x&#772; = &#8305;&#8730;(&#8719;(&#967;&#161; ^ &#402;&#161;)) ^ (1 / &#402;&#161;) </string>-->
 
     <!-- Errors -->
-    <string name="err_text_number">Era esperado um valor numérico</string>
-    <string name="err_number_text">Era esperado um valor literal</string>
+    <string name="err_col_index">Coluna inválida</string>
+    <string name="err_row_index">Linha inválida</string>
+    <string name="err_text_number">Erro de valor textual</string>
+    <string name="err_number_text">Erro de valor numérico</string>
+    <string name="err_unknown_command">Comando desconhecido</string>
     <string name="err_general">Erro desconhecido</string>
+
+    <!-- Messages -->
+    <string name="msg_building">Construindo</string>
+    <string name="msg_building_text">Construindo tabela de variáveis</string>
 
     <!-- Menus -->
     <string name="menu_import_data">Importar dados (.cvs)</string>

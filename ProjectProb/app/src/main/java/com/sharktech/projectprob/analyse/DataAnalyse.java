@@ -25,31 +25,25 @@ import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.SQRT_
 
 public class DataAnalyse {
 
-    private boolean mInitialized;
     private TableColumn.IVariable mVariable;
-    private ArrayList<DataAnalyseValue> mValues;
     private DataAnalyseResult mResult;
 
     public DataAnalyse(TableColumn.IVariable variable) {
-        this.mInitialized = false;
         this.mVariable = variable;
-        this.mValues = new ArrayList<>();
         this.mResult = new DataAnalyseResult();
     }
 
     public void setVariable(TableColumn.IVariable mVariable) {
-        this.mInitialized = false;
         this.mVariable = mVariable;
-        this.mValues.clear();
         this.mResult.clear();
     }
 
     public boolean calculate(){
-        init();
-        if(!mInitialized){
+
+        if(!mResult.init(mVariable)){
             return false;
         }
-        mResult.calculate(mValues);
+        mResult.calculate();
         return true;
     }
 
@@ -64,7 +58,7 @@ public class DataAnalyse {
     }
 
     public int size(){
-        return this.mValues.size();
+        return mResult.size();
     }
 
     public ICell getData(int index) {
@@ -77,7 +71,7 @@ public class DataAnalyse {
 
     public boolean hasMode(){
         int nModes = mResult.getMode().size();
-        return nModes == 0 || nModes == mValues.size();
+        return !(nModes == 0 || nModes == mResult.size());
     }
 
     public ArrayList<ICell> getMode(){
@@ -164,29 +158,4 @@ public class DataAnalyse {
         return size() == 0;
     }
 
-    private boolean init(){
-        if(mInitialized) return true;
-
-        if(mVariable == null || mVariable.nElements() == 0) return false;
-
-        for (ICell cell : mVariable.getElements()) {
-            int index = indexOf(cell);
-
-            if (index >= 0) {
-                mValues.get(index).inc();
-            } else {
-                mValues.add(new DataAnalyseValue(cell));
-            }
-        }
-        return mInitialized = true;
-    }
-
-    private int indexOf(ICell cell){
-        for (int i = 0; i < mValues.size(); i++){
-            if(mValues.get(i).equals(cell)){
-                return i;
-            }
-        }
-        return -2;
-    }
 }

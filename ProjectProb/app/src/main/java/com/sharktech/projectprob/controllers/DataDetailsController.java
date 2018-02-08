@@ -36,16 +36,14 @@ public class DataDetailsController {
     public void calculate(){
 
         if(mAnalyse.calculate()) {
-
-            String modeText;
+            mAnalyse.initClasses();
+            String modeText = "Amodal";
             if(mAnalyse.hasMode()){
                 StringBuilder sBuilder = new StringBuilder();
                 for(TableCell.ICell cell : mAnalyse.getMode()){
                     sBuilder.append(cell.getTitle()).append(", ");
                 }
                 modeText = sBuilder.substring(0, sBuilder.lastIndexOf(", "));
-            }else {
-                modeText = "Amodal";
             }
 
             fillText(R.id.txt_avg_arithmetic, mAnalyse.avgArithmetic());

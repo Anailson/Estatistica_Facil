@@ -62,9 +62,7 @@ public class VariableTableController {
         public void onClick(View v) {
             Activity activity = mFragment.getActivity();
             if (activity != null) {
-                EditText editText = activity.findViewById(R.id.edt_cmd);
-                String source = editText.getText().toString();
-                editText.setText("");
+                String source = ((EditText) activity.findViewById(R.id.edt_cmd)).getText().toString();
                 mParser.setParserResultListener(this);
                 mParser.analyse(source);
             }
@@ -74,6 +72,10 @@ public class VariableTableController {
         @Override
         public void onSuccess() {
 
+            Activity activity = mFragment.getActivity();
+            if (activity != null){
+                ((EditText) activity.findViewById(R.id.edt_cmd)).setText("");
+            }
             clearTable();
             mFragment.onResume();
         }

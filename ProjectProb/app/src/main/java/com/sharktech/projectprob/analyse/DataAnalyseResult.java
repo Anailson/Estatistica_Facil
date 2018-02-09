@@ -5,6 +5,7 @@ import android.util.Log;
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.VariableNumber;
+import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,19 +93,30 @@ class DataAnalyseResult {
                 sumPoundWeighted += data.divFreqVal();                          //POUND_WEIGHTED
                 sumQuadratic += data.sqrtVal();                                 //QUADRATIC
                 sumPoundQuadratic += data.prodSqrtValFreq();                    //POUND_QUADRATIC
-            }
 
-            //Values
+                //Values
+                add(ValueKey.POW_VAL, data.asNumber());
+                add(ValueKey.POW_VAL_FREQ, data.powValFreq());
+                add(ValueKey.DIV_BY_VAL, data.divByVal());
+                add(ValueKey.DIV_FREQ_VAL, data.divFreqVal());
+                add(ValueKey.SQRT_VAL, data.sqrtVal());
+                add(ValueKey.PROD_SQRT_VAL_FREQ, data.prodSqrtValFreq());
+            } else{
+                String val = " - - - ";
+                add(ValueKey.FREQUENCY, val);
+                add(ValueKey.PROD_VAL_FREQ, val);
+                add(ValueKey.POW_VAL, val);
+                add(ValueKey.POW_VAL_FREQ, val);
+                add(ValueKey.DIV_BY_VAL, val);
+                add(ValueKey.DIV_FREQ_VAL, val);
+                add(ValueKey.SQRT_VAL, val);
+                add(ValueKey.PROD_SQRT_VAL_FREQ, val);
+            }
             add(ValueKey.DATA, data.getValue());
             add(ValueKey.FREQUENCY, (double) data.getFrequency());
-            add(ValueKey.PROD_VAL_FREQ, data.prodValFreq());
-            add(ValueKey.POW_VAL, data.asNumber());
-            add(ValueKey.POW_VAL_FREQ, data.powValFreq());
-            add(ValueKey.DIV_BY_VAL, data.divByVal());
-            add(ValueKey.DIV_FREQ_VAL, data.divFreqVal());
-            add(ValueKey.SQRT_VAL, data.sqrtVal());
-            add(ValueKey.PROD_SQRT_VAL_FREQ, data.prodSqrtValFreq());
         }
+        if(prodGeometric == 1) prodGeometric = -1d;
+        if(prodPoundGeometric == 1) prodPoundGeometric = -1d;
 
         //Value accumulate (sum and prod)
         add(ValueKey.DATA, sumArithmetic);
@@ -154,6 +166,10 @@ class DataAnalyseResult {
 
     private void add(ValueKey key, Double value) {
         add(key, new VariableNumber.ValueInteger(value));
+    }
+
+    private void add(ValueKey key, String value) {
+        add(key, new VariableString.ValueString(value));
     }
 
     private void add(ValueKey key, TableCell.ICell cell) {

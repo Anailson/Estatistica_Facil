@@ -83,7 +83,19 @@ public class DataAnalyse {
     }
 
     public ArrayList<ICell> getData() {
-        return mResult.get(DATA);
+        SortedGenericList<ICell> sorted = new SortedGenericList<>(ICell.class, new SortedGenericList.ISorter<ICell>() {
+            @Override
+            public int compare(ICell elem1, ICell elem2) {
+                if (elem1.isNumber() && elem2.isNumber()) {
+                    return elem1.asNumber().doubleValue() == elem2.asNumber().doubleValue() ? 0
+                            : elem1.asNumber() > elem2.asNumber() ? 1
+                            : -1;
+                }
+                return elem1.getTitle().compareTo(elem2.getTitle());
+            }
+        });
+        sorted.add(mResult.get(DATA));
+        return sorted.asList();
     }
 
     public ArrayList<ICell> getFrequency() {

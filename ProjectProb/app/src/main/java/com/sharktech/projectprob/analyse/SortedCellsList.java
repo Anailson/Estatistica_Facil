@@ -1,7 +1,5 @@
 package com.sharktech.projectprob.analyse;
 
-import android.support.v7.util.SortedList;
-
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
@@ -13,13 +11,13 @@ class SortedCellsList {
         FIRST, SECOND, THIRD
     }
 
-    private SortedList<TableCell.ICell> mCells;
-    private SortedList<DataAnalyseValue> mValues;
+    private SortedGenericList<TableCell.ICell> mCells;
+    private SortedGenericList<DataAnalyseValue> mValues;
 
     SortedCellsList() {
 
-        mCells = new SortedList<>(TableCell.ICell.class, new SorterCallback<TableCell.ICell>());
-        mValues = new SortedList<>(DataAnalyseValue.class, new SorterCallback<DataAnalyseValue>());
+        mCells = new SortedGenericList<>(TableCell.ICell.class, new SorterCallback<TableCell.ICell>());
+        mValues = new SortedGenericList<>(DataAnalyseValue.class, new SorterCallback<DataAnalyseValue>());
     }
 
     ArrayList<DataAnalyseValue> getValues() {
@@ -64,10 +62,14 @@ class SortedCellsList {
                 : -1;
         if (val == -1) return -1;
 
-        int supIndex = (int) Math.ceil(val) - 1;
-        double min = mCells.get(supIndex - 1).asNumber(),
-                max = mCells.get(supIndex).asNumber();
-        return difIsZero(supIndex, val) ? max : (max + min) / 2f;
+        int supIndex = (int) Math.ceil(val);
+
+        TableCell.ICell min = mCells.get(supIndex - 2),
+                max = mCells.get(supIndex - 1);
+
+        return (!min.isNumber() || !max.isNumber()) ? -1
+                : difIsZero(supIndex, val) ? max.asNumber()
+                : (max.asNumber() + min.asNumber()) / 2f;
     }
 
     private boolean difIsZero(double a, double b) {
@@ -85,7 +87,7 @@ class SortedCellsList {
         return -2;
     }
 
-    private class SorterCallback<T> extends SortedList.Callback<T> {
+    private class SorterCallback<T> implements SortedGenericList.ISorter<T> {
 
         @Override
         public int compare(T item1, T item2) {
@@ -96,48 +98,6 @@ class SortedCellsList {
                     : 0;
         }
 
-        @Override
-        public boolean areContentsTheSame(T oldItem, T newItem) {
-            int instance = instanceOf(oldItem, newItem);
-            if (instance == 0) {
-                TableCell.ICell oItem = (TableCell.ICell) oldItem;
-                TableCell.ICell nItem = (TableCell.ICell) newItem;
-                return areContentsTheSame(oItem, nItem);
-            } else if (instance == 1) {
-                TableCell.ICell oItem = ((DataAnalyseValue) oldItem).getValue();
-                TableCell.ICell nItem = ((DataAnalyseValue) newItem).getValue();
-                return areContentsTheSame(oItem, nItem);
-            }
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areItemsTheSame(T item1, T item2) {
-            int instance = instanceOf(item1, item2);
-            if (instance == 0) {
-                TableCell.ICell oItem = (TableCell.ICell) item1;
-                TableCell.ICell nItem = (TableCell.ICell) item2;
-                return areItemsTheSame(oItem, nItem);
-            } else if (instance == 1) {
-                TableCell.ICell oItem = ((DataAnalyseValue) item1).getValue();
-                TableCell.ICell nItem = ((DataAnalyseValue) item2).getValue();
-                return areItemsTheSame(oItem, nItem);
-            }
-            return item1.equals(item2);
-        }
-
-        @Override
-        public void onChanged(int position, int count) {}
-
-        @Override
-        public void onInserted(int position, int count) {}
-
-        @Override
-        public void onRemoved(int position, int count) {}
-
-        @Override
-        public void onMoved(int fromPosition, int toPosition) {}
-
         private int compare(TableCell.ICell cell1, TableCell.ICell cell2) {
 
             if (cell1.isNumber() && cell2.isNumber()) {
@@ -145,14 +105,6 @@ class SortedCellsList {
                         : cell1.asNumber() > cell2.asNumber() ? 1 : -1;
             }
             return cell1.getTitle().compareTo(cell2.getTitle());
-        }
-
-        private boolean areContentsTheSame(TableCell.ICell item1, TableCell.ICell item2) {
-            return item1.getTitle().equals(item2.getTitle());
-        }
-
-        private boolean areItemsTheSame(TableCell.ICell item1, TableCell.ICell item2) {
-            return item1.getTitle().equals(item2.getTitle()) && item1.asNumber().equals(item2.asNumber());
         }
 
         private int instanceOf(T item1, T item2) {

@@ -15,13 +15,15 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
     private int mPosition;
     private E mVariable;
-    private ArrayList<TableCell<TableCell.ICell>> mCells;
+    private ArrayList<TableCell> mCells;
 
     public interface IVariable extends Serializable {
 
         String getTitle();
 
         int nElements();
+
+        boolean isNumber();
 
         ArrayList<TableCell.ICell> getElements();
 
@@ -48,7 +50,7 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
         setBackgroundResource(R.drawable.border_light);
 
         for(int i = 0; i < mVariable.nElements(); i++){
-            mCells.add(new TableCell<>(getContext(), mVariable.getElement(i)));
+            mCells.add(new TableCell(getContext(), mVariable.getElement(i), mVariable.isNumber()));
         }
     }
 
@@ -69,7 +71,7 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
     protected TableColumn build() {
 
-        TableCell cellTitle = new TableCell<>(getContext(), new VariableString.ValueString(mVariable.getTitle()));
+        TableCell cellTitle = new TableCell(getContext(), new VariableString.ValueString(mVariable.getTitle()), mVariable.isNumber());
         cellTitle.setCol(mPosition);
         addView(cellTitle);
 

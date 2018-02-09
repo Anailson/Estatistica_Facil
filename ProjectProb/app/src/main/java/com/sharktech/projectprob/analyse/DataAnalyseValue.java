@@ -4,10 +4,12 @@ import com.sharktech.projectprob.customtable.TableCell;
 
 class DataAnalyseValue {
 
+    private boolean mIsNumber;
     private TableCell.ICell mValue;
     private long mFrequency;
 
-    DataAnalyseValue(TableCell.ICell mValue){
+    DataAnalyseValue(boolean isNumber, TableCell.ICell mValue){
+        this.mIsNumber = isNumber;
         this.mValue = mValue;
         this.mFrequency = mValue == null ? 0 : 1;
     }
@@ -23,39 +25,39 @@ class DataAnalyseValue {
     void inc(){
         mFrequency++;
     }
-
+/*
     boolean isNumber(){
         return mValue.isNumber();
     }
-
+*/
     double asNumber(){
         return mValue.asNumber();
     }
 
     double prodValFreq(){
-        return mValue.isNumber() ? mValue.asNumber() * mFrequency : -1d;
+        return mIsNumber ? mValue.asNumber() * mFrequency : -1d;
     }
 
     double powValFreq(){
-        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), mFrequency) : -1d;
+        return mIsNumber ? (float) Math.pow(mValue.asNumber(), mFrequency) : -1d;
     }
 
     double divByVal(){
-        if (!isNumber()) return  -1d;
+        if (!mIsNumber) return  -1d;
         return mValue.asNumber() != 0 ? 1 / mValue.asNumber() : 0d;
     }
 
     double divFreqVal(){
-        if(!isNumber()) return -1L;
+        if(!mIsNumber) return -1L;
         return mValue.asNumber() != 0 ? mFrequency / mValue.asNumber() : 0d;
     }
 
     double sqrtVal(){
-        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), 2) : -1d;
+        return mIsNumber ? (float) Math.pow(mValue.asNumber(), 2) : -1d;
     }
 
     double prodSqrtValFreq(){
-        return mValue.isNumber() ? (float) Math.pow(mValue.asNumber(), 2) * mFrequency : -1d;
+        return mIsNumber ? (float) Math.pow(mValue.asNumber(), 2) * mFrequency : -1d;
     }
 
     @Override

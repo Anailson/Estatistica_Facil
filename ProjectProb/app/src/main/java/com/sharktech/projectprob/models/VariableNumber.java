@@ -43,6 +43,11 @@ public class VariableNumber implements TableColumn.IVariable {
     public int nElements() {
         return mValues.size();
     }
+    @Override
+
+    public boolean isNumber() {
+        return true;
+    }
 
     @Override
     public ArrayList<TableCell.ICell> getElements() {
@@ -59,7 +64,7 @@ public class VariableNumber implements TableColumn.IVariable {
         mValues.set(index, value);
     }
 
-    public static class ValueInteger implements TableCell.ICell<Number> {
+    public static class ValueInteger implements TableCell.ICell {
 
         private Number mValue;
 
@@ -70,16 +75,6 @@ public class VariableNumber implements TableColumn.IVariable {
         @Override
         public String getTitle() {
             return mValue.toString();
-        }
-
-        @Override
-        public Number getElement() {
-            return mValue;
-        }
-
-        @Override
-        public boolean isNumber() {
-            return true;
         }
 
         @Override

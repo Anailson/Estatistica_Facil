@@ -57,6 +57,11 @@ public class VariableString implements IVariable {
     }
 
     @Override
+    public boolean isNumber() {
+        return false;
+    }
+
+    @Override
     public ArrayList<ICell> getElements() {
         return mValues;
     }
@@ -71,7 +76,7 @@ public class VariableString implements IVariable {
         mValues.set(index,  value);
     }
 
-    public static class ValueString implements ICell<String> {
+    public static class ValueString implements ICell {
 
         private String value;
 
@@ -82,16 +87,6 @@ public class VariableString implements IVariable {
         @Override
         public String getTitle() {
             return value;
-        }
-
-        @Override
-        public String getElement() {
-            return value;
-        }
-
-        @Override
-        public boolean isNumber() {
-            return false;
         }
 
         @Override

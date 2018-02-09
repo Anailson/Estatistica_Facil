@@ -22,6 +22,7 @@ class DataAnalyseResult {
         WEIGHTED, POUND_WEIGHTED, QUADRATIC, POUND_QUADRATIC
     }
 
+    private boolean mIsNumber;
     private SortedCellsList mSortedList;
     private ArrayList<TableCell.ICell> mModes;
     private HashMap<AverageKey, Double> mAverages;
@@ -60,6 +61,7 @@ class DataAnalyseResult {
     }
 
     boolean init(TableColumn.IVariable variable){
+        mIsNumber = variable.isNumber();
         return mSortedList.init(variable);
     }
 
@@ -83,7 +85,7 @@ class DataAnalyseResult {
                 frequency = data.getFrequency();
             }
 
-            if (data.isNumber()) {
+            if (mIsNumber) {
                 sumFrequency += data.getFrequency();
                 sumArithmetic += data.asNumber();                               //ARITHMETIC
                 sumPoundArithmetic += data.prodValFreq();                       //POUND_ARITHMETIC

@@ -14,30 +14,28 @@ import com.sharktech.projectprob.R;
 
 import java.util.Locale;
 
-public class TableCell<E extends TableCell.ICell> extends android.support.v7.widget.AppCompatEditText {
+public class TableCell extends android.support.v7.widget.AppCompatEditText {
 
     private Position mPosition;
     private Listeners mListener;
-    private E mValue;
+    private ICell mValue;
+    private boolean mIsNumber;
 
-    public interface ICell<E> {
+    public interface ICell{
 
         String getTitle();
-
-        E getElement();
-
-        boolean isNumber();
 
         Double asNumber();
     }
 
     public TableCell(Context context) {
-        this(context, null);
+        this(context, null, false);
     }
 
-    public TableCell(Context context, E value){
+    public TableCell(Context context, ICell value, boolean isNumber){
         super(context);
         this.mValue = value;
+        this.mIsNumber = isNumber;
         this.mPosition = new Position(-1, -1);
         this.mListener = new Listeners(getContext(), mPosition);
 
@@ -65,7 +63,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
         return mValue;
     }
 
-    protected void setValue(E value){
+    protected void setValue(ICell value){
         this.mValue = value;
     }
 
@@ -94,7 +92,7 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
     }
 
     private String getTitle(){
-        if(isNumber()) {
+        if(mIsNumber) {
             long rounded = Math.round(mValue.asNumber());
             return mValue.asNumber() - rounded == 0
                     ? String.valueOf(rounded)
@@ -112,11 +110,11 @@ public class TableCell<E extends TableCell.ICell> extends android.support.v7.wid
             setGravity(Gravity.END);
         }
     }
-
+/*
     public boolean isNumber() {
         return mValue.isNumber();
     }
-
+*/
     public double asFloat() {
         return mValue.asNumber();
     }

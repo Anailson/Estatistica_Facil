@@ -51,7 +51,7 @@ public class DataAnalyse {
 
         if(mVariable != null) {
             DataAnalyseClass dClass = new DataAnalyseClass();
-            dClass.initClasses(mVariable.getElements());
+            dClass.initClasses(mVariable);
             return dClass.getClasses();
         }
         return new ArrayList<>();
@@ -86,7 +86,7 @@ public class DataAnalyse {
         SortedGenericList<ICell> sorted = new SortedGenericList<>(ICell.class, new SortedGenericList.ISorter<ICell>() {
             @Override
             public int compare(ICell elem1, ICell elem2) {
-                if (elem1.isNumber() && elem2.isNumber()) {
+                if (mVariable.isNumber()) {
                     return elem1.asNumber().doubleValue() == elem2.asNumber().doubleValue() ? 0
                             : elem1.asNumber() > elem2.asNumber() ? 1
                             : -1;

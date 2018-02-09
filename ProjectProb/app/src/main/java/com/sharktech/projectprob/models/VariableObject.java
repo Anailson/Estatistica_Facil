@@ -40,6 +40,11 @@ public class VariableObject implements IVariable {
     }
 
     @Override
+    public boolean isNumber() {
+        return false;
+    }
+
+    @Override
     public ArrayList<ICell> getElements() {
         return mObjects;
     }
@@ -70,16 +75,6 @@ public class VariableObject implements IVariable {
         @Override
         public String getTitle() {
             return toString();
-        }
-
-        @Override
-        public Object getElement() {
-            return this;
-        }
-
-        @Override
-        public boolean isNumber() {
-            return false;
         }
 
         @Override

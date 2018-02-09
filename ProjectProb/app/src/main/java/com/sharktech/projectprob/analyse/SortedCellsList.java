@@ -11,6 +11,7 @@ class SortedCellsList {
         FIRST, SECOND, THIRD
     }
 
+    private boolean mIsNumber;
     private SortedGenericList<TableCell.ICell> mCells;
     private SortedGenericList<DataAnalyseValue> mValues;
 
@@ -46,10 +47,11 @@ class SortedCellsList {
             if (index >= 0) {
                 mValues.get(index).inc();
             } else {
-                mValues.add(new DataAnalyseValue(cell));
+                mValues.add(new DataAnalyseValue(variable.isNumber(), cell));
             }
             mCells.add(cell);
         }
+        mIsNumber = variable.isNumber();
         return true;
     }
 
@@ -67,7 +69,7 @@ class SortedCellsList {
         TableCell.ICell min = mCells.get(supIndex - 2),
                 max = mCells.get(supIndex - 1);
 
-        return (!min.isNumber() || !max.isNumber()) ? -1
+        return (mIsNumber) ? -1
                 : difIsZero(supIndex, val) ? max.asNumber()
                 : (max.asNumber() + min.asNumber()) / 2f;
     }
@@ -80,7 +82,7 @@ class SortedCellsList {
 
         for (int i = 0; i < valuesSize(); i++) {
             TableCell.ICell cell = mValues.get(i).getValue();
-            if (val.isNumber() && cell.isNumber() && val.asNumber().doubleValue() == cell.asNumber().doubleValue()) {
+            if (mIsNumber && val.asNumber().doubleValue() == cell.asNumber().doubleValue()) {
                 return i;
             }
         }
@@ -100,7 +102,7 @@ class SortedCellsList {
 
         private int compare(TableCell.ICell cell1, TableCell.ICell cell2) {
 
-            if (cell1.isNumber() && cell2.isNumber()) {
+            if (mIsNumber) {
                 return cell1.asNumber().doubleValue() == cell2.asNumber().doubleValue() ? 0
                         : cell1.asNumber() > cell2.asNumber() ? 1 : -1;
             }

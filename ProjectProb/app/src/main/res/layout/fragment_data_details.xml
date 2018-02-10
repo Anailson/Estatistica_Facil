@@ -25,7 +25,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
                 style="@style/TextViewColored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -34,334 +33,45 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_arithmetic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_avg_arithmetic" />
-
-                <TextView
-                    android:id="@+id/txt_arithmetic_avg_sym"
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/txt_avg_arithmetic_sym" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_arithmetic"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_arithmetic_pound"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingLeft="0dp"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight=".9"
-                    android:text="@string/txt_avg_arithmetic_pound" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/txt_avg_arithmetic_pound_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_arithmetic_pound"
-                style="@style/TextViewColoredRight"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".3"
-                android:gravity="end" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_geometric"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingLeft="0dp"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight=".9"
-                    android:text="@string/txt_avg_geometric" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/txt_avg_geometric_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_geometric"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_geometric_pound"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_avg_geometric_pound" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="0dp"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_avg_geometric_pound_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_geometric_pound"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-        </LinearLayout>
-
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_weighted"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingLeft="0dp"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight=".9"
-                    android:text="@string/txt_avg_weighted" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="0dp"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_avg_weighted_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_weighted"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_weighted_pound"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_avg_weighted_pound" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="0dp"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_avg_weighted_pound_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_weighted_pound"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_quadratic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_avg_quadratic" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="0dp"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_avg_quadratic_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_quadratic"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_avg_quadratic_pound"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_avg_quadratic_pound" />
-
-                <TextView
-                    style="@style/TextViewSmallColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="0dp"
-                    android:paddingLeft="@dimen/minimum_gap"
-                    android:paddingRight="0dp"
-                    android:paddingStart="@dimen/minimum_gap"
-                    android:text="@string/txt_avg_quadratic_pound_sym" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_avg_quadratic_pound"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -432,7 +142,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/medium_gap"
             android:orientation="horizontal">
-
 
             <LinearLayout
                 android:layout_width="wrap_content"

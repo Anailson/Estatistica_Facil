@@ -40,12 +40,12 @@
     <!-- XML and HTML Symbol -->
     <string name="txt_avg_arithmetic_sym">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>
     <string name="txt_avg_arithmetic_pound_sym">x&#772; = &#8721;(&#967;&#161; * &#402;&#161;) / &#8721;(&#402;&#161;)</string>
-    <string name="txt_avg_geometric_sym">x&#772; = (&#8719;(&#967;&#161;)) ^ (1 / n)</string>
-    <string name="txt_avg_geometric_pound_sym">x&#772; = (&#8719; (&#967;&#161; ^ &#402;&#161;)) ^ (1 / &#8721;(&#402;&#161;))</string>
+    <string name="txt_avg_geometric_sym">x&#772; = &#8719;(&#967;&#161;) ^ (1 / n)</string>
+    <string name="txt_avg_geometric_pound_sym">x&#772; = [&#8719; (&#967;&#161; ^ &#402;&#161;)] ^ [1 / &#8721;(&#402;&#161;)]</string>
     <string name="txt_avg_weighted_sym">x&#772; = n / &#8721;(1 / &#967;&#161;)</string>
     <string name="txt_avg_weighted_pound_sym">x&#772; = &#8721;(&#402;&#161;) / &#8721;(&#402;&#161; / &#967;&#161;)</string>
     <string name="txt_avg_quadratic_sym">x&#772; = &#8730;(&#8721; (&#967;&#161; ^ 2))</string>
-    <string name="txt_avg_quadratic_pound_sym">x&#772; = &#8730;(&#8721; (&#967;&#161; ^ 2 * &#402;&#161;))</string>
+    <string name="txt_avg_quadratic_pound_sym">x&#772; = &#8730;[&#8721; (&#967;&#161; ^ 2 * &#402;&#161;)]</string>
 
     <string name="sum_value">&#8721;(&#967;&#161;)</string>
     <string name="sum_frequency">&#8721;(&#402;&#161;)</string>

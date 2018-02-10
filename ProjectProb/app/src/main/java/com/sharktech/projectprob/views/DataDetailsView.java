@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.DataDetailsController;
 import com.sharktech.projectprob.customtable.TableColumn;
+import com.sharktech.projectprob.customview.ItemDataDetail;
 
 public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeVariableListener {
 
@@ -31,12 +32,30 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        if (bundle != null)
-            mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
+        if (bundle != null) mVariable = (TableColumn.IVariable) bundle.getSerializable(DataAnalyseView.ANALYSES);
+
+        View view = inflater.inflate(R.layout.fragment_data_details, container, false);
+        ItemDataDetail dataArithmetic = view.findViewById(R.id.detail_avg_arithmetic);
+        ItemDataDetail dataArithmeticPound = view.findViewById(R.id.detail_avg_arithmetic_pound);
+        ItemDataDetail dataGeometric = view.findViewById(R.id.detail_avg_geometric);
+        ItemDataDetail dataGeometricPound = view.findViewById(R.id.detail_avg_geometric_pound);
+        ItemDataDetail dataWeighted = view.findViewById(R.id.detail_avg_weighted);
+        ItemDataDetail dataWeightedPound = view.findViewById(R.id.detail_avg_weighted_pound);
+        ItemDataDetail dataQuadratic = view.findViewById(R.id.detail_avg_quadratic);
+        ItemDataDetail dataQuadraticPound = view.findViewById(R.id.detail_avg_quadratic_pound);
+
+        dataArithmetic.setTexts(R.string.txt_avg_arithmetic, R.string.txt_avg_arithmetic_sym, R.string.txt_default);
+        dataArithmeticPound.setTexts(R.string.txt_avg_arithmetic_pound, R.string.txt_avg_arithmetic_pound_sym, R.string.txt_default);
+        dataGeometric.setTexts(R.string.txt_avg_geometric, R.string.txt_avg_geometric_sym, R.string.txt_default);
+        dataGeometricPound.setTexts(R.string.txt_avg_geometric_pound, R.string.txt_avg_geometric_pound_sym, R.string.txt_default);
+        dataWeighted.setTexts(R.string.txt_avg_weighted, R.string.txt_avg_weighted_sym, R.string.txt_default);
+        dataWeightedPound.setTexts(R.string.txt_avg_weighted_pound, R.string.txt_avg_weighted_pound_sym, R.string.txt_default);
+        dataQuadratic.setTexts(R.string.txt_avg_quadratic, R.string.txt_avg_quadratic_sym, R.string.txt_default);
+        dataQuadraticPound.setTexts(R.string.txt_avg_quadratic_pound, R.string.txt_avg_quadratic_pound_sym, R.string.txt_default);
 
         mController = new DataDetailsController(this, mVariable);
         mController.calculate();
-        return inflater.inflate(R.layout.fragment_data_details, container, false);
+        return view;
     }
 
     @Override

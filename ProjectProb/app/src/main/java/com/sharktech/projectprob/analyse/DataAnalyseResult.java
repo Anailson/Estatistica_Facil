@@ -61,6 +61,7 @@ class DataAnalyseResult {
     }
 
     boolean init(TableColumn.IVariable variable){
+        if(variable == null) return false;
         mIsNumber = variable.isNumber();
         return mSortedList.init(variable);
     }

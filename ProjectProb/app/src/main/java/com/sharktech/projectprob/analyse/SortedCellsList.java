@@ -70,7 +70,7 @@ class SortedCellsList {
                 max = mCells.get(supIndex - 1);
 
         return (mIsNumber) ? -1
-                : difIsZero(supIndex, val) ? max.asNumber()
+                : difIsZero(supIndex, val) ? min.asNumber()
                 : (max.asNumber() + min.asNumber()) / 2f;
     }
 
@@ -79,10 +79,11 @@ class SortedCellsList {
     }
 
     private int indexOfValue(TableCell.ICell val) {
-
+        String upperVal = val.getTitle().toUpperCase();
         for (int i = 0; i < valuesSize(); i++) {
-            TableCell.ICell cell = mValues.get(i).getValue();
-            if (mIsNumber && val.asNumber().doubleValue() == cell.asNumber().doubleValue()) {
+            String upperCell = mValues.get(i).getValue().getTitle().toUpperCase();
+
+            if (upperVal.equals(upperCell)) {
                 return i;
             }
         }

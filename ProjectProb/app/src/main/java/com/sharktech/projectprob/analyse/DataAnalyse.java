@@ -1,5 +1,7 @@
 package com.sharktech.projectprob.analyse;
 
+import android.util.Log;
+
 import com.sharktech.projectprob.customtable.TableCell.ICell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
@@ -70,8 +72,7 @@ public class DataAnalyse {
     }
 
     public boolean hasMode(){
-        int nModes = mResult.getMode().size();
-        return !(nModes == 0 || nModes == mResult.size());
+        return mResult.nMode() > 0;
     }
 
     public ArrayList<ICell> getMode(){

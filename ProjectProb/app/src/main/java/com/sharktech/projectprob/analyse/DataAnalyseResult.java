@@ -155,6 +155,10 @@ class DataAnalyseResult {
         return mModes;
     }
 
+    int nMode() {
+        return mModes.size();
+    }
+
     Double get(AverageKey key) {
         return mAverages.get(key);
     }

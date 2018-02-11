@@ -5,13 +5,12 @@ import android.graphics.Color;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BubbleChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BubbleData;
 import com.github.mikephil.charting.data.BubbleDataSet;
 import com.github.mikephil.charting.data.BubbleEntry;
-import com.github.mikephil.charting.renderer.XAxisRenderer;
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.analyse.DataAnalyseValue;
+import com.sharktech.projectprob.analyse.SortedGenericList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +21,17 @@ public class DispersionChart extends BubbleChart{
         super(context);
     }
 
-    protected BubbleChart build(DataAnalyse analyse){
+    protected BubbleChart build(SortedGenericList<DataAnalyseValue> values){
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
 
         List<BubbleEntry> entries = new ArrayList<>();
 
-        for (int i = 0; i < analyse.size(); i++) {
-
+        for (int i = 0; i < values.asList().size(); i++) {
+            DataAnalyseValue value = values.get(i);
             BubbleEntry entry = new BubbleEntry(i , i, 10);
-            entry.setData(analyse.getData(i).getTitle());
-            //entry.setVals(new float[]{analyse.getFrequency(i).floatValue()});
-            //entry.setData("T : " + analyse.getData(i).getTitle());
+            entry.setData(value.getTitle());
+            //entry.setVals(new float[]{value.getFrequency()});
+            entry.setData("T : " + value.getTitle());
             entries.add(entry);
         }
         BubbleDataSet dataSet = new BubbleDataSet(entries, "Some Example");

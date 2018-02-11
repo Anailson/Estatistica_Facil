@@ -12,7 +12,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.analyse.DataAnalyseValue;
+import com.sharktech.projectprob.analyse.SortedGenericList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,16 @@ public class BarChartCustom extends BarChart{
         super(context);
     }
 
-    protected BarChart build(DataAnalyse analyse) {
+    protected BarChart build(SortedGenericList<DataAnalyseValue> values) {
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
 
         List<BarEntry> entries = new ArrayList<>();
         List<LegendEntry> legends = new ArrayList<>();
 
-        for (int i = 0; i < analyse.size(); i++) {
-            entries.add(newEntry(i, new float[]{(float) analyse.getFrequency(i)}));
-            legends.add(newLegend(analyse.getData(i).getTitle()));
+        for (int i = 0; i < values.asList().size(); i++) {
+            DataAnalyseValue value = values.get(i);
+            entries.add(newEntry(i, new float[]{(float) value.getFrequency()}));
+            legends.add(newLegend(value.getTitle()));
         }
 
         configLegend(legends);

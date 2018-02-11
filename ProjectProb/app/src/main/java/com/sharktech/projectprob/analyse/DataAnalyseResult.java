@@ -1,11 +1,7 @@
 package com.sharktech.projectprob.analyse;
 
-import com.sharktech.projectprob.customtable.TableColumn;
-
 class DataAnalyseResult {
-
-
-    private boolean mIsNumber;
+/*
     private SortedCellsList mSortedList;
 
     DataAnalyseResult() {
@@ -14,12 +10,6 @@ class DataAnalyseResult {
 
     void clear(){
         mSortedList.clear();
-    }
-
-    boolean init(TableColumn.IVariable variable){
-        if(variable == null) return false;
-        mIsNumber = variable.isNumber();
-        return mSortedList.init(variable);
     }
 
     void calculate(){
@@ -32,4 +22,5 @@ class DataAnalyseResult {
     int size(){
         return mSortedList.valuesSize();
     }
+    */
 }

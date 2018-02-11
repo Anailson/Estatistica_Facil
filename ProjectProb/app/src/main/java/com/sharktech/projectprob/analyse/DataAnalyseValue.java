@@ -2,7 +2,7 @@ package com.sharktech.projectprob.analyse;
 
 import com.sharktech.projectprob.customtable.TableCell;
 
-class DataAnalyseValue {
+public class DataAnalyseValue {
 
     private boolean mIsNumber;
     private TableCell.ICell mValue;
@@ -14,22 +14,22 @@ class DataAnalyseValue {
         this.mFrequency = mValue == null ? 0 : 1;
     }
 
-    TableCell.ICell getValue() {
+    public TableCell.ICell getValue() {
         return mValue;
     }
 
-    long getFrequency(){
+    public String getTitle() {
+        return mValue.getTitle();
+    }
+
+    public long getFrequency(){
         return mFrequency;
     }
 
     void inc(){
         mFrequency++;
     }
-/*
-    boolean isNumber(){
-        return mValue.isNumber();
-    }
-*/
+
     double asNumber(){
         return mValue.asNumber();
     }

@@ -1,6 +1,7 @@
 package com.sharktech.projectprob.controllers;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.Chart;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.analyse.DataAnalyseValue;
+import com.sharktech.projectprob.analyse.SortedGenericList;
 import com.sharktech.projectprob.customcharts.ChartFactory;
 import com.sharktech.projectprob.customtable.TableColumn;
 
@@ -19,12 +22,12 @@ public class DataChartController {
 
     private Fragment mFragment;
     private Listeners mListener;
-    private DataAnalyse mAnalyse;
+    private TableColumn.IVariable mVariable;
 
     public DataChartController(Fragment fragment, TableColumn.IVariable variable) {
         this.mFragment = fragment;
         this.mListener = new Listeners();
-        this.mAnalyse = new DataAnalyse(variable);
+        this.mVariable = variable;
     }
 
     public AdapterView.OnItemSelectedListener getItemSelectedListener() {
@@ -32,7 +35,7 @@ public class DataChartController {
     }
 
     public void changeVariable(TableColumn.IVariable variable) {
-        mAnalyse.setVariable(variable);
+        mVariable = variable;
 
         Spinner spinner = findViewById(R.id.spn_graphs);
         if(spinner != null){
@@ -54,16 +57,19 @@ public class DataChartController {
 
         Spinner spnVariable = findViewById(R.id.spn_variable);
 
-        if(mAnalyse.calculate() && chartIndex >= 0 && spnVariable != null){
+        if(chartIndex >= 0 && spnVariable != null){
 
             int posVariable = spnVariable.getSelectedItemPosition() - 1;
 
             if(posVariable >= 0){
                 Chart chart = null;
+                Context context = mFragment.getContext();
+                String title = mVariable.getTitle();
+                SortedGenericList<DataAnalyseValue> values = DataAnalyse.init(mVariable);
                 switch (chartIndex) {
-                    case ChartFactory.PIE: chart = ChartFactory.newPieChart(mFragment.getContext(), mAnalyse); break;
-                    case ChartFactory.BAR: chart = ChartFactory.newBarChart(mFragment.getContext(), mAnalyse); break;
-                    case ChartFactory.DISPERSION: chart = ChartFactory.newDispersionChart(mFragment.getContext(), mAnalyse); break;
+                    case ChartFactory.PIE: chart = ChartFactory.newPieChart(context, title, values); break;
+                    case ChartFactory.BAR: chart = ChartFactory.newBarChart(context, title, values); break;
+                    case ChartFactory.DISPERSION: chart = ChartFactory.newDispersionChart(context, title, values); break;
                     case ChartFactory.BOX: break;
                     case ChartFactory.HISTOGRAM: break;
                 }

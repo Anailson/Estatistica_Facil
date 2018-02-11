@@ -81,7 +81,7 @@ class SortedCellsList {
     private int indexOfValue(TableCell.ICell val) {
         String upperVal = val.getTitle().toUpperCase();
         for (int i = 0; i < valuesSize(); i++) {
-            String upperCell = mValues.get(i).getValue().getTitle().toUpperCase();
+            String upperCell = mValues.get(i).getTitle().toUpperCase();
 
             if (upperVal.equals(upperCell)) {
                 return i;
@@ -96,9 +96,9 @@ class SortedCellsList {
         public int compare(T item1, T item2) {
 
             int instance = instanceOf(item1, item2);
-            return (instance == 0) ? compare((TableCell.ICell) item1, (TableCell.ICell) item2)
+            return 0; /*(instance == 0) ? compare((TableCell.ICell) item1, (TableCell.ICell) item2)
                     : (instance == 1) ? compare(((DataAnalyseValue) item1).getValue(), ((DataAnalyseValue) item2).getValue())
-                    : 0;
+                    : 0;*/
         }
 
         private int compare(TableCell.ICell cell1, TableCell.ICell cell2) {

@@ -10,7 +10,10 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.analyse.DataAnalyseValue;
+import com.sharktech.projectprob.analyse.SortedGenericList;
+
+import java.util.ArrayList;
 
 public class ChartFactory {
 
@@ -27,23 +30,23 @@ public class ChartFactory {
 
     private ChartFactory(){}
 
-    public static PieChart newPieChart(Context context, DataAnalyse analyse) {
+    public static PieChart newPieChart(Context context, String title, SortedGenericList<DataAnalyseValue> values) {
 
         PieChartCustom chart = new PieChartCustom(context);
-        chart.setDescription(getDescription(context, analyse.getTitle()));
-        return chart.build(analyse);
+        chart.setDescription(getDescription(context, title));
+        return chart.build(values);
     }
 
-    public static BarChart newBarChart(Context context, DataAnalyse analyse) {
+    public static BarChart newBarChart(Context context, String title, SortedGenericList<DataAnalyseValue> values) {
         BarChartCustom chart = new BarChartCustom(context);
-        chart.setDescription(getDescription(context, analyse.getTitle()));
-        return chart.build(analyse);
+        chart.setDescription(getDescription(context, title));
+        return chart.build(values);
     }
 
-    public static Chart newDispersionChart(Context context, DataAnalyse analyse) {
+    public static Chart newDispersionChart(Context context, String title, SortedGenericList<DataAnalyseValue> values) {
         DispersionChart chart = new DispersionChart(context);
-        chart.setDescription(getDescription(context, analyse.getTitle()));
-        return chart.build(analyse);
+        chart.setDescription(getDescription(context, title));
+        return chart.build(values);
     }
 
     private static Description getDescription(Context context, String text){

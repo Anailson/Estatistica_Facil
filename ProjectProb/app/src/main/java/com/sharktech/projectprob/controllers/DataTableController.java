@@ -6,10 +6,14 @@ import android.view.ViewGroup;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
+import com.sharktech.projectprob.analyse.DataAnalyseTable;
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.VariableObject;
+
+
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey;
 
 import java.util.ArrayList;
 
@@ -46,18 +50,20 @@ public class DataTableController {
         ArrayList<TableColumn.IVariable> variables = new ArrayList<>();
 
         if (mVariable != null){
-            DataAnalyse analyse = new DataAnalyse(mVariable);
-            analyse.calculate();/*
-            variables.add(getVariable(R.string.sum_value, analyse.getData()));
-            variables.add(getVariable(R.string.sum_frequency, analyse.getFrequency()));
-            variables.add(getVariable(R.string.sum_prod_val_freq, analyse.getProdValFreq()));
-            variables.add(getVariable(R.string.prd_value, analyse.getPowVal()));
-            variables.add(getVariable(R.string.prd_pwr_val_freq, analyse.getPowValFreq()));
-            variables.add(getVariable(R.string.sum_div_val, analyse.getDivVal()));
-            variables.add(getVariable(R.string.sum_div_freq_val, analyse.getDivFreqVal()));
-            variables.add(getVariable(R.string.sum_sqrt_val, analyse.getSqrtVal()));
-            variables.add(getVariable(R.string.sum_prod_sqrt_val_freq, analyse.getProdSqrtValFreq()));
-            */
+
+            DataAnalyseTable table = DataAnalyse.table(mVariable);
+
+            variables.add(getVariable(R.string.sum_value, table.get(ValueKey.DATA)));
+            variables.add(getVariable(R.string.sum_frequency, table.get(ValueKey.FREQUENCY)));
+            if(mVariable.isNumber()) {
+                variables.add(getVariable(R.string.sum_prod_val_freq, table.get(ValueKey.PROD_VAL_FREQ)));
+                variables.add(getVariable(R.string.prd_value, table.get(ValueKey.POW_VAL)));
+                variables.add(getVariable(R.string.prd_pwr_val_freq, table.get(ValueKey.POW_VAL_FREQ)));
+                variables.add(getVariable(R.string.sum_div_val, table.get(ValueKey.DIV_BY_VAL)));
+                variables.add(getVariable(R.string.sum_div_freq_val, table.get(ValueKey.DIV_FREQ_VAL)));
+                variables.add(getVariable(R.string.sum_sqrt_val, table.get(ValueKey.SQRT_VAL)));
+                variables.add(getVariable(R.string.sum_prod_sqrt_val_freq, table.get(ValueKey.PROD_SQRT_VAL_FREQ)));
+            }
         }
 
         mTable = new CustomTable(mFragment.getContext());

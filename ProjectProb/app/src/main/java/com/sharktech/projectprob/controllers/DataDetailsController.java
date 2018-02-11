@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.analyse.DataAnalyse;
 import com.sharktech.projectprob.analyse.DataAnalyseDetails;
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
@@ -40,9 +41,9 @@ public class DataDetailsController {
 
     public void calculate(){
 
-        DataAnalyseDetails details = new DataAnalyseDetails();
+        if(mVariable != null) {
 
-        if(details.calculate(mVariable)) {
+            DataAnalyseDetails details = DataAnalyse.details(mVariable);
 
             String modeText = mFragment.getString(R.string.txt_default);
             if(details.hasMode()){

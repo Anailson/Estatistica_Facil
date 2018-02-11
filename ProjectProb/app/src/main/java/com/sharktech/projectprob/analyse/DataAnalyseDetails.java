@@ -29,10 +29,7 @@ public class DataAnalyseDetails {
         return mModes;
     }
 
-    public boolean calculate(TableColumn.IVariable variable){
-        if(variable == null) return false;
-
-        SortedGenericList<DataAnalyseValue> values = init(variable);
+    void calculate(boolean isNumber, SortedGenericList<DataAnalyseValue> values){
 
         long frequency = 0;
         Double sumFrequency = 0d, sumArithmetic = 0d, sumPoundArithmetic = 0d,
@@ -50,7 +47,7 @@ public class DataAnalyseDetails {
                 frequency = value.getFrequency();
             }
 
-            if(variable.isNumber()){
+            if(isNumber){
                 sumFrequency += value.getFrequency();
                 sumArithmetic += value.asNumber();                               //ARITHMETIC
                 sumPoundArithmetic += value.prodValFreq();                       //POUND_ARITHMETIC
@@ -74,44 +71,8 @@ public class DataAnalyseDetails {
         mAverages.put(AverageKey.POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
         mAverages.put(AverageKey.QUADRATIC, Math.sqrt(sumQuadratic));
         mAverages.put(AverageKey.POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
-        return true;
     }
     public boolean hasMode(){
         return mModes.size() > 0;
-    }
-
-    private SortedGenericList<DataAnalyseValue> init(TableColumn.IVariable variable){
-        SortedGenericList<DataAnalyseValue> values = new SortedGenericList<>(DataAnalyseValue.class, sorter(variable.isNumber()));
-        for(TableCell.ICell cell : variable.getElements()){
-
-            int index = indexOfValue(values, cell);
-            if(index >= 0) values.get(index).inc();
-            else values.add(new DataAnalyseValue(variable.isNumber(), cell));
-        }
-        return values;
-    }
-
-    private int indexOfValue(SortedGenericList<DataAnalyseValue> values, TableCell.ICell val) {
-        String upperVal = val.getTitle().toUpperCase();
-
-        for (int i = 0; i < values.size(); i++) {
-            String upperCell = values.get(i).getValue().getTitle().toUpperCase();
-
-            if (upperVal.equals(upperCell)) {
-                return i;
-            }
-        }
-        return -2;
-    }
-
-    private SortedGenericList.ISorter<DataAnalyseValue> sorter(final boolean isNumber){
-        return new SortedGenericList.ISorter<DataAnalyseValue>() {
-            @Override
-            public int compare(DataAnalyseValue elem1, DataAnalyseValue elem2) {
-                if(!isNumber) return 0;
-                return elem1.asNumber() == elem2.asNumber() ? 0
-                        : elem1.asNumber() > elem2.asNumber() ? 1 : -1;
-            }
-        };
     }
 }

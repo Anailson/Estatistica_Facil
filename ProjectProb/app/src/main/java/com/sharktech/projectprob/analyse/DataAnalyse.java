@@ -1,12 +1,14 @@
 package com.sharktech.projectprob.analyse;
 
-import android.util.Log;
-
 import com.sharktech.projectprob.customtable.TableCell.ICell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.ArrayList;
 
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DATA;
+import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.FREQUENCY;
+
+/*
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.ARITHMETIC;
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.GEOMETRIC;
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_ARITHMETIC;
@@ -15,15 +17,7 @@ import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POU
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.POUND_WEIGHTED;
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.QUADRATIC;
 import static com.sharktech.projectprob.analyse.DataAnalyseResult.AverageKey.WEIGHTED;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DATA;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DIV_BY_VAL;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.DIV_FREQ_VAL;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.FREQUENCY;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.POW_VAL;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.POW_VAL_FREQ;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.PROD_SQRT_VAL_FREQ;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.PROD_VAL_FREQ;
-import static com.sharktech.projectprob.analyse.DataAnalyseResult.ValueKey.SQRT_VAL;
+*/
 
 public class DataAnalyse {
 
@@ -39,6 +33,15 @@ public class DataAnalyse {
         this.mVariable = mVariable;
         this.mResult.clear();
     }
+
+    public DataAnalyseDetails getAverages(){
+        DataAnalyseDetails averages = new DataAnalyseDetails();
+        averages.calculate(mVariable);
+        return averages;
+    }
+
+
+
 
     public boolean calculate(){
 
@@ -71,10 +74,10 @@ public class DataAnalyse {
         return mResult.get(FREQUENCY, index).asNumber();
     }
 
-    public boolean hasMode(){
-        return mResult.nMode() > 0;
+    public String getTitle(){
+        return "Refactoring";
     }
-
+/*
     public ArrayList<ICell> getMode(){
         return mResult.getMode();
     }
@@ -130,7 +133,7 @@ public class DataAnalyse {
     public ArrayList<ICell> getPowValFreq() {
         return mResult.get(POW_VAL_FREQ);
     }
-
+/*
     public Double avgArithmetic() {
         return avg(ARITHMETIC);
     }
@@ -166,7 +169,7 @@ public class DataAnalyse {
     private Double avg(DataAnalyseResult.AverageKey key){
         return !isEmpty() ? mResult.get(key) : -1d;
     }
-
+*/
     private boolean isEmpty(){
         return size() == 0;
     }

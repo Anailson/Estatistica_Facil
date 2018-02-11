@@ -16,22 +16,23 @@ class DataAnalyseResult {
         DATA, FREQUENCY, PROD_VAL_FREQ, POW_VAL, POW_VAL_FREQ,
         DIV_BY_VAL, DIV_FREQ_VAL, SQRT_VAL, PROD_SQRT_VAL_FREQ
     }
-
+/*
     enum AverageKey {
         ARITHMETIC, POUND_ARITHMETIC, GEOMETRIC, POUND_GEOMETRIC,
         WEIGHTED, POUND_WEIGHTED, QUADRATIC, POUND_QUADRATIC
     }
+*/
 
     private boolean mIsNumber;
     private SortedCellsList mSortedList;
-    private ArrayList<TableCell.ICell> mModes;
-    private HashMap<AverageKey, Double> mAverages;
+    //private ArrayList<TableCell.ICell> mModes;
+    //private HashMap<AverageKey, Double> mAverages;
     private HashMap<ValueKey, ArrayList<TableCell.ICell>> mResultMap;
 
     DataAnalyseResult() {
         mSortedList = new SortedCellsList();
-        mModes = new ArrayList<>();
-        mAverages = new HashMap<>();
+        //mModes = new ArrayList<>();
+        //mAverages = new HashMap<>();
         mResultMap = new HashMap<>();
 
         mResultMap.put(ValueKey.DATA, new ArrayList<TableCell.ICell>());
@@ -47,7 +48,7 @@ class DataAnalyseResult {
 
     void clear(){
         mSortedList.clear();
-        mModes.clear();
+        //mModes.clear();
 
         mResultMap.get(ValueKey.DATA).clear();
         mResultMap.get(ValueKey.FREQUENCY).clear();
@@ -78,6 +79,7 @@ class DataAnalyseResult {
         mSortedList.quarterValue(SortedCellsList.Quart.THIRD);
 
         for (DataAnalyseValue data : mSortedList.getValues()) {
+            /*
             if (data.getFrequency() == frequency) {
                 mModes.add(data.getValue());
             } else if (data.getFrequency() > frequency) {
@@ -85,6 +87,7 @@ class DataAnalyseResult {
                 mModes.add(data.getValue());
                 frequency = data.getFrequency();
             }
+            */
 
             if (mIsNumber) {
                 sumFrequency += data.getFrequency();
@@ -137,6 +140,7 @@ class DataAnalyseResult {
         double avgGeo = Math.pow(prodGeometric, (1 / mSortedList.valuesSize()));
         double avgGeoPound = Math.pow(prodPoundGeometric, (1 / sumFrequency));
         Log.e("ROOT_N", "avgGeo " + avgGeo + " avgGeoPound " + avgGeoPound);
+        /*
         add(AverageKey.ARITHMETIC, sumArithmetic / mSortedList.valuesSize());
         add(AverageKey.POUND_ARITHMETIC, sumPoundArithmetic / sumFrequency);
         add(AverageKey.GEOMETRIC, avgGeo);
@@ -145,12 +149,13 @@ class DataAnalyseResult {
         add(AverageKey.POUND_WEIGHTED, sumPoundWeighted != 0 ? sumFrequency / sumPoundWeighted : 0);
         add(AverageKey.QUADRATIC, Math.sqrt(sumQuadratic));
         add(AverageKey.POUND_QUADRATIC, Math.sqrt(sumPoundQuadratic));
+        */
     }
 
     int size(){
         return mSortedList.valuesSize();
     }
-
+/*
     ArrayList<TableCell.ICell> getMode() {
         return mModes;
     }
@@ -162,7 +167,7 @@ class DataAnalyseResult {
     Double get(AverageKey key) {
         return mAverages.get(key);
     }
-
+*/
     TableCell.ICell get(ValueKey key, int index) {
         return mResultMap.get(key).get(index);
     }
@@ -182,8 +187,9 @@ class DataAnalyseResult {
     private void add(ValueKey key, TableCell.ICell cell) {
         mResultMap.get(key).add(cell);
     }
-
+/*
     private void add(AverageKey key, Double value) {
         mAverages.put(key, value);
     }
+    */
 }

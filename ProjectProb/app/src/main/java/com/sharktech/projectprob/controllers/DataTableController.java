@@ -47,7 +47,7 @@ public class DataTableController {
 
         if (mVariable != null){
             DataAnalyse analyse = new DataAnalyse(mVariable);
-            analyse.calculate();
+            analyse.calculate();/*
             variables.add(getVariable(R.string.sum_value, analyse.getData()));
             variables.add(getVariable(R.string.sum_frequency, analyse.getFrequency()));
             variables.add(getVariable(R.string.sum_prod_val_freq, analyse.getProdValFreq()));
@@ -57,6 +57,7 @@ public class DataTableController {
             variables.add(getVariable(R.string.sum_div_freq_val, analyse.getDivFreqVal()));
             variables.add(getVariable(R.string.sum_sqrt_val, analyse.getSqrtVal()));
             variables.add(getVariable(R.string.sum_prod_sqrt_val_freq, analyse.getProdSqrtValFreq()));
+            */
         }
 
         mTable = new CustomTable(mFragment.getContext());

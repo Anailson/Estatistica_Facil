@@ -8,16 +8,13 @@ import java.util.ArrayList;
 public class DataAnalyse {
 
     private TableColumn.IVariable mVariable;
-    //private DataAnalyseResult mResult;
 
     public DataAnalyse(TableColumn.IVariable variable) {
         this.mVariable = variable;
-        //this.mResult = new DataAnalyseResult();
     }
 
     public void setVariable(TableColumn.IVariable mVariable) {
         this.mVariable = mVariable;
-        //this.mResult.clear();
     }
 
     public static DataAnalyseDetails details(TableColumn.IVariable variable){
@@ -69,22 +66,6 @@ public class DataAnalyse {
         }
         return new ArrayList<>();
     }
-/*
-    public int size(){
-        return mResult.size();
-    }
-/*
-    public ICell getData(int index) {
-        return new VariableString.ValueString("Refactoring");
-    }
-
-    public double getFrequency(int index){
-        return -100;
-    }
-
-    public String getTitle(){
-        return "Refactoring";
-    }*/
 
     private static SortedGenericList.ISorter<DataAnalyseValue> sorter(final boolean isNumber){
         return new SortedGenericList.ISorter<DataAnalyseValue>() {
@@ -96,5 +77,4 @@ public class DataAnalyse {
             }
         };
     }
-
 }

@@ -16,26 +16,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            style="@style/TextViewColored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/medium_gap"
-            android:paddingRight="@dimen/medium_gap">
-
-            <TextView
-                style="@style/TextViewColored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_variable" />
-        </LinearLayout>
+            android:text="@string/txt_variable" />
 
         <Spinner
             android:id="@+id/spn_variable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="right"
-            android:gravity="end" />
+            android:gravity="end"
+            android:spinnerMode="dialog" />
     </LinearLayout>
 
     <FrameLayout

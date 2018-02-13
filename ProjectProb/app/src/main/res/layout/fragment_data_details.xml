@@ -79,93 +79,61 @@
             android:layout_marginBottom="@dimen/medium_gap"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                style="@style/TextViewColored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_mode" />
-            </LinearLayout>
+                android:text="@string/txt_mode" />
 
             <TextView
                 android:id="@+id/txt_mode"
                 style="@style/TextViewColoredRight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:gravity="end" />
+                android:gravity="end"
+                android:textAppearance="@style/TextViewSmallColored" />
 
         </LinearLayout>
 
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_kurtosis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+<!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/medium_gap"
             android:orientation="horizontal">
 
-
-            <LinearLayout
+            <TextView
+                style="@style/TextViewColored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_kurtosis" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_kurtosis"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end" />
+                android:text="@string/txt_asymmetry" />
 
         </LinearLayout>
-
-        <LinearLayout
+--><!--
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_asymmetry_pearson_st"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/medium_gap"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/medium_gap"
-                android:paddingEnd="@dimen/medium_gap">
-
-                <TextView
-                    style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_skewness" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_skewness"
-                style="@style/TextViewColoredRight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end" />
-        </LinearLayout>
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_asymmetry_pearson_nd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+-->
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_asymmetry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+<!--
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/detail_asymmetry_percent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+-->
     </LinearLayout>
 
 </ScrollView>

@@ -43,15 +43,19 @@ public class DataDetailsView extends Fragment implements DataAnalyseView.ChangeV
         ItemDataDetail dataWeightedPound = view.findViewById(R.id.detail_avg_weighted_pound);
         ItemDataDetail dataQuadratic = view.findViewById(R.id.detail_avg_quadratic);
         ItemDataDetail dataQuadraticPound = view.findViewById(R.id.detail_avg_quadratic_pound);
+        ItemDataDetail dataKurtosis = view.findViewById(R.id.detail_kurtosis);
+        ItemDataDetail dataAsymmetryQuart = view.findViewById(R.id.detail_asymmetry);
 
-        dataArithmetic.setTexts(R.string.txt_avg_arithmetic, R.string.txt_avg_arithmetic_sym, R.string.txt_default);
-        dataArithmeticPound.setTexts(R.string.txt_avg_arithmetic_pound, R.string.txt_avg_arithmetic_pound_sym, R.string.txt_default);
-        dataGeometric.setTexts(R.string.txt_avg_geometric, R.string.txt_avg_geometric_sym, R.string.txt_default);
-        dataGeometricPound.setTexts(R.string.txt_avg_geometric_pound, R.string.txt_avg_geometric_pound_sym, R.string.txt_default);
-        dataWeighted.setTexts(R.string.txt_avg_weighted, R.string.txt_avg_weighted_sym, R.string.txt_default);
-        dataWeightedPound.setTexts(R.string.txt_avg_weighted_pound, R.string.txt_avg_weighted_pound_sym, R.string.txt_default);
-        dataQuadratic.setTexts(R.string.txt_avg_quadratic, R.string.txt_avg_quadratic_sym, R.string.txt_default);
-        dataQuadraticPound.setTexts(R.string.txt_avg_quadratic_pound, R.string.txt_avg_quadratic_pound_sym, R.string.txt_default);
+        dataArithmetic.setTexts(R.string.txt_avg_arithmetic, R.string.sym_avg_arithmetic, R.string.txt_default);
+        dataArithmeticPound.setTexts(R.string.txt_avg_arithmetic_pound, R.string.sym_avg_arithmetic_pound, R.string.txt_default);
+        dataGeometric.setTexts(R.string.txt_avg_geometric, R.string.sym_avg_geometric, R.string.txt_default);
+        dataGeometricPound.setTexts(R.string.txt_avg_geometric_pound, R.string.sym_avg_geometric_pound, R.string.txt_default);
+        dataWeighted.setTexts(R.string.txt_avg_weighted, R.string.sym_avg_weighted, R.string.txt_default);
+        dataWeightedPound.setTexts(R.string.txt_avg_weighted_pound, R.string.sym_avg_weighted_pound, R.string.txt_default);
+        dataQuadratic.setTexts(R.string.txt_avg_quadratic, R.string.sym_avg_quadratic, R.string.txt_default);
+        dataQuadraticPound.setTexts(R.string.txt_avg_quadratic_pound, R.string.sym_avg_quadratic_pound, R.string.txt_default);
+        dataKurtosis.setTexts(R.string.txt_kurtosis, R.string.sym_kurtosis, R.string.txt_default);
+        dataAsymmetryQuart.setTexts(R.string.txt_asymmetry, R.string.sym_asymmetry_quart, R.string.txt_default);
 
         mController = new DataDetailsController(this, mVariable);
         mController.calculate();

@@ -14,17 +14,15 @@ import com.sharktech.projectprob.customview.ItemDataDetail;
 
 import java.util.Locale;
 
-import static com.sharktech.projectprob.analyse.DataAnalyseDetails.AverageKey;
+import static com.sharktech.projectprob.analyse.DataAnalyseDetails.Details;
 
 public class DataDetailsController {
 
     private Fragment mFragment;
-    //private DataAnalyse mAnalyse;
     private TableColumn.IVariable mVariable;
 
     public DataDetailsController(Fragment fragment, TableColumn.IVariable variable) {
         mFragment = fragment;
-        //mAnalyse = new DataAnalyse(variable);
         mVariable = variable;
 
     }
@@ -54,14 +52,16 @@ public class DataDetailsController {
                 modeText = sBuilder.substring(0, sBuilder.lastIndexOf(", "));
             }
 
-            fillItemDetail(R.id.detail_avg_arithmetic, details.get(AverageKey.ARITHMETIC));
-            fillItemDetail(R.id.detail_avg_arithmetic_pound, details.get(AverageKey.POUND_ARITHMETIC));
-            fillItemDetail(R.id.detail_avg_geometric, details.get(AverageKey.GEOMETRIC));
-            fillItemDetail(R.id.detail_avg_geometric_pound, details.get(AverageKey.POUND_GEOMETRIC));
-            fillItemDetail(R.id.detail_avg_weighted, details.get(AverageKey.WEIGHTED));
-            fillItemDetail(R.id.detail_avg_weighted_pound, details.get(AverageKey.POUND_WEIGHTED));
-            fillItemDetail(R.id.detail_avg_quadratic, details.get(AverageKey.QUADRATIC));
-            fillItemDetail(R.id.detail_avg_quadratic_pound, details.get(AverageKey.POUND_QUADRATIC));
+            fillItemDetail(R.id.detail_avg_arithmetic, details.get(Details.ARITHMETIC));
+            fillItemDetail(R.id.detail_avg_arithmetic_pound, details.get(Details.POUND_ARITHMETIC));
+            fillItemDetail(R.id.detail_avg_geometric, details.get(Details.GEOMETRIC));
+            fillItemDetail(R.id.detail_avg_geometric_pound, details.get(Details.POUND_GEOMETRIC));
+            fillItemDetail(R.id.detail_avg_weighted, details.get(Details.WEIGHTED));
+            fillItemDetail(R.id.detail_avg_weighted_pound, details.get(Details.POUND_WEIGHTED));
+            fillItemDetail(R.id.detail_avg_quadratic, details.get(Details.QUADRATIC));
+            fillItemDetail(R.id.detail_avg_quadratic_pound, details.get(Details.POUND_QUADRATIC));
+            fillItemDetail(R.id.detail_kurtosis, details.get(Details.KURTOSIS));
+            fillItemDetail(R.id.detail_asymmetry, String.valueOf(details.get(Details.ASYMMETRY))); //accepts negative value
             fillText(R.id.txt_mode, modeText);
         } else {
             defaultValues();
@@ -77,6 +77,8 @@ public class DataDetailsController {
         fillItemDetail(R.id.detail_avg_weighted_pound, -1d);
         fillItemDetail(R.id.detail_avg_quadratic, -1d);
         fillItemDetail(R.id.detail_avg_quadratic_pound, -1d);
+        fillItemDetail(R.id.detail_kurtosis, -1d);
+        fillItemDetail(R.id.detail_asymmetry, -1d);
         fillText(R.id.txt_mode, mFragment.getString(R.string.txt_default));
     }
 

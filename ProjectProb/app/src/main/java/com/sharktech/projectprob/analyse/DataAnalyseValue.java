@@ -26,6 +26,10 @@ public class DataAnalyseValue {
         return mFrequency;
     }
 
+    boolean isNumber(){
+        return mIsNumber;
+    }
+
     void inc(){
         mFrequency++;
     }

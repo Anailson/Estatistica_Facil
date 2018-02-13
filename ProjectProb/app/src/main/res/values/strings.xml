@@ -21,7 +21,11 @@
     <string name="txt_avg_quadratic_pound">Quadrática ponderada</string>
     <string name="txt_mode">Moda</string>
     <string name="txt_kurtosis">Curtose</string>
-    <string name="txt_skewness">Assimetrica</string>
+    <string name="txt_asymmetry">Assimetria</string>
+    <string name="txt_asymmetry_pearson_st">Primeiro Coeficiente de Pearson</string>
+    <string name="txt_asymmetry_pearson_nd">Segundo Coeficiente de Pearson</string>
+    <string name="txt_asymmetry_quart">Coeficiente Quartílico</string>
+    <string name="txt_asymmetry_cent">Coeficiente Percentílico</string>
     <string name="txt_charts">Gráficos</string>
     <string name="txt_pizza_chart">Pizza</string>
     <string name="txt_column_chart">Coluna</string>
@@ -38,14 +42,20 @@
     <string name="btn_cancel">Cancelar</string>
 
     <!-- XML and HTML Symbol -->
-    <string name="txt_avg_arithmetic_sym">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>
-    <string name="txt_avg_arithmetic_pound_sym">x&#772; = &#8721;(&#967;&#161; * &#402;&#161;) / &#8721;(&#402;&#161;)</string>
-    <string name="txt_avg_geometric_sym">x&#772; = &#8719;(&#967;&#161;) ^ (1 / n)</string>
-    <string name="txt_avg_geometric_pound_sym">x&#772; = [&#8719; (&#967;&#161; ^ &#402;&#161;)] ^ [1 / &#8721;(&#402;&#161;)]</string>
-    <string name="txt_avg_weighted_sym">x&#772; = n / &#8721;(1 / &#967;&#161;)</string>
-    <string name="txt_avg_weighted_pound_sym">x&#772; = &#8721;(&#402;&#161;) / &#8721;(&#402;&#161; / &#967;&#161;)</string>
-    <string name="txt_avg_quadratic_sym">x&#772; = &#8730;(&#8721; (&#967;&#161; ^ 2))</string>
-    <string name="txt_avg_quadratic_pound_sym">x&#772; = &#8730;[&#8721; (&#967;&#161; ^ 2 * &#402;&#161;)]</string>
+    <string name="sym_avg_arithmetic">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>
+    <string name="sym_avg_arithmetic_pound">x&#772; = &#8721;(&#967;&#161; * &#402;&#161;) / &#8721;(&#402;&#161;)</string>
+    <string name="sym_avg_geometric">x&#772; = &#8719;(&#967;&#161;) ^ (1 / n)</string>
+    <string name="sym_avg_geometric_pound">x&#772; = [&#8719; (&#967;&#161; ^ &#402;&#161;)] ^ [1 / &#8721;(&#402;&#161;)]</string>
+    <string name="sym_avg_weighted">x&#772; = n / &#8721;(1 / &#967;&#161;)</string>
+    <string name="sym_avg_weighted_pound">x&#772; = &#8721;(&#402;&#161;) / &#8721;(&#402;&#161; / &#967;&#161;)</string>
+    <string name="sym_avg_quadratic">x&#772; = &#8730;(&#8721; (&#967;&#161; ^ 2))</string>
+    <string name="sym_avg_quadratic_pound">x&#772; = &#8730;[&#8721; (&#967;&#161; ^ 2 * &#402;&#161;)]</string>
+    <string name="sym_kurtosis">K = (Q&#8323; - Q&#8321;) / 2(D&#8329; - D&#8321;)</string>
+    <string name="sym_asymmetry_pearson_st">A = (x&#772; - Mo) / S</string>
+    <string name="sym_asymmetry_pearson_nd">A = 3(x&#772; - Md) / S</string>
+    <string name="sym_asymmetry_quart">A = (Q&#8323; + Q&#8321; - 2Q&#8322;) / (Q&#8323; - Q&#8321;)</string>
+    <string name="sym_asymmetry_percent">A = (P&#8329;&#8320; + P&#8321;&#8320; - 2P&#8325;&#8320;) / (P&#8329;&#8320; - P&#8321;&#8320;)</string>
+    <string name="sym_standard_deviation">E = &#8730;{E(&#967;&#161; ^ 2) - [E(&#967;&#161;)] ^ 2}</string>
 
     <string name="sum_value">&#8721;(&#967;&#161;)</string>
     <string name="sum_frequency">&#8721;(&#402;&#161;)</string>

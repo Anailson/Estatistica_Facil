@@ -55,6 +55,7 @@ public class DataTableController {
 
             variables.add(getVariable(R.string.sum_value, table.get(ValueKey.DATA)));
             variables.add(getVariable(R.string.sum_frequency, table.get(ValueKey.FREQUENCY)));
+            variables.add(getVariable("Fi", table.get(ValueKey.FREQUENCY_ACCUMULATED)));
             if(mVariable.isNumber()) {
                 variables.add(getVariable(R.string.sum_prod_val_freq, table.get(ValueKey.PROD_VAL_FREQ)));
                 variables.add(getVariable(R.string.prd_value, table.get(ValueKey.POW_VAL)));

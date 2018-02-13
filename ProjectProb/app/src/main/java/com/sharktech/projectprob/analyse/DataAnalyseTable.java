@@ -12,7 +12,7 @@ import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.*;
 public class DataAnalyseTable {
 
     public enum ValueKey {
-        DATA, FREQUENCY, PROD_VAL_FREQ, POW_VAL, POW_VAL_FREQ,
+        DATA, FREQUENCY, FREQUENCY_ACCUMULATED, PROD_VAL_FREQ, POW_VAL, POW_VAL_FREQ,
         DIV_BY_VAL, DIV_FREQ_VAL, SQRT_VAL, PROD_SQRT_VAL_FREQ
     }
 
@@ -23,6 +23,7 @@ public class DataAnalyseTable {
 
         mResultMap.put(DATA, new ArrayList<TableCell.ICell>());
         mResultMap.put(FREQUENCY, new ArrayList<TableCell.ICell>());
+        mResultMap.put(FREQUENCY_ACCUMULATED, new ArrayList<TableCell.ICell>());
         mResultMap.put(PROD_VAL_FREQ, new ArrayList<TableCell.ICell>());
         mResultMap.put(POW_VAL, new ArrayList<TableCell.ICell>());
         mResultMap.put(POW_VAL_FREQ, new ArrayList<TableCell.ICell>());
@@ -41,8 +42,11 @@ public class DataAnalyseTable {
 
         for (DataAnalyseValue data : values.asList()) {
 
+            sumFrequency += data.getFrequency();
+            add(FREQUENCY, (double) data.getFrequency());
+            add(FREQUENCY_ACCUMULATED, sumFrequency);
+            add(DATA, data.getValue());
             if(isNumber){
-                sumFrequency += data.getFrequency();
                 sumArithmetic += data.asNumber();                               //ARITHMETIC
                 sumPoundArithmetic += data.prodValFreq();                       //POUND_ARITHMETIC
                 prodGeometric *= data.asNumber();                               //GEOMETRIC
@@ -59,22 +63,11 @@ public class DataAnalyseTable {
                 add(DIV_FREQ_VAL, data.divFreqVal());
                 add(SQRT_VAL, data.sqrtVal());
                 add(PROD_SQRT_VAL_FREQ, data.prodSqrtValFreq());
-            }else{
-                String val = " - - - ";
-                add(PROD_VAL_FREQ, val);
-                add(POW_VAL, val);
-                add(POW_VAL_FREQ, val);
-                add(DIV_BY_VAL, val);
-                add(DIV_FREQ_VAL, val);
-                add(SQRT_VAL, val);
-                add(PROD_SQRT_VAL_FREQ, val);
             }
-            add(FREQUENCY, (double) data.getFrequency());
-            add(DATA, data.getValue());
         }
+        String empty = " - - - ";
         if(isNumber) {
             add(DATA, sumArithmetic);
-            add(FREQUENCY, sumFrequency);
             add(PROD_VAL_FREQ, sumPoundArithmetic);
             add(POW_VAL, prodGeometric);
             add(POW_VAL_FREQ, prodPoundGeometric);
@@ -82,7 +75,11 @@ public class DataAnalyseTable {
             add(DIV_FREQ_VAL, sumPoundWeighted);
             add(SQRT_VAL, sumQuadratic);
             add(PROD_SQRT_VAL_FREQ, sumPoundQuadratic);
+        }else{
+            add(DATA, empty);
         }
+        add(FREQUENCY_ACCUMULATED, empty);
+        add(FREQUENCY, sumFrequency);
     }
 
     public ArrayList<TableCell.ICell> get(ValueKey key){

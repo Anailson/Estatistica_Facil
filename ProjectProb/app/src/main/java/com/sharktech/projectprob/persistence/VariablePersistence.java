@@ -22,14 +22,6 @@ public class VariablePersistence {
     }
 
     private void init(){
-        VariableObject person = new VariableObject("Pessoa");
-        person.add(new VariableObject.ValueObject[]{
-                new VariableObject.ValueObject("Joao 23"),
-                new VariableObject.ValueObject("Antônio 25"),
-                new VariableObject.ValueObject("Maria 23"),
-                new VariableObject.ValueObject("Antônio 25"),
-                new VariableObject.ValueObject("Francisca 52")
-        });
 
         VariableNumber flts = new VariableNumber("Float");
         flts.add(new Float[]{1.3f, 2.2f, 1.3f, 4.4f, 2.3f, 4.3f, 7.4f, 7.2f, 2.2f, 2.5f});
@@ -38,24 +30,18 @@ public class VariablePersistence {
         flts.add(new Float[]{9.7f, 4.6f, 5.8f, 9.2f, 2.3f, 7.9f, 2.4f, 7.3f, 5.2f, 2.5f});
         flts.add(new Float[]{6.7f, 0.6f, 2.8f, 1.2f, 2.7f, 4.9f, 9.4f, 7.8f, 1.2f, 2.0f});
 
-        VariableNumber ints = new VariableNumber("Integer");
-        ints.add(new Integer[]{1, 3, 5, 8, 1, 2, 6, 9, 4, 7});
-        ints.add(new Integer[]{2, 9, 7, 3, 6, 2, 9, 5, 1, 7});
-        ints.add(new Integer[]{4, 3, 9, 6, 8, 5, 4, 8, 2, 1});
-        ints.add(new Integer[]{6, 8, 9, 4, 3, 3, 7, 5, 4, 8});
-        ints.add(new Integer[]{9, 5, 1, 6, 7, 9, 5, 3, 7, 2});
-
-        VariableString chars = new VariableString("Character");
-        chars.add(new Character[]{'U', 'D', 'U', 'T', 'U'});
-
         VariableString strs = new VariableString("String");
         strs.add(new String[]{"Um", "Dois", "Três", "Dois", "Cinco", "Um", "Sete"});
 
+        VariableNumber example = new VariableNumber("example_1");
+        example.add(new Integer[]{48, 48, 49, 50, 50, 50, 50, 52, 53, 53});
+        example.add(new Integer[]{54, 55, 56, 58, 58, 60, 65, 67, 70, 70});
+        example.add(new Integer[]{70, 71, 72, 74, 75, 75, 76, 77, 77, 77});
+        example.add(new Integer[]{78, 79, 80, 80, 81, 82, 83, 83, 85, 89});
+
         mVariables.add(flts);
-        mVariables.add(ints);
-        mVariables.add(chars);
         mVariables.add(strs);
-        mVariables.add(person);
+        mVariables.add(example);
     }
 
     public static VariablePersistence getInstance(){

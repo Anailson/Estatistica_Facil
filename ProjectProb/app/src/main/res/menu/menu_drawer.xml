@@ -6,17 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_variables"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="@mipmap/ic_table"
             android:title="@string/menu_variables" />
         <item
             android:id="@+id/nav_data_analyse"
-            android:icon="@android:drawable/ic_dialog_info"
+            android:icon="@mipmap/ic_data_description"
             android:title="@string/menu_data_analyse" />
+        <item
+            android:id="@+id/nav_inference"
+            android:icon="@mipmap/ic_inference"
+            android:title="@string/menu_inference" />
+        <item
+            android:id="@+id/nav_probability"
+            android:icon="@mipmap/ic_probability"
+            android:title="@string/menu_probability" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/txt_about">
         <menu>
-
+            <item
+                android:id="@+id/nav_formula"
+                android:icon="@mipmap/ic_forumla"
+                android:title="@string/menu_formula" />
         </menu>
     </item>
 

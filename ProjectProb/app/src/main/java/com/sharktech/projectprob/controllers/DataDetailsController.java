@@ -52,16 +52,16 @@ public class DataDetailsController {
                 modeText = sBuilder.substring(0, sBuilder.lastIndexOf(", "));
             }
 
-            fillItemDetail(R.id.detail_avg_arithmetic, details.get(Details.ARITHMETIC));
-            fillItemDetail(R.id.detail_avg_arithmetic_pound, details.get(Details.POUND_ARITHMETIC));
-            fillItemDetail(R.id.detail_avg_geometric, details.get(Details.GEOMETRIC));
-            fillItemDetail(R.id.detail_avg_geometric_pound, details.get(Details.POUND_GEOMETRIC));
-            fillItemDetail(R.id.detail_avg_weighted, details.get(Details.WEIGHTED));
-            fillItemDetail(R.id.detail_avg_weighted_pound, details.get(Details.POUND_WEIGHTED));
-            fillItemDetail(R.id.detail_avg_quadratic, details.get(Details.QUADRATIC));
-            fillItemDetail(R.id.detail_avg_quadratic_pound, details.get(Details.POUND_QUADRATIC));
-            fillItemDetail(R.id.detail_kurtosis, details.get(Details.KURTOSIS));
-            fillItemDetail(R.id.detail_asymmetry, details.get(Details.ASYMMETRY)); //accepts negative value
+            fillItemDetail(R.id.detail_avg_arithmetic, format(details.get(Details.ARITHMETIC)));
+            fillItemDetail(R.id.detail_avg_arithmetic_pound, format(details.get(Details.POUND_ARITHMETIC)));
+            fillItemDetail(R.id.detail_avg_geometric, format(details.get(Details.GEOMETRIC)));
+            fillItemDetail(R.id.detail_avg_geometric_pound, format(details.get(Details.POUND_GEOMETRIC)));
+            fillItemDetail(R.id.detail_avg_weighted, format(details.get(Details.WEIGHTED)));
+            fillItemDetail(R.id.detail_avg_weighted_pound, format(details.get(Details.POUND_WEIGHTED)));
+            fillItemDetail(R.id.detail_avg_quadratic, format(details.get(Details.QUADRATIC)));
+            fillItemDetail(R.id.detail_avg_quadratic_pound, format(details.get(Details.POUND_QUADRATIC)));
+            fillItemDetail(R.id.detail_kurtosis, format(details.get(Details.KURTOSIS)));
+            fillItemDetail(R.id.detail_asymmetry, format(details.get(Details.ASYMMETRY))); //accepts negative value
             fillText(R.id.txt_mode, modeText);
         } else {
             defaultValues();
@@ -69,27 +69,27 @@ public class DataDetailsController {
     }
 
     private void defaultValues(){
-        fillItemDetail(R.id.detail_avg_arithmetic, null);
-        fillItemDetail(R.id.detail_avg_arithmetic_pound, null);
-        fillItemDetail(R.id.detail_avg_geometric, null);
-        fillItemDetail(R.id.detail_avg_geometric_pound, null);
-        fillItemDetail(R.id.detail_avg_weighted, null);
-        fillItemDetail(R.id.detail_avg_weighted_pound, null);
-        fillItemDetail(R.id.detail_avg_quadratic, null);
-        fillItemDetail(R.id.detail_avg_quadratic_pound, null);
-        fillItemDetail(R.id.detail_kurtosis, null);
-        fillItemDetail(R.id.detail_asymmetry, null);
-        fillText(R.id.txt_mode, null);
+        String empty = mFragment.getString(R.string.txt_default);
+        fillItemDetail(R.id.detail_avg_arithmetic, empty);
+        fillItemDetail(R.id.detail_avg_arithmetic_pound, empty);
+        fillItemDetail(R.id.detail_avg_geometric, empty);
+        fillItemDetail(R.id.detail_avg_geometric_pound, empty);
+        fillItemDetail(R.id.detail_avg_weighted, empty);
+        fillItemDetail(R.id.detail_avg_weighted_pound, empty);
+        fillItemDetail(R.id.detail_avg_quadratic, empty);
+        fillItemDetail(R.id.detail_avg_quadratic_pound, empty);
+        fillItemDetail(R.id.detail_kurtosis, empty);
+        fillItemDetail(R.id.detail_asymmetry, empty);
+        fillText(R.id.txt_mode, empty);
     }
 
-    private void fillItemDetail(int id, Double value){
-        String text = value != null
+    private String format(Double value){
+        return value != null
                 ? String.format(Locale.getDefault(),"%.6f", value)
                 : mFragment.getString(R.string.txt_default);
-        fillItemDetailText(id, text);
     }
 
-    private void fillItemDetailText(int id, String value){
+    private void fillItemDetail(int id, String value){
         Activity activity = mFragment.getActivity();
         if(activity != null) {
             ItemDataDetail view = activity.findViewById(id);

@@ -7,7 +7,11 @@
     <string name="txt_no_variable_selected">Nenhuma variável selecionada.</string>
 
     <string name="txt_cmd_line">Linha de comando</string>
-    <string name="txt_data_analyse">Análise dos dados </string>
+    <string name="txt_about">Sobre</string>
+    <string name="txt_formula">Fórmulas usadas</string>
+    <string name="txt_data_analyse">Análise descritiva</string>
+    <string name="txt_inference">Análise inferencial</string>
+    <string name="txt_probability">Probabilidade</string>
     <string name="txt_variables">Tabela de variaveis</string>
     <string name="txt_variable">Variável x&#772;</string>
     <string name="txt_averages">Médias</string>
@@ -85,6 +89,9 @@
     <string name="menu_import_data">Importar dados (.cvs)</string>
     <string name="menu_export_data">Exportar dados (.cvs)</string>
     <string name="menu_data_analyse">@string/txt_data_analyse</string>
+    <string name="menu_inference">@string/txt_inference</string>
+    <string name="menu_probability">@string/txt_probability</string>
+    <string name="menu_formula">@string/txt_formula</string>
     <string name="menu_variables">@string/txt_variables</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

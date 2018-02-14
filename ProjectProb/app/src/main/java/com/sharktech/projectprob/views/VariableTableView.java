@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.VariableTableController;
 
-public class VariableTableFragment extends Fragment {
+public class VariableTableView extends Fragment {
 
     private VariableTableController mController;
     private ViewGroup mContentTable;

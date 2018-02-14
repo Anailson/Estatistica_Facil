@@ -7,7 +7,16 @@ import com.sharktech.projectprob.models.VariableString;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.*;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.DATA;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.DIV_BY_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.DIV_FREQ_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.FREQUENCY;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.FREQUENCY_ACCUMULATED;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.POW_VAL;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.POW_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.PROD_SQRT_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.PROD_VAL_FREQ;
+import static com.sharktech.projectprob.analyse.DataAnalyseTable.ValueKey.SQRT_VAL;
 
 public class DataAnalyseTable {
 
@@ -21,16 +30,16 @@ public class DataAnalyseTable {
     DataAnalyseTable (){
         mResultMap = new HashMap<>();
 
-        mResultMap.put(DATA, new ArrayList<TableCell.ICell>());
-        mResultMap.put(FREQUENCY, new ArrayList<TableCell.ICell>());
-        mResultMap.put(FREQUENCY_ACCUMULATED, new ArrayList<TableCell.ICell>());
-        mResultMap.put(PROD_VAL_FREQ, new ArrayList<TableCell.ICell>());
-        mResultMap.put(POW_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(POW_VAL_FREQ, new ArrayList<TableCell.ICell>());
-        mResultMap.put(DIV_BY_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(DIV_FREQ_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(SQRT_VAL, new ArrayList<TableCell.ICell>());
-        mResultMap.put(PROD_SQRT_VAL_FREQ, new ArrayList<TableCell.ICell>());
+        mResultMap.put(DATA, new ArrayList<>());
+        mResultMap.put(FREQUENCY, new ArrayList<>());
+        mResultMap.put(FREQUENCY_ACCUMULATED, new ArrayList<>());
+        mResultMap.put(PROD_VAL_FREQ, new ArrayList<>());
+        mResultMap.put(POW_VAL, new ArrayList<>());
+        mResultMap.put(POW_VAL_FREQ, new ArrayList<>());
+        mResultMap.put(DIV_BY_VAL, new ArrayList<>());
+        mResultMap.put(DIV_FREQ_VAL, new ArrayList<>());
+        mResultMap.put(SQRT_VAL, new ArrayList<>());
+        mResultMap.put(PROD_SQRT_VAL_FREQ, new ArrayList<>());
     }
 
     void calculate(boolean isNumber, SortedGenericList<DataAnalyseValue> values){

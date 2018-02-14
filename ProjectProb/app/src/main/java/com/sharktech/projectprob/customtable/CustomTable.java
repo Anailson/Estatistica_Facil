@@ -45,6 +45,7 @@ public class CustomTable {
         mContent = new ScrollView(mContext);
         mContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mContent.setVerticalScrollBarEnabled(true);
+        mContent.setBackgroundResource(R.drawable.border_light);
 
         mHorizontalContent = new HorizontalScrollView(mContext);
         mHorizontalContent.setLayoutParams(getParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -104,9 +105,9 @@ public class CustomTable {
     }
 
     private void fillColumn(int nRows, TableColumn column){
-        for(int i = column.nElements(); i < nRows; i++){
+        //for(int i = column.nElements(); i < nRows; i++){
             //column.emptyCell();
-        }
+        //}
     }
 
     private TableColumn addLineCounter(int nRows){

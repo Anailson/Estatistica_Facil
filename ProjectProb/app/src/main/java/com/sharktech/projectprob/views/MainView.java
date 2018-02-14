@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.MainController;
 
-public class MainActivity extends AppCompatActivity
+public class MainView extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MainController controller;

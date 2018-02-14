@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.views.DataAnalyseView;
-import com.sharktech.projectprob.views.VariableTableFragment;
+import com.sharktech.projectprob.views.InferenceView;
+import com.sharktech.projectprob.views.VariableTableView;
 
 public class MainController {
 
@@ -25,8 +26,11 @@ public class MainController {
         switch (id) {
             case R.id.menu_export_data: showToast("ExportData"); break;
             case R.id.menu_import_data: showToast("ImportData"); break;
-            case R.id.nav_variables: fragment = new VariableTableFragment(); break;
+            case R.id.nav_variables: fragment = new VariableTableView(); break;
             case R.id.nav_data_analyse: fragment = new DataAnalyseView(); break;
+            case R.id.nav_inference: fragment = new InferenceView(); break;
+            case R.id.nav_probability: Toast.makeText(activity, "Probabilidade: Em desenvolvimento", Toast.LENGTH_SHORT).show();break;
+            case R.id.nav_formula: Toast.makeText(activity, "Fórmula: Em desenvolvimento", Toast.LENGTH_SHORT).show();break;
         }
         return replaceFragment(fragment) > 0;
     }

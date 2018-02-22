@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos">
     <string name="app_name">Estatistica Fácil</string>
 
     <!-- Labels -->
@@ -6,14 +6,14 @@
     <string name="txt_no_variable_inserted">Ainda não foi inserida nenhuma variável.</string>
     <string name="txt_no_variable_selected">Nenhuma variável selecionada.</string>
 
-    <string name="txt_cmd_line">Linha de comando</string>
+    <string name="txt_cmd_line" >Linha de comando</string>
     <string name="txt_about">Sobre</string>
     <string name="txt_formula">Fórmulas usadas</string>
     <string name="txt_data_analyse">Análise descritiva</string>
     <string name="txt_inference">Análise inferencial</string>
     <string name="txt_probability">Probabilidade</string>
     <string name="txt_variables">Tabela de variaveis</string>
-    <string name="txt_variable">Variável x&#772;</string>
+    <string name="txt_variable">Variável X</string>
     <string name="txt_averages">Médias</string>
     <string name="txt_avg_arithmetic">Aritimética </string>
     <string name="txt_avg_arithmetic_pound">Aritimética ponderada</string>
@@ -39,10 +39,18 @@
     <string name="txt_tab_table">Tabela</string>
     <string name="txt_tab_class">Classes</string>
     <string name="txt_tab_description">Descrição</string>
+    <string name="txt_var_as_sample">Usar variáveis como amostra</string>
+    <string name="txt_confidence_level">Nível de confiança(%) &#947;:</string>
+    <string name="txt_sample_data">Dados amostrais</string>
+    <string name="txt_sample_avg">Média x&#772;:</string>
+    <string name="txt_sample_size">Tamanho n:</string>
+    <string name="txt_population_data">Dados populacionais</string>
+    <string name="txt_population_avg">Média &#956;:</string>
+    <string name="txt_population_size">Tamanho N:</string>
 
     <!-- Buttons -->
     <string name="btn_cmd">&#62;</string>
-    <string name="btn_ok">Ok</string>
+    <string name="btn_ok">OK</string>
     <string name="btn_cancel">Cancelar</string>
 
     <!-- XML and HTML Symbol -->
@@ -63,6 +71,7 @@
 
     <string name="sum_value">&#8721;(&#967;&#161;)</string>
     <string name="sum_frequency">&#8721;(&#402;&#161;)</string>
+    <string name="sum_accumulated_frequency">F&#161;</string>
     <string name="sum_prod_val_freq">&#8721;(&#967;&#161; * &#402;&#161;)</string>
     <string name="sum_div_val">&#8721;(1 / &#967;&#161;)</string>
     <string name="sum_div_freq_val">&#8721;(&#402;&#161; / &#967;&#161;)</string>
@@ -86,8 +95,8 @@
     <string name="msg_building_text">Construindo tabela de variáveis</string>
 
     <!-- Menus -->
-    <string name="menu_import_data">Importar dados (.cvs)</string>
-    <string name="menu_export_data">Exportar dados (.cvs)</string>
+    <string name="menu_import_data">Importar dados (.csv)</string>
+    <string name="menu_export_data">Exportar dados (.csv)</string>
     <string name="menu_data_analyse">@string/txt_data_analyse</string>
     <string name="menu_inference">@string/txt_inference</string>
     <string name="menu_probability">@string/txt_probability</string>

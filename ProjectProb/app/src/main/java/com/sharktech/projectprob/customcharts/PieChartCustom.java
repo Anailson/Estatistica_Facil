@@ -10,7 +10,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyseValue;
-import com.sharktech.projectprob.analyse.SortedGenericList;
+import com.sharktech.projectprob.analyse.DataAnalyseResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,15 @@ public class PieChartCustom extends PieChart {
         super(context);
     }
 
-    protected PieChart build(SortedGenericList<DataAnalyseValue> values){
+    protected PieChart build(DataAnalyseResult values){
         setTransparentCircleRadius(0);
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
         setHoleRadius(0);
         setEntryLabelColor(Color.BLACK);
 
         List<PieEntry> entries = new ArrayList<>();
-
-        for(DataAnalyseValue value : values.asList()){
+        ArrayList<DataAnalyseValue> list = values.sort();
+        for(DataAnalyseValue value : list){
             entries.add(new PieEntry(value.getFrequency(), "Valor: " + value.getTitle()));
         }
 

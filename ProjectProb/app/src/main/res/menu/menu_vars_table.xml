@@ -4,12 +4,14 @@
     tools:context="com.sharktech.projectprob.views.VariableTableView">
     <item
         android:id="@+id/menu_import_data"
+        android:icon="@mipmap/ic_import_csv"
         android:orderInCategory="100"
         android:title="@string/menu_import_data"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_export_data"
-        android:orderInCategory="100"
+        android:icon="@mipmap/ic_export_csv"
+        android:orderInCategory="101"
         android:title="@string/menu_export_data"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

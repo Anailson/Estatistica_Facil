@@ -10,7 +10,7 @@ import com.github.mikephil.charting.data.BubbleDataSet;
 import com.github.mikephil.charting.data.BubbleEntry;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyseValue;
-import com.sharktech.projectprob.analyse.SortedGenericList;
+import com.sharktech.projectprob.analyse.DataAnalyseResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ public class DispersionChart extends BubbleChart{
         super(context);
     }
 
-    protected BubbleChart build(SortedGenericList<DataAnalyseValue> values){
+    protected BubbleChart build(DataAnalyseResult values){
         setLayoutParams(new ViewGroup.LayoutParams(ChartFactory.WIDTH, ChartFactory.HEIGHT));
 
         List<BubbleEntry> entries = new ArrayList<>();
-
-        for (int i = 0; i < values.asList().size(); i++) {
+        ArrayList<DataAnalyseValue> list = values.sort();
+        for (int i = 0; i < list.size(); i++) {
             DataAnalyseValue value = values.get(i);
             BubbleEntry entry = new BubbleEntry(i , i, 10);
             entry.setData(value.getTitle());

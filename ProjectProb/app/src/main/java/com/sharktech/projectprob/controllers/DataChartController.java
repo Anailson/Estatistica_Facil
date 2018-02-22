@@ -13,8 +13,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.Chart;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
-import com.sharktech.projectprob.analyse.DataAnalyseValue;
-import com.sharktech.projectprob.analyse.SortedGenericList;
+import com.sharktech.projectprob.analyse.DataAnalyseResult;
 import com.sharktech.projectprob.customcharts.ChartFactory;
 import com.sharktech.projectprob.customtable.TableColumn;
 
@@ -65,7 +64,7 @@ public class DataChartController {
                 Chart chart = null;
                 Context context = mFragment.getContext();
                 String title = mVariable.getTitle();
-                SortedGenericList<DataAnalyseValue> values = DataAnalyse.init(mVariable);
+                DataAnalyseResult values = new DataAnalyse(mVariable).getValues();
                 switch (chartIndex) {
                     case ChartFactory.PIE: chart = ChartFactory.newPieChart(context, title, values); break;
                     case ChartFactory.BAR: chart = ChartFactory.newBarChart(context, title, values); break;

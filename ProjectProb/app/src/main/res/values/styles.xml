@@ -25,13 +25,13 @@
 
     <!-- TextView Styles -->
     <style name="TextViewColored" parent="Base.TextAppearance.AppCompat.Large">
-        <item name="android:textColor">@color/color_primary</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/color_primary_light</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TextViewColoredRight" parent="Base.TextAppearance.AppCompat.Large">
         <item name="android:textColor">@color/color_primary_light</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">end</item>
     </style>
 

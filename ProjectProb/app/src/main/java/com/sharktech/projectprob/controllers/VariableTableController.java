@@ -1,7 +1,6 @@
 package com.sharktech.projectprob.controllers;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +103,7 @@ public class VariableTableController {
             } else if (error == VariableParser.Error.ERR_UNKNOWN_COMMAND) {
                 title = R.string.err_unknown_command;
                 msg = String.format(Locale.getDefault(), "%s: %s",
-                        "Foi digitado um comando desconhecido: ", token.getText());
+                        "Foi digitado um comando desconhecido", token.getText());
             }
             showAlert(mFragment.getString(title), msg);
         }
@@ -112,15 +111,8 @@ public class VariableTableController {
         private void showAlert(String title, String msg) {
 
             DefaultAlert alert = new DefaultAlert(mFragment.getContext());
-            alert.setPositiveListener(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            alert.setMessage(msg)
-                    .setTitle(title)
-                    .show();
+            alert.setPositiveListener(R.string.btn_ok, (dialog, which) -> dialog.dismiss());
+            alert.setMessage(msg).setTitle(title).show();
         }
     }
 }

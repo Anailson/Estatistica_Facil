@@ -7,41 +7,60 @@ import static com.sharktech.projectprob.analyse.DataAnalyse.Sum;
 
 class DataAnalyseCalc {
 
-    private DataAnalyseCalc (){}
+    private DataAnalyseCalc() {
+    }
 
     static Double get(Average key, DataAnalyseResult values) {
         if (key == Average.ARITHMETIC) {
+
             double sumValues = values.get(Sum.SUM_VALUES);
             int n = values.sort().size();
             return sumValues / n;
+
         } else if (key == Average.ARITHMETIC_POUND) {
+
             double sumValues = values.get(Sum.SUM_VAL_MULTI_FREQ);
             double sumFreq = values.get(Sum.SUM_FREQUENCY);
             return sumValues / sumFreq;
+
         } else if (key == Average.GEOMETRIC) {
-            double val = values.get(Sum.PROD_VALUES);
+
             int n = values.sort().size();
+            if (n == 0) return 0d;
+            double val = values.get(Sum.PROD_VALUES);
             return Math.pow(val, (1 / n));
+
         } else if (key == Average.GEOMETRIC_POUND) {
-            double val = values.get(Sum.PROD_VAL_POW_FREQ);
+
             double freq = values.get(Sum.SUM_FREQUENCY);
+            if(freq == 0) return 0d;
+            double val = values.get(Sum.PROD_VAL_POW_FREQ);
             return Math.pow(val, (1 / freq));
+
         } else if (key == Average.WEIGHTED) {
+
             int n = values.sort().size();
             double val = values.get(Sum.SUM_ONE_DIV_VAL);
             return val == 0 ? 0 : n / val;
+
         } else if (key == Average.WEIGHTED_POUND) {
+
             double freq = values.get(Sum.SUM_FREQUENCY);
             double val = values.get(Sum.SUM_FREQ_DIV_VAL);
             return val == 0 ? 0 : freq / val;
+
         } else if (key == Average.QUADRATIC) {
+
             double val = values.get(Sum.SUM_SQRT_VAL);
             return Math.sqrt(val);
+
         } else if (key == Average.QUADRATIC_POUND) {
+
             double val = values.get(Sum.SUM_SQRT_VAL_MULTI_FREQ);
             return Math.sqrt(val);
+
         } else {
-            throw new IllegalArgumentException("You must use enum DataAnalyseCalc.Average.");
+            throw new IllegalArgumentException("You must use enum " + Average.class.getName());
         }
     }
 

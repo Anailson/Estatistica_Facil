@@ -1,15 +1,14 @@
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/minimum_gap">
+    android:layout_height="match_parent">
 
     <TabHost
         android:id="@+id/tab_inference"
+        style="@style/TabHostTexColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/nav_data_analyse"
+        app:layout_constraintBottom_toTopOf="@+id/btn_inference"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,46 +27,30 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/minimum_gap"
-                android:paddingTop="@dimen/minimum_gap">
+                android:layout_marginLeft="@dimen/minimum_gap"
+                android:layout_marginRight="@dimen/minimum_gap"
+                android:layout_marginTop="@dimen/minimum_gap">
 
-                <ScrollView
+                <FrameLayout
                     android:id="@+id/tab_interval"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <include layout="@layout/fragment_confidence_interval" />
-                </ScrollView>
+                </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/tab_hypothesis"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_tab_hypothesis" />
                 </FrameLayout>
 
             </FrameLayout>
         </LinearLayout>
     </TabHost>
-    <!--
-    <FrameLayout
-        android:id="@+id/content_data_analyse"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/nav_data_analyse"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
 
-        <include layout="@layout/fragment_confidence_interval" />
-    </FrameLayout>
--->
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_data_analyse"
+        android:id="@+id/btn_inference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

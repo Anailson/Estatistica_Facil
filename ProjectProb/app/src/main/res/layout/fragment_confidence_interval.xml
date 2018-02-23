@@ -16,6 +16,7 @@
             android:paddingBottom="@dimen/medium_gap">
 
             <Switch
+                android:id="@+id/swt_var_sample"
                 style="@style/TextViewColored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

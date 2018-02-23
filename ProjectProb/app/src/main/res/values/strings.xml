@@ -6,7 +6,7 @@
     <string name="txt_no_variable_inserted">Ainda não foi inserida nenhuma variável.</string>
     <string name="txt_no_variable_selected">Nenhuma variável selecionada.</string>
 
-    <string name="txt_cmd_line" >Linha de comando</string>
+    <string name="txt_cmd_line">Linha de comando</string>
     <string name="txt_about">Sobre</string>
     <string name="txt_formula">Fórmulas usadas</string>
     <string name="txt_data_analyse">Análise descritiva</string>
@@ -36,6 +36,8 @@
     <string name="txt_dispersion_chart">Dispersão</string>
     <string name="txt_box_chart">Caixa </string>
     <string name="txt_histogram_chart">Histograma </string>
+    <string name="txt_tab_interval">Intervalo de confiança</string>
+    <string name="txt_tab_hypothesis">Teste de hipótese</string>
     <string name="txt_tab_table">Tabela</string>
     <string name="txt_tab_class">Classes</string>
     <string name="txt_tab_description">Descrição</string>
@@ -102,6 +104,9 @@
     <string name="menu_probability">@string/txt_probability</string>
     <string name="menu_formula">@string/txt_formula</string>
     <string name="menu_variables">@string/txt_variables</string>
+    <string name="menu_average">Média</string>
+    <string name="menu_proportion">Proporção</string>
+    <string name="menu_variance">Variância</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

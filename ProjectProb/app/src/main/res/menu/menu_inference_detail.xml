@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_average"
+        android:title="@string/menu_average"
+        android:icon="@drawable/ic_average" />
+    <item
+        android:id="@+id/menu_proportion"
+        android:title="@string/menu_proportion"
+        android:icon="@drawable/ic_proportion" />
+    <item
+        android:id="@+id/menu_variance"
+        android:title="@string/menu_variance"
+        android:icon="@drawable/ic_variance" />
+</menu>

@@ -1,55 +1,80 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/minimum_gap">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TabHost
+        android:id="@+id/tab_inference"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_data_analyse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            style="@style/TextViewColored"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_inference" />
-
-        <Spinner
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:foregroundGravity="right"
-            android:gravity="end"
-            android:spinnerMode="dialog" />
-        <!--
+            android:orientation="vertical">
 
-        -->
-    </LinearLayout>
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/minimum_gap"
+                android:paddingTop="@dimen/minimum_gap">
+
+                <ScrollView
+                    android:id="@+id/tab_interval"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/fragment_confidence_interval" />
+                </ScrollView>
+
+                <FrameLayout
+                    android:id="@+id/tab_hypothesis"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_tab_hypothesis" />
+                </FrameLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+    <!--
     <FrameLayout
         android:id="@+id/content_data_analyse"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_data_analyse"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintRight_toRightOf="parent">
 
         <include layout="@layout/fragment_confidence_interval" />
     </FrameLayout>
-
+-->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav_data_analyse"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_analyse_data" />
+        app:menu="@menu/menu_inference_detail" />
+
 
 </android.support.constraint.ConstraintLayout>

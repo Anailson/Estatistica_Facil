@@ -44,8 +44,6 @@ public class TableCell extends android.support.v7.widget.AppCompatEditText {
 
     private void init(){
 
-
-
         setText(getTitle());
         setSingleLine(true);
         setTextColor(getResources().getColor(R.color.color_default));
@@ -101,24 +99,13 @@ public class TableCell extends android.support.v7.widget.AppCompatEditText {
         return mValue.getTitle();
     }
 
-    private void setGravity(){
-        if(mPosition.col >=  0 && mPosition.row >= 0){
-            setGravity(Gravity.START);
-        } else if(mPosition.col >= 0 && mPosition.row < 0) {
-            setGravity(Gravity.CENTER);
-        } else if(mPosition.col < 0 && mPosition.row < 0){
-            setGravity(Gravity.END);
-        }
-    }
-/*
-    public boolean isNumber() {
-        return mValue.isNumber();
-    }
-*/
-    public double asFloat() {
-        return mValue.asNumber();
-    }
+    private void setGravity() {
 
+        if(mIsNumber && mPosition.row >= 0) setGravity(Gravity.END);
+        else if(mPosition.col >=  0 && mPosition.row >= 0) setGravity(Gravity.START);
+        else if(mPosition.col >= 0 && mPosition.row < 0) setGravity(Gravity.CENTER);
+        else if(mPosition.col < 0 && mPosition.row < 0) setGravity(Gravity.END);
+    }
 
     private class Position {
         private int col, row;

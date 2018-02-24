@@ -1,6 +1,7 @@
 package com.sharktech.projectprob.models;
 
 
+import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableCell.ICell;
 import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 
@@ -44,6 +45,10 @@ public class VariableString implements IVariable {
         for(char c : values){
             add(c);
         }
+    }
+
+    public void add(ArrayList<TableCell.ICell> values){
+        mValues.addAll(values);
     }
 
     @Override

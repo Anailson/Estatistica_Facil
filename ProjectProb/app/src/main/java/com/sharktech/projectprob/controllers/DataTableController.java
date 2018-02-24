@@ -6,15 +6,15 @@ import android.view.ViewGroup;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
-import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.CustomTable;
+import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
-import com.sharktech.projectprob.models.VariableObject;
-
-
-import static com.sharktech.projectprob.analyse.DataAnalyse.ValueKey;
+import com.sharktech.projectprob.models.VariableNumber;
+import com.sharktech.projectprob.models.VariableString;
 
 import java.util.ArrayList;
+
+import static com.sharktech.projectprob.analyse.DataAnalyse.ValueKey;
 
 public class DataTableController {
 
@@ -53,17 +53,23 @@ public class DataTableController {
             DataAnalyse analyse = new DataAnalyse(mVariable);
             analyse.init();
 
-            variables.add(getVariable(R.string.sum_value, analyse.get(ValueKey.DATA)));
-            variables.add(getVariable(R.string.sum_frequency, analyse.get(ValueKey.FREQUENCY)));
-            variables.add(getVariable(R.string.sum_accumulated_frequency, analyse.get(ValueKey.FREQUENCY_ACCUMULATED)));
-            if(mVariable.isNumber()) {
-                variables.add(getVariable(R.string.sum_prod_val_freq, analyse.get(ValueKey.PROD_VAL_FREQ)));
-                variables.add(getVariable(R.string.prd_value, analyse.get(ValueKey.POW_VAL)));
-                variables.add(getVariable(R.string.prd_pwr_val_freq, analyse.get(ValueKey.POW_VAL_FREQ)));
-                variables.add(getVariable(R.string.sum_div_val, analyse.get(ValueKey.DIV_BY_VAL)));
-                variables.add(getVariable(R.string.sum_div_freq_val, analyse.get(ValueKey.DIV_FREQ_VAL)));
-                variables.add(getVariable(R.string.sum_sqrt_val, analyse.get(ValueKey.SQRT_VAL)));
-                variables.add(getVariable(R.string.sum_prod_sqrt_val_freq, analyse.get(ValueKey.PROD_SQRT_VAL_FREQ)));
+            if (mVariable.isNumber()) {
+
+                variables.add(numericVar(R.string.sum_value, analyse.get(ValueKey.DATA)));
+                variables.add(numericVar(R.string.sum_accumulated_frequency, analyse.get(ValueKey.FREQUENCY_ACCUMULATED)));
+                variables.add(numericVar(R.string.sum_frequency, analyse.get(ValueKey.FREQUENCY)));
+
+                variables.add(numericVar(R.string.sum_prod_val_freq, analyse.get(ValueKey.PROD_VAL_FREQ)));
+                variables.add(numericVar(R.string.prd_value, analyse.get(ValueKey.POW_VAL)));
+                variables.add(numericVar(R.string.prd_pwr_val_freq, analyse.get(ValueKey.POW_VAL_FREQ)));
+                variables.add(numericVar(R.string.sum_div_val, analyse.get(ValueKey.DIV_BY_VAL)));
+                variables.add(numericVar(R.string.sum_div_freq_val, analyse.get(ValueKey.DIV_FREQ_VAL)));
+                variables.add(numericVar(R.string.sum_sqrt_val, analyse.get(ValueKey.SQRT_VAL)));
+                variables.add(numericVar(R.string.sum_prod_sqrt_val_freq, analyse.get(ValueKey.PROD_SQRT_VAL_FREQ)));
+            } else {
+                variables.add(stringVar(R.string.sum_value, analyse.get(ValueKey.DATA)));
+                variables.add(numericVar(R.string.sum_accumulated_frequency, analyse.get(ValueKey.FREQUENCY_ACCUMULATED)));
+                variables.add(numericVar(R.string.sum_frequency, analyse.get(ValueKey.FREQUENCY)));
             }
         }
 
@@ -72,13 +78,15 @@ public class DataTableController {
         mTable.setNoDataFound(mFragment.getString(R.string.txt_no_variable_selected));
         return mTable.build(variables);
     }
-    private TableColumn.IVariable getVariable(int title, final ArrayList<TableCell.ICell> cells){
-        return getVariable(mFragment.getString(title), cells);
+
+    private VariableString stringVar(int title, final ArrayList<TableCell.ICell> cells){
+        VariableString variable = new VariableString(mFragment.getString(title));
+        variable.add(cells);
+        return variable;
     }
 
-    private TableColumn.IVariable getVariable(String title, final ArrayList<TableCell.ICell> cells){
-
-        VariableObject variable = new VariableObject(title);
+    private VariableNumber numericVar(int title, ArrayList<TableCell.ICell> cells){
+        VariableNumber variable = new VariableNumber(mFragment.getString(title));
         variable.add(cells);
         return variable;
     }

@@ -31,7 +31,7 @@ public class VariableNumber implements TableColumn.IVariable {
         }
     }
 
-    public void add(ArrayList<ValueInteger> values){
+    public void add(ArrayList<TableCell.ICell> values){
         mValues.addAll(values);
     }
 

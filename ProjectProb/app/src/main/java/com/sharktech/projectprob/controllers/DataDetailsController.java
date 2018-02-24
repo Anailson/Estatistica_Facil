@@ -40,6 +40,7 @@ public class DataDetailsController {
         if (mVariable != null) {
 
             DataAnalyse analyse = new DataAnalyse(mVariable);
+            analyse.init();
 
             String modeText = mFragment.getString(R.string.txt_default);
             if (analyse.hasModes()) {

@@ -5,6 +5,7 @@ import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VariableNumber implements TableColumn.IVariable {
 
@@ -74,7 +75,13 @@ public class VariableNumber implements TableColumn.IVariable {
 
         @Override
         public String getTitle() {
-            return mValue.toString();
+            double ceil = Math.ceil(mValue.doubleValue());
+
+            return ceil - mValue.doubleValue() != 0
+                    ? String.format(Locale.getDefault(), "%.6f", mValue.doubleValue())
+                    : mValue.doubleValue() > mValue.longValue()
+                    ? String.valueOf(mValue.doubleValue())
+                    : String.valueOf(mValue.longValue());
         }
 
         @Override

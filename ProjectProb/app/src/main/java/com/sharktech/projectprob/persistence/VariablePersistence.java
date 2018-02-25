@@ -1,6 +1,8 @@
 package com.sharktech.projectprob.persistence;
 
+import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.customtable.TableCell.ICell;
+import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableObject;
@@ -67,6 +69,17 @@ public class VariablePersistence {
 
     public IVariable getVariable(int index){
         return getVariables().get(index);
+    }
+
+    public String[] getTitles(){
+        ArrayList<TableColumn.IVariable> variables = VariablePersistence.getInstance().getVariables();
+        String[] titles = new String[variables.size() + 1];
+        titles[0] = " - ";
+
+        for(int i = 0; i < variables.size(); i++){
+            titles[i + 1] = variables.get(i).getTitle();
+        }
+        return titles;
     }
 
     public ArrayList<IVariable> getVariables() {

@@ -32,6 +32,7 @@
 
 
             <LinearLayout
+                android:id="@+id/l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -44,6 +45,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_var_sample"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/minimum_gap"
@@ -56,6 +58,7 @@
                     android:text="@string/txt_variable" />
 
                 <Spinner
+                    android:id="@+id/spn_var_sample"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:foregroundGravity="right"
@@ -63,51 +66,15 @@
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
-            <LinearLayout
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_sample_avg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <CheckBox
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/txt_sample_avg" />
-
-                <EditText
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="bottom|end"
-                    android:inputType="numberDecimal" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_sample_size"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/txt_sample_size" />
-
-                <EditText
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="bottom|end"
-                    android:inputType="number" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,51 +88,15 @@
                 android:layout_height="match_parent"
                 android:text="@string/txt_population_data" />
 
-            <LinearLayout
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_population_avg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <CheckBox
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/txt_population_avg" />
-
-                <EditText
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="bottom|end"
-                    android:inputType="numberDecimal" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_population_size"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/txt_population_size" />
-
-                <EditText
-                    style="@style/TextViewColored"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="bottom|end"
-                    android:inputType="number" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -182,6 +113,7 @@
                 android:text="@string/txt_confidence_level" />
 
             <EditText
+                android:id="@+id/edt_confidence"
                 style="@style/TextViewColored"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

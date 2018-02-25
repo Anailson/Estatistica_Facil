@@ -18,6 +18,8 @@ import com.sharktech.projectprob.controllers.DataAnalyseController;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
+import java.util.ArrayList;
+
 public class DataAnalyseView extends Fragment {
 
     protected static String ANALYSES = "ANALYSES";
@@ -38,8 +40,10 @@ public class DataAnalyseView extends Fragment {
         Spinner spnVariable = view.findViewById(R.id.spn_variable);
 
         SpinAdapter adapter = new SpinAdapter(getContext());
-        spnVariable.setAdapter(adapter.getAdapter(VariablePersistence.getInstance().getTitles()));
+        ArrayList<String> titles = VariablePersistence.getInstance().getTitles();
+        titles.add(0, getString(R.string.txt_default));
 
+        spnVariable.setAdapter(adapter.getAdapter(titles));
         btnMenu.setOnNavigationItemSelectedListener(mController.getNavItemSelectedListener());
         spnVariable.setOnItemSelectedListener(mController.getItemSelectedListener());
 

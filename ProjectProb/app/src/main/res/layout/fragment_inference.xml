@@ -1,13 +1,16 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorButtonNormal">
 
     <TabHost
         android:id="@+id/tab_inference"
         style="@style/TabHostTexColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/minimum_gap"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_inference"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +56,7 @@
         android:id="@+id/btn_inference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

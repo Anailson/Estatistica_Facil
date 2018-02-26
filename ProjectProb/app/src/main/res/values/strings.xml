@@ -49,6 +49,7 @@
     <string name="txt_population_data">Dados populacionais</string>
     <string name="txt_population_avg">Média &#956;:</string>
     <string name="txt_population_size">Tamanho N:</string>
+    <string name="txt_population_deviation">Desvio padrão &#963;:</string>
 
     <!-- Buttons -->
     <string name="btn_cmd">&#62;</string>

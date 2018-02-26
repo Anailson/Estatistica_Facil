@@ -55,6 +55,7 @@
     <string name="btn_cmd">&#62;</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="btn_calculate">Calcular</string>
 
     <!-- XML and HTML Symbol -->
     <string name="sym_avg_arithmetic">x&#772; = &#8721;(&#967;&#161;) / &#8721;(n)</string>

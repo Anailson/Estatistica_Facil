@@ -69,51 +69,67 @@ public class DataAnalyse {
     public ArrayList<TableCell.ICell> modes() {
         return mSortedValues.getModes();
     }
-    /*
-        public static DataAnalyseDetails details(TableColumn.IVariable variable){
-            SortedDataValueList values = init(variable);
-            DataAnalyseDetails averages = new DataAnalyseDetails();
-            averages.calculate(variable.isNumber(), values);
-            return averages;
-        }
 
-        public static DataAnalyseTable table(TableColumn.IVariable variable){
-            SortedDataValueList values = init(variable);
-            DataAnalyseTable averages = new DataAnalyseTable();
-            averages.calculate(variable.isNumber(), values);
-            return averages;
-        }
-
-    private SortedDataValueList init(TableColumn.IVariable variable) {
-
-
-        SortedDataValueList values = new SortedDataValueList(variable.isNumber());
-
-        return values;
+    public ArrayList<TableColumn.IVariable> initClasses() {
+        return new ArrayList<>();
     }
 
+    public static void confidenceInterval(IntervalConfidenceValues values) {
+        DataAnalyseCalc.confidenceInterval(values);
+    }
 
-        private static int indexOfValue(SortedDataValueList values, TableCell.ICell val) {
-            String upperVal = val.getTitle().toUpperCase();
+    public static class IntervalConfidenceValues{
 
-            for (int i = 0; i < values.size(); i++) {
-                String upperCell = values.get(i).getTitle().toUpperCase();
+        Double sampleAvg, sampleSize, deviation, populationSize, confidence;
+        IntervalConfidenceResult result;
 
-                if (upperVal.equals(upperCell)) {
-                    return i;
-                }
-            }
-            return -2;
+        public IntervalConfidenceValues(){
+            sampleAvg = sampleSize = deviation = populationSize = confidence = null;
         }
-        */
-    public ArrayList<TableColumn.IVariable> initClasses() {
-/*
-        if(mVariable != null) {
-            DataAnalyseClass dClass = new DataAnalyseClass();
-            dClass.initClasses(mVariable);
-            return dClass.getClasses();
+
+        public void setSampleAvg(Double sampleAvg) {
+            this.sampleAvg = sampleAvg;
         }
-*/
-        return new ArrayList<>();
+
+        public void setSampleSize(Double sampleSize) {
+            this.sampleSize = sampleSize;
+        }
+
+        public void setDeviation(Double deviation) {
+            this.deviation = deviation;
+        }
+
+        public void setPopulationSize(Double populationSize) {
+            this.populationSize = populationSize;
+        }
+
+        public void setConfidence(Double confidence) {
+            this.confidence = confidence;
+        }
+
+        public void setOnResult(IntervalConfidenceResult result){
+            this.result = result;
+        }
+
+        boolean isEmpty(){
+            return isNull(sampleAvg) && isNull(sampleSize) && isNull(populationSize) && isNull(deviation) && isNull(confidence);
+        }
+
+        void onSuccess(Double min, Double max){
+            if(result != null) result.onSuccess(min, max);
+        }
+
+        void onError(){
+            if(result != null) result.onError();
+        }
+
+        boolean isNull(Double value){
+            return value == null;
+        }
+    }
+
+    public interface IntervalConfidenceResult{
+        void onSuccess(Double min, Double max);
+        void onError();
     }
 }

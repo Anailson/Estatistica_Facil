@@ -97,27 +97,33 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <com.sharktech.projectprob.customview.ItemConfidenceInterval
+            android:id="@+id/ci_confidence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/minimum_gap">
 
             <TextView
+                android:id="@+id/txt_value_ic_avg"
                 style="@style/TextViewColored"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center_vertical"
-                android:text="@string/txt_confidence_level" />
+                android:gravity="center" />
 
-            <EditText
-                android:id="@+id/edt_confidence"
-                style="@style/TextViewColored"
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_calculate_ic_avg"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="bottom|end"
-                android:inputType="numberDecimal" />
+                android:layout_margin="@dimen/medium_gap"
+                android:gravity="center"
+                android:text="@string/btn_calculate"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

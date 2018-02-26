@@ -33,7 +33,7 @@ class DataAnalyseCalc {
         } else if (key == Average.GEOMETRIC_POUND) {
 
             double freq = values.get(Sum.SUM_FREQUENCY);
-            if(freq == 0) return 0d;
+            if (freq == 0) return 0d;
             double val = values.get(Sum.PROD_VAL_POW_FREQ);
             return Math.pow(val, (1 / freq));
 
@@ -82,6 +82,22 @@ class DataAnalyseCalc {
         Double nthTenth = elemBeforeValue(values, indexNinthTenth(sumFrequency));
         return (fstQuart == null || trdQuart == null || fstTenth == null || nthTenth == null) ? null
                 : (trdQuart - fstQuart) / (2 * (nthTenth - fstTenth));
+    }
+
+    static void confidenceInterval(DataAnalyse.IntervalConfidenceValues values){
+        if(values.isEmpty()){
+            values.onError();
+            return;
+        }
+        double correction = 1;
+        if(!values.isNull(values.populationSize) && !values.isNull(values.sampleSize)){
+            double dif = (values.populationSize - values.sampleSize) / (values.populationSize - 1 );
+            correction = Math.sqrt(dif);
+        }
+        float z = TableDistribution.normal(values.confidence / 2);
+        double min = values.sampleAvg - (z * (values.deviation / Math.sqrt(values.sampleSize) * correction));
+        double max = values.sampleAvg - (z * (values.deviation / Math.sqrt(values.sampleSize) * correction));
+        values.onSuccess(min, max);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

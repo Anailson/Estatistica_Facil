@@ -3,10 +3,12 @@ package com.sharktech.projectprob.controllers;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
@@ -117,8 +119,23 @@ public class ConfidenceIntervalController {
 
         //DataAnalyse.IntervalConfidenceResult
         @Override
-        public void onSuccess(Double min, Double max) {
+        public void onSuccess(Double min, Double max, DataAnalyse.IntervalConfidenceValues values) {
+            String text = String.format(Locale.getDefault(), "P = (%.6f <= u <= %.6f) = %d%s ",
+                    min.floatValue(), max.floatValue(),  values.getConfidence().intValue(), "%");
+            text += "\nou\n";
+            text += String.format(Locale.getDefault(), "IC(u, %d%s) = (%.6f, %.6f)",
+                    values.getConfidence().intValue(), "%", min.floatValue(), max.floatValue());
 
+            FragmentActivity activity = mFragment.getActivity();
+            if(activity != null) {
+                TextView valueInterval = activity.findViewById(R.id.txt_value_ic_avg);
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) valueInterval.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                valueInterval.setLayoutParams(params);
+                valueInterval.setText(text);
+            }
         }
 
         @Override

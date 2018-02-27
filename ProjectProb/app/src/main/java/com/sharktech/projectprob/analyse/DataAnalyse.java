@@ -87,20 +87,40 @@ public class DataAnalyse {
             sampleAvg = sampleSize = deviation = populationSize = confidence = null;
         }
 
+        public Double getSampleAvg() {
+            return sampleAvg;
+        }
+
         public void setSampleAvg(Double sampleAvg) {
             this.sampleAvg = sampleAvg;
+        }
+
+        public Double getSampleSize() {
+            return sampleSize;
         }
 
         public void setSampleSize(Double sampleSize) {
             this.sampleSize = sampleSize;
         }
 
+        public Double getDeviation() {
+            return deviation;
+        }
+
         public void setDeviation(Double deviation) {
             this.deviation = deviation;
         }
 
+        public Double getPopulationSize() {
+            return populationSize;
+        }
+
         public void setPopulationSize(Double populationSize) {
             this.populationSize = populationSize;
+        }
+
+        public Double getConfidence() {
+            return confidence;
         }
 
         public void setConfidence(Double confidence) {
@@ -115,8 +135,8 @@ public class DataAnalyse {
             return isNull(sampleAvg) && isNull(sampleSize) && isNull(populationSize) && isNull(deviation) && isNull(confidence);
         }
 
-        void onSuccess(Double min, Double max){
-            if(result != null) result.onSuccess(min, max);
+        void onSuccess(Double min, Double max, IntervalConfidenceValues values){
+            if(result != null) result.onSuccess(min, max, values);
         }
 
         void onError(){
@@ -129,7 +149,7 @@ public class DataAnalyse {
     }
 
     public interface IntervalConfidenceResult{
-        void onSuccess(Double min, Double max);
+        void onSuccess(Double min, Double max, IntervalConfidenceValues values);
         void onError();
     }
 }

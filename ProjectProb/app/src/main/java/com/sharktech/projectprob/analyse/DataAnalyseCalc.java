@@ -90,14 +90,17 @@ class DataAnalyseCalc {
             return;
         }
         double correction = 1;
-        if(!values.isNull(values.populationSize) && !values.isNull(values.sampleSize)){
+        if(!values.isNull(values.populationSize) && !values.isNull(values.sampleSize) && values.sampleSize > 0){
             double dif = (values.populationSize - values.sampleSize) / (values.populationSize - 1 );
             correction = Math.sqrt(dif);
         }
-        float z = TableDistribution.normal(values.confidence / 2);
-        double min = values.sampleAvg - (z * (values.deviation / Math.sqrt(values.sampleSize) * correction));
-        double max = values.sampleAvg - (z * (values.deviation / Math.sqrt(values.sampleSize) * correction));
-        values.onSuccess(min, max);
+        float z = TableDistribution.normal((float) (values.confidence / 200));
+        if(z < 0){
+            values.onError();
+            return;
+        }
+        double error = z * (values.deviation / (Math.sqrt(values.sampleSize)) * correction);
+        values.onSuccess(values.sampleAvg - error, values.sampleAvg + error, values);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

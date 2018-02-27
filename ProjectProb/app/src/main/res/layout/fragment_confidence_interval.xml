@@ -106,13 +106,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/minimum_gap">
+            android:paddingTop="@dimen/medium_gap">
 
             <TextView
                 android:id="@+id/txt_value_ic_avg"
                 style="@style/TextViewColored"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                android:background="@drawable/border_light"
                 android:gravity="center" />
 
             <Button
@@ -121,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/medium_gap"
+                android:layout_marginTop="@dimen/large_gap"
                 android:gravity="center"
                 android:text="@string/btn_calculate"
                 android:textStyle="bold" />

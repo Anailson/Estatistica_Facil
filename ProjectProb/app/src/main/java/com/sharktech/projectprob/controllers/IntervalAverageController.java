@@ -18,12 +18,12 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.Locale;
 
-public class ConfidenceIntervalController {
+public class IntervalAverageController {
 
     private Fragment mFragment;
     private Listener mListener;
 
-    public ConfidenceIntervalController(Fragment fragment) {
+    public IntervalAverageController(Fragment fragment) {
         mFragment = fragment;
         mListener = new Listener();
     }
@@ -88,7 +88,7 @@ public class ConfidenceIntervalController {
             values.setDeviation(populationDeviation.isChecked() ? Double.valueOf(populationDeviation.getValue()) : null);
             values.setConfidence(confidenceLevel.isChecked() ? Double.valueOf(confidenceLevel.getValue()) : null);
 
-            DataAnalyse.confidenceInterval(values);
+            DataAnalyse.intervalAverage(values);
         }
     }
 

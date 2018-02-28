@@ -13,18 +13,18 @@ import android.widget.Switch;
 
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.adapters.SpinAdapter;
-import com.sharktech.projectprob.controllers.ConfidenceIntervalController;
+import com.sharktech.projectprob.controllers.IntervalAverageController;
 import com.sharktech.projectprob.customview.ItemConfidenceInterval;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.ArrayList;
 
-public class ConfidenceIntervalView extends Fragment {
+public class IntervalAverageView extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_confidence_interval, container, false);
-        ConfidenceIntervalController controller = new ConfidenceIntervalController(this);
+        View view = inflater.inflate(R.layout.fragment_interval_average, container, false);
+        IntervalAverageController controller = new IntervalAverageController(this);
 
         ((ItemConfidenceInterval) view.findViewById(R.id.ci_sample_avg)).setTitle(R.string.txt_sample_avg);
         ((ItemConfidenceInterval) view.findViewById(R.id.ci_sample_size)).setTitle(R.string.txt_sample_size);

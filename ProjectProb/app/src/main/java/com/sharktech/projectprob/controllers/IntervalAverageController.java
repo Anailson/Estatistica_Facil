@@ -18,12 +18,12 @@ import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.util.Locale;
 
-public class ConfidenceIntervalController {
+public class IntervalAverageController {
 
     private Fragment mFragment;
     private Listener mListener;
 
-    public ConfidenceIntervalController(Fragment fragment) {
+    public IntervalAverageController(Fragment fragment) {
         mFragment = fragment;
         mListener = new Listener();
     }

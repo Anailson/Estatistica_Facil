@@ -7,17 +7,17 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
 
 
 public class ItemConfidenceInterval extends LinearLayout {
 
-    private CheckBox mCheckBox;
-    private EditText mEditText;
+    private TextView mTitle;
+    private EditText mValue;
 
     public ItemConfidenceInterval(Context context) {
         super(context);
@@ -38,62 +38,47 @@ public class ItemConfidenceInterval extends LinearLayout {
         setOrientation(LinearLayout.HORIZONTAL);
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        mCheckBox = new CheckBox(context);
-        mCheckBox.setLayoutParams(getParams(5));
-        mCheckBox.setText(context.getText(R.string.txt_default));
-        mCheckBox.setChecked(false);
-        mCheckBox.setTextAppearance(context, R.style.TextViewColored);
-        mCheckBox.setOnCheckedChangeListener(getCheckListener());
+        mTitle = new TextView(context);
+        mTitle.setLayoutParams(getParams(5));
+        mTitle.setText(context.getText(R.string.txt_default));
+        mTitle.setTextAppearance(context, R.style.TextViewColored);
 
-        mEditText = new EditText(context);
-        mEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mEditText.setLayoutParams(getParams(2));
-        mEditText.setEnabled(false);
-        mEditText.setTextAppearance(context, R.style.TextViewColored);
-        mEditText.setGravity(Gravity.END);
+        mValue = new EditText(context);
+        mValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mValue.setLayoutParams(getParams(2));
+        mValue.setTextAppearance(context, R.style.TextViewColored);
+        mValue.setGravity(Gravity.END);
 
-        addView(mCheckBox);
-        addView(mEditText);
+        addView(mTitle);
+        addView(mValue);
     }
 
     public boolean isChecked(){
-        return mCheckBox.isChecked();
-    }
-
-    public ItemConfidenceInterval setChecked(boolean checked){
-        mCheckBox.setChecked(checked);
-        return this;
+        return !mTitle.getText().toString().equals("");
     }
 
     public ItemConfidenceInterval setTitle(int text){
-        mCheckBox.setText(text);
+        mTitle.setText(text);
         return this;
     }
 
     public ItemConfidenceInterval setValue(String text){
-        mEditText.setText(text);
+        mValue.setText(text);
         return this;
     }
 
     public ItemConfidenceInterval setValue(int text){
-        mEditText.setText(text);
+        mValue.setText(text);
         return this;
     }
 
     public String getValue(){
-        return mEditText.getText().toString();
+        return mValue.getText().toString();
     }
 
     private LinearLayout.LayoutParams getParams(int weight){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         params.weight = weight;
         return params;
-    }
-
-    private CompoundButton.OnCheckedChangeListener getCheckListener(){
-        return (buttonView, isChecked) -> {
-            mEditText.setEnabled(isChecked);
-            mEditText.setText(isChecked ? mEditText.getText() : "");
-        };
     }
 }

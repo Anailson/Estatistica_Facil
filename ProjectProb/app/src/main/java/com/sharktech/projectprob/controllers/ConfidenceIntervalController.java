@@ -33,8 +33,8 @@ public class ConfidenceIntervalController {
     }
 
     private void setVarsAsSample(boolean isChecked){
-        setItemValue(R.id.ci_sample_avg, false, "");
-        setItemValue(R.id.ci_sample_size, false, "");
+        setItemValue(R.id.ci_sample_avg,"");
+        setItemValue(R.id.ci_sample_size,"");
 
         FragmentActivity activity = mFragment.getActivity();
         if (activity != null) {
@@ -46,8 +46,8 @@ public class ConfidenceIntervalController {
 
     private void setVariable(int position){
         if (position < 0) {
-            setItemValue(R.id.ci_sample_avg, false, "");
-            setItemValue(R.id.ci_sample_size, false, "");
+            setItemValue(R.id.ci_sample_avg,"");
+            setItemValue(R.id.ci_sample_size,"");
         } else {
             TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(position);
             DataAnalyse analyse = new DataAnalyse(variable);
@@ -56,18 +56,17 @@ public class ConfidenceIntervalController {
             String avg = String.format(Locale.getDefault(), "%.6f", analyse.get(DataAnalyse.Average.ARITHMETIC_POUND));
             String size = variable.nElements() + "";
 
-            setItemValue(R.id.ci_sample_avg, true, avg);
-            setItemValue(R.id.ci_sample_size, true, size);
+            setItemValue(R.id.ci_sample_avg, avg);
+            setItemValue(R.id.ci_sample_size, size);
         }
     }
 
-    private void setItemValue(int id, boolean checked, String text) {
+    private void setItemValue(int id, String text) {
 
         FragmentActivity activity = mFragment.getActivity();
         if (activity != null) {
             ((ItemConfidenceInterval) activity.findViewById(id))
-                    .setValue(text)
-                    .setChecked(checked);
+                    .setValue(text);
         }
     }
 
@@ -120,8 +119,8 @@ public class ConfidenceIntervalController {
         //DataAnalyse.IntervalConfidenceResult
         @Override
         public void onSuccess(Double min, Double max, DataAnalyse.IntervalConfidenceValues values) {
-            String text = String.format(Locale.getDefault(), "P = (%.6f <= u <= %.6f) = %d%s ",
-                    min.floatValue(), max.floatValue(),  values.getConfidence().intValue(), "%");
+            String text = String.format(Locale.getDefault(), "P = (%.6f <= u <= %.6f) = %.6f",
+                    min.floatValue(), max.floatValue(), (values.getConfidence().intValue() / 100f));
             text += "\nou\n";
             text += String.format(Locale.getDefault(), "IC(u, %d%s) = (%.6f, %.6f)",
                     values.getConfidence().intValue(), "%", min.floatValue(), max.floatValue());

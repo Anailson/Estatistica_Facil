@@ -107,13 +107,13 @@ public class IntervalProportionController {
 
         //DataAnalyse.IntervalConfidenceResult
         @Override
-        public void onSuccess(Double min, Double max, DataAnalyse.IntervalConfidenceValues values) {
+        public void onSuccess(Double min, Double max, Double error, DataAnalyse.IntervalConfidenceValues values) {
             String text = String.format(Locale.getDefault(), "P = (%s < p < %s) = %s",
                     asPercent(min * 100), asPercent(max * 100), asPercent(values.getConfidence()));
             text += "\nou\n";
             text += String.format(Locale.getDefault(), "IC (p, %s) = (%s; %s)",
                     asPercent(values.getConfidence()), asPercent(min * 100), asPercent(max * 100));
-            text += "\n\n" + String.format(Locale.getDefault(),"Erro de estimação e = %s", asPercent(0d));
+            text += "\n\n" + String.format(Locale.getDefault(),"Erro de estimação e = %s", format(error));
 
             FragmentActivity activity = mFragment.getActivity();
             if(activity != null) {
@@ -130,6 +130,10 @@ public class IntervalProportionController {
         @Override
         public void onError() {
 
+        }
+
+        private String format(Double d){
+            return String.format(Locale.getDefault(), "%.2f", d.floatValue());
         }
 
         private String asPercent(Double d){

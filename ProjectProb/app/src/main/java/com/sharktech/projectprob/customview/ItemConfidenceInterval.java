@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,7 +53,7 @@ public class ItemConfidenceInterval extends LinearLayout {
     }
 
     public boolean isChecked(){
-        return !mTitle.getText().toString().equals("");
+        return !mValue.getText().toString().equals("");
     }
 
     public ItemConfidenceInterval setTitle(int text){

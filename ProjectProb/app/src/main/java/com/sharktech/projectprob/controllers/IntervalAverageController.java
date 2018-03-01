@@ -82,14 +82,18 @@ public class IntervalAverageController {
 
             DataAnalyse.IntervalConfidenceValues values = new DataAnalyse.IntervalConfidenceValues();
             values.setOnResult(getListeners());
-            values.setSampleAvg(sampleAvg.isChecked() ? Double.valueOf(sampleAvg.getValue()) : null);
-            values.setSampleSize(sampleSize.isChecked() ? Double.valueOf(sampleSize.getValue()) : null);
-            values.setPopulationSize(populationSize.isChecked() ? Double.valueOf(populationSize.getValue()) : null);
-            values.setDeviation(populationDeviation.isChecked() ? Double.valueOf(populationDeviation.getValue()) : null);
-            values.setConfidence(confidenceLevel.isChecked() ? Double.valueOf(confidenceLevel.getValue()) : null);
+            values.setSampleAvg(sampleAvg.isChecked() ? asDouble(sampleAvg.getValue()) : null);
+            values.setSampleSize(sampleSize.isChecked() ? asDouble(sampleSize.getValue()) : null);
+            values.setPopulationSize(populationSize.isChecked() ? asDouble(populationSize.getValue()) : null);
+            values.setDeviation(populationDeviation.isChecked() ? asDouble(populationDeviation.getValue()) : null);
+            values.setConfidence(confidenceLevel.isChecked() ? asDouble(confidenceLevel.getValue()) : null);
 
             DataAnalyse.intervalAverage(values);
         }
+    }
+
+    private Double asDouble(String s){
+        return Double.valueOf(s.replace(",", "."));
     }
 
     private class Listener implements Switch.OnCheckedChangeListener, AdapterView.OnItemSelectedListener,
@@ -118,12 +122,13 @@ public class IntervalAverageController {
 
         //DataAnalyse.IntervalConfidenceResult
         @Override
-        public void onSuccess(Double min, Double max, DataAnalyse.IntervalConfidenceValues values) {
-            String text = String.format(Locale.getDefault(), "P = (%.6f <= u <= %.6f) = %.6f",
-                    min.floatValue(), max.floatValue(), (values.getConfidence().intValue() / 100f));
+        public void onSuccess(Double min, Double max, Double error, DataAnalyse.IntervalConfidenceValues values) {
+            String text = String.format(Locale.getDefault(), "P = (%s < %s < %s) = %s",
+                    format(min), mFragment.getString(R.string.sym_mu), format(max), format(values.getConfidence().intValue() / 100d));
             text += "\nou\n";
-            text += String.format(Locale.getDefault(), "IC(u, %d%s) = (%.6f, %.6f)",
-                    values.getConfidence().intValue(), "%", min.floatValue(), max.floatValue());
+            text += String.format(Locale.getDefault(), "IC (%s, %s) = (%s; %s)",
+                    mFragment.getString(R.string.sym_mu), asPercent(values.getConfidence()), format(min), format(max));
+            text += "\n\n" + String.format(Locale.getDefault(),"Erro de estimação e = %s", format(error));
 
             FragmentActivity activity = mFragment.getActivity();
             if(activity != null) {
@@ -140,6 +145,14 @@ public class IntervalAverageController {
         @Override
         public void onError() {
 
+        }
+
+        private String format(Double d){
+            return String.format(Locale.getDefault(), "%.2f", d.floatValue());
+        }
+
+        private String asPercent(Double d){
+            return String.format(Locale.getDefault(), "%.2f%s", d.floatValue(), "%");
         }
     }
 }

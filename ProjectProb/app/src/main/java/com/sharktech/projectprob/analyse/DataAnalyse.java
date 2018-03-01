@@ -147,8 +147,8 @@ public class DataAnalyse {
             return isNull(sampleAvg) && isNull(sampleSize) && isNull(populationSize) && isNull(deviation) && isNull(confidence);
         }
 
-        void onSuccess(Double min, Double max, IntervalConfidenceValues values){
-            if(result != null) result.onSuccess(min, max, values);
+        void onSuccess(Double min, Double max, Double error, IntervalConfidenceValues values){
+            if(result != null) result.onSuccess(min, max, error, values);
         }
 
         void onError(){
@@ -161,7 +161,7 @@ public class DataAnalyse {
     }
 
     public interface IntervalConfidenceResult{
-        void onSuccess(Double min, Double max, IntervalConfidenceValues values);
+        void onSuccess(Double min, Double max, Double error, IntervalConfidenceValues values);
         void onError();
     }
 }

@@ -123,13 +123,13 @@ public class IntervalAverageController {
         //DataAnalyse.IntervalConfidenceResult
         @Override
         public void onSuccess(Double min, Double max, Double error, float z, DataAnalyse.IntervalConfidenceValues values) {
-            String text = String.format(Locale.getDefault(), "P = (%s < %s < %s) = %s",
+            String text = "z = " + z + "\n\n";
+            text += String.format(Locale.getDefault(), "P = (%s < %s < %s) = %s",
                     format(min), mFragment.getString(R.string.sym_mu), format(max), format(values.getConfidence().intValue() / 100d));
             text += "\nou\n";
             text += String.format(Locale.getDefault(), "IC (%s, %s) = (%s; %s)",
                     mFragment.getString(R.string.sym_mu), asPercent(values.getConfidence()), format(min), format(max));
             text += "\n\n" + String.format(Locale.getDefault(),"Erro de estimação e = %s", format(error));
-            text += "\n\nz = " + z;
 
             FragmentActivity activity = mFragment.getActivity();
             if(activity != null) {

@@ -100,7 +100,7 @@ class DataAnalyseCalc {
             return;
         }
         double error = z * (values.deviation / (Math.sqrt(values.sampleSize)) * correction);
-        values.onSuccess(values.sampleAvg - error, error, values.sampleAvg + error, values);
+        values.onSuccess(values.sampleAvg - error, error, values.sampleAvg + error, z, values);
     }
 
     static void intervalProportion(DataAnalyse.IntervalConfidenceValues values){
@@ -117,7 +117,7 @@ class DataAnalyseCalc {
         float fail = 1f - success;
         float deviation = (float) Math.sqrt((success * fail) / values.sampleSize);
         double error = z * deviation;
-        values.onSuccess((success - error), error, (success + error), values);
+        values.onSuccess((success - error), error, (success + error), z, values);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

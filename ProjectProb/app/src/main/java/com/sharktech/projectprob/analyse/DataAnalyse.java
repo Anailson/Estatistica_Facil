@@ -74,17 +74,29 @@ public class DataAnalyse {
         return new ArrayList<>();
     }
 
-    public static void confidenceInterval(IntervalConfidenceValues values) {
-        DataAnalyseCalc.confidenceInterval(values);
+    public static void intervalAverage(IntervalConfidenceValues values) {
+        DataAnalyseCalc.intervalAverage(values);
+    }
+
+    public static void intervalProportion(IntervalConfidenceValues values) {
+        DataAnalyseCalc.intervalProportion(values);
     }
 
     public static class IntervalConfidenceValues{
 
-        Double sampleAvg, sampleSize, deviation, populationSize, confidence;
+        Double sampleAvg, sampleSize, deviation, populationSize, confidence, success;
         IntervalConfidenceResult result;
 
         public IntervalConfidenceValues(){
-            sampleAvg = sampleSize = deviation = populationSize = confidence = null;
+            sampleAvg = sampleSize = deviation = populationSize = confidence = success = null;
+        }
+
+        public Double getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(Double success) {
+            this.success = success;
         }
 
         public Double getSampleAvg() {

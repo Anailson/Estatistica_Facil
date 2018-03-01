@@ -46,6 +46,7 @@
     <string name="txt_sample_data">Dados amostrais</string>
     <string name="txt_sample_avg">Média x&#772;:</string>
     <string name="txt_sample_size">Tamanho n:</string>
+    <string name="txt_sample_success">Sucesso p&#770;:</string>
     <string name="txt_population_data">Dados populacionais</string>
     <string name="txt_population_avg">Média &#956;:</string>
     <string name="txt_population_size">Tamanho N:</string>
@@ -72,6 +73,9 @@
     <string name="sym_asymmetry_quart">A = (Q&#8323; + Q&#8321; - 2Q&#8322;) / (Q&#8323; - Q&#8321;)</string>
     <string name="sym_asymmetry_percent">A = (P&#8329;&#8320; + P&#8321;&#8320; - 2P&#8325;&#8320;) / (P&#8329;&#8320; - P&#8321;&#8320;)</string>
     <string name="sym_standard_deviation">E = &#8730;{E(&#967;&#161; ^ 2) - [E(&#967;&#161;)] ^ 2}</string>
+    <string name="sym_p_hat">p&#x0302;</string>
+    <string name="sym_q_hat">q&#770;</string>
+    <string name="sym_mu">&#956;</string>
 
     <string name="sum_value">&#8721;(&#967;&#161;)</string>
     <string name="sum_frequency">&#8721;(&#402;&#161;)</string>

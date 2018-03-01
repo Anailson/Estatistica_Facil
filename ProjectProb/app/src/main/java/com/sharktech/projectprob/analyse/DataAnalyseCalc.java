@@ -84,7 +84,7 @@ class DataAnalyseCalc {
                 : (trdQuart - fstQuart) / (2 * (nthTenth - fstTenth));
     }
 
-    static void confidenceInterval(DataAnalyse.IntervalConfidenceValues values){
+    static void intervalAverage(DataAnalyse.IntervalConfidenceValues values){
         if(values.isEmpty()){
             values.onError();
             return;
@@ -101,6 +101,23 @@ class DataAnalyseCalc {
         }
         double error = z * (values.deviation / (Math.sqrt(values.sampleSize)) * correction);
         values.onSuccess(values.sampleAvg - error, values.sampleAvg + error, values);
+    }
+
+    static void intervalProportion(DataAnalyse.IntervalConfidenceValues values){
+        if(values.isEmpty()){
+            values.onError();
+            return;
+        }
+        float z = TableDistribution.normal((float) (values.confidence / 200));
+        if(z < 0){
+            values.onError();
+            return;
+        }
+        float success = (float) (values.success / values.sampleSize);
+        float fail = 1f - success;
+        float deviation = (float) Math.sqrt((success * fail) / values.sampleSize);
+        float error = z * deviation;
+        values.onSuccess((double) (success - error), (double)(success + error), values);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

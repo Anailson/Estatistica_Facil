@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.views.ConfidenceIntervalView;
-import com.sharktech.projectprob.views.DataClassView;
 import com.sharktech.projectprob.views.DataDetailsView;
+import com.sharktech.projectprob.views.IntervalAverageView;
+import com.sharktech.projectprob.views.IntervalProportionView;
 
 public class InferenceController {
 
@@ -53,9 +53,9 @@ public class InferenceController {
         Fragment fragment = null;
 
         if (menuId == R.id.menu_average) {
-            fragment = new ConfidenceIntervalView();
+            fragment = new IntervalAverageView();
         } else if (menuId == R.id.menu_proportion) {
-            fragment = new DataClassView();
+            fragment = new IntervalProportionView();
         } else if (menuId == R.id.menu_variance) {
             fragment = new DataDetailsView();
         }

@@ -128,21 +128,18 @@ class DataAnalyseCalc {
             return;
         }
 
-        float limitInf = (float) ((100 - values.confidence) / 2);
-        float limitSup = (float) (limitInf + values.confidence);
-        int n = values.sampleSize.intValue() - 1;
+        float limitInf = (float) ((100 - values.confidence) / 2) / 100f;
+        float limitSup = limitInf + (float)(values.confidence / 100);
+        int degree = values.sampleSize.intValue() - 1;
 
-        Log.e("Qui-Quadratic", "limitInf: " + limitInf + " limitSup " + limitSup);
-        float quiInf = TableDistribution.quiQuadratic(limitInf / 100, n); // limitInf == 0.05, quiInf == 16.919
-        float quiSup = TableDistribution.quiQuadratic(limitSup / 100, n); // limitSup == 0.95, quiSup == 3.3251
-
-        Log.e("Qui-Quadratic", "n: " + n + " variance  " + values.variance + " quiInf " + quiInf + " quiSup " + quiSup);
+        float quiInf = TableDistribution.quiQuadratic(limitInf, degree);
+        float quiSup = TableDistribution.quiQuadratic(limitSup, degree);
         if(quiInf < 0 || quiSup < 0){
             values.onError();
             return;
         }
 
-        double prod = n * values.variance;
+        double prod = (degree * values.variance.floatValue());
         values.onSuccess((prod / quiInf), (prod / quiSup), prod, -1, values);
     }
 

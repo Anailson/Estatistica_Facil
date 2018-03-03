@@ -73,12 +73,16 @@ public class IntervalProportionController {
 
             DataAnalyse.IntervalConfidenceValues values = new DataAnalyse.IntervalConfidenceValues();
             values.setOnResult(getListeners());
-            values.setSuccess(sampleSuccess.isChecked() ? Double.valueOf(sampleSuccess.getValue()) : null);
-            values.setSampleSize(sampleSize.isChecked() ? Double.valueOf(sampleSize.getValue()) : null);
-            values.setConfidence(confidenceLevel.isChecked() ? Double.valueOf(confidenceLevel.getValue()) : null);
+            values.setSuccess(sampleSuccess.isChecked() ? asDouble(sampleSuccess.getValue()) : null);
+            values.setSampleSize(sampleSize.isChecked() ? asDouble(sampleSize.getValue()) : null);
+            values.setConfidence(confidenceLevel.isChecked() ? asDouble(confidenceLevel.getValue()) : null);
 
             DataAnalyse.intervalProportion(values);
         }
+    }
+
+    private Double asDouble(String s){
+        return Double.valueOf(s.replace(",", "."));
     }
 
     private class Listener implements Switch.OnCheckedChangeListener, AdapterView.OnItemSelectedListener,

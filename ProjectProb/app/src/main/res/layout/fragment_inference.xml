@@ -30,9 +30,7 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/minimum_gap"
-                android:layout_marginRight="@dimen/minimum_gap"
-                android:layout_marginTop="@dimen/minimum_gap">
+                android:layout_margin="@dimen/minimum_gap">
 
                 <FrameLayout
                     android:id="@+id/tab_interval"

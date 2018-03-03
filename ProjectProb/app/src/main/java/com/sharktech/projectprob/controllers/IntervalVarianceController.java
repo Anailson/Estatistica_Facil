@@ -74,15 +74,17 @@ public class IntervalVarianceController {
             DataAnalyse.IntervalConfidenceValues values = new DataAnalyse.IntervalConfidenceValues();
             values.setOnResult(getListeners());
 
-            values.setSampleSize(sampleSize.isChecked() ? Double.valueOf(sampleSize.getValue()) : null);
-            values.setVariance(sampleVariance.isChecked() ? Double.valueOf(sampleVariance.getValue()) : null);
-            values.setConfidence(confidenceLevel.isChecked() ? Double.valueOf(confidenceLevel.getValue()) : null);
+            values.setSampleSize(sampleSize.isChecked() ? asDouble(sampleSize.getValue()) : null);
+            values.setVariance(sampleVariance.isChecked() ? asDouble(sampleVariance.getValue()) : null);
+            values.setConfidence(confidenceLevel.isChecked() ? asDouble(confidenceLevel.getValue()) : null);
 
             DataAnalyse.intervalQuiQuadratic(values);
         }
     }
 
-
+    private Double asDouble(String s){
+        return Double.valueOf(s.replace(",", "."));
+    }
 
     private class Listener implements Switch.OnCheckedChangeListener, AdapterView.OnItemSelectedListener,
             View.OnClickListener, DataAnalyse.IntervalConfidenceResult{
@@ -113,10 +115,10 @@ public class IntervalVarianceController {
         public void onSuccess(Double min, Double max, Double error, float z, DataAnalyse.IntervalConfidenceValues values) {
 
             String text = String.format(Locale.getDefault(), "P = (%s < %s² < %s) = %s",
-                    format(min * 100), "o", format(max * 100), format(values.getConfidence()));
+                    format(min), "o", format(max), format(values.getConfidence() / 100));
             text += "\nou\n";
             text += String.format(Locale.getDefault(), "IC (%s², %s) = (%s; %s)",
-                    "o", format(values.getConfidence()), format(min * 100), format(max * 100));
+                    "o", format(values.getConfidence() / 100), format(min), format(max));
 
             FragmentActivity activity = mFragment.getActivity();
             if(activity != null) {

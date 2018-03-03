@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.views.HypothesisAverageView;
+import com.sharktech.projectprob.views.HypothesisProportionView;
+import com.sharktech.projectprob.views.HypothesisVarianceView;
 import com.sharktech.projectprob.views.IntervalAverageView;
 import com.sharktech.projectprob.views.IntervalProportionView;
 import com.sharktech.projectprob.views.IntervalVarianceView;
@@ -50,18 +53,20 @@ public class InferenceController {
         mCurrentLayout = layoutId;
         mCurrentMenu = menuId;
 
-        Fragment fragment = null;
-
-        if (menuId == R.id.menu_average) {
-            fragment = new IntervalAverageView();
-        } else if (menuId == R.id.menu_proportion) {
-            fragment = new IntervalProportionView();
-        } else if (menuId == R.id.menu_variance) {
-            fragment = new IntervalVarianceView();
-        }
+        Fragment fragment = (layoutId == R.id.tab_interval)
+                        ? (menuId == R.id.menu_average) ? new IntervalAverageView()
+                        : (menuId == R.id.menu_proportion) ? new IntervalProportionView()
+                        : (menuId == R.id.menu_variance) ? new IntervalVarianceView()
+                        : null
+                : (layoutId == R.id.tab_hypothesis)
+                        ? (menuId == R.id.menu_average) ? new HypothesisAverageView()
+                        : (menuId == R.id.menu_proportion) ? new HypothesisProportionView()
+                        : (menuId == R.id.menu_variance) ? new HypothesisVarianceView()
+                        : null
+                : null;
 
         FragmentManager manager = mFragment.getFragmentManager();
-        if (manager != null)
+        if (manager != null && fragment != null)
             manager.beginTransaction().replace(layoutId, fragment).commit();
     }
 

@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.views.DataDetailsView;
 import com.sharktech.projectprob.views.IntervalAverageView;
 import com.sharktech.projectprob.views.IntervalProportionView;
+import com.sharktech.projectprob.views.IntervalVarianceView;
 
 public class InferenceController {
 
@@ -57,7 +57,7 @@ public class InferenceController {
         } else if (menuId == R.id.menu_proportion) {
             fragment = new IntervalProportionView();
         } else if (menuId == R.id.menu_variance) {
-            fragment = new DataDetailsView();
+            fragment = new IntervalVarianceView();
         }
 
         FragmentManager manager = mFragment.getFragmentManager();

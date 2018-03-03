@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_data_analyse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/medium_gap">
+
+            <Switch
+                android:id="@+id/swt_var_sample"
+                style="@style/TextViewColored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txt_var_as_sample" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/minimum_gap">
+
+            <LinearLayout
+                android:id="@+id/lay_var_sample"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/minimum_gap">
+
+                <TextView
+                    style="@style/TextViewColored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_variable" />
+
+                <Spinner
+                    android:id="@+id/spn_var_sample"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foregroundGravity="right"
+                    android:gravity="end"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_sample_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.sharktech.projectprob.customview.ItemConfidenceInterval
+                android:id="@+id/ci_sample_variance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <com.sharktech.projectprob.customview.ItemConfidenceInterval
+            android:id="@+id/ci_confidence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/medium_gap">
+
+            <TextView
+                android:id="@+id/txt_value_ic_var"
+                style="@style/TextViewColored"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                android:background="@drawable/border_light"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btn_calculate_ic_var"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/medium_gap"
+                android:layout_marginTop="@dimen/large_gap"
+                android:gravity="center"
+                android:text="@string/btn_calculate"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

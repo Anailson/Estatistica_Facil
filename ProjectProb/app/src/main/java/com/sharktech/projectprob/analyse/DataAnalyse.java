@@ -81,14 +81,17 @@ public class DataAnalyse {
     public static void intervalProportion(IntervalConfidenceValues values) {
         DataAnalyseCalc.intervalProportion(values);
     }
+    public static void intervalQuiQuadratic(IntervalConfidenceValues values) {
+        DataAnalyseCalc.intervalVariance(values);
+    }
 
     public static class IntervalConfidenceValues{
 
-        Double sampleAvg, sampleSize, deviation, populationSize, confidence, success;
+        Double sampleAvg, sampleSize, deviation, populationSize, confidence, success, variance;
         IntervalConfidenceResult result;
 
         public IntervalConfidenceValues(){
-            sampleAvg = sampleSize = deviation = populationSize = confidence = success = null;
+            sampleAvg = sampleSize = deviation = populationSize = confidence = success = variance = null;
         }
 
         public Double getSuccess() {
@@ -137,6 +140,14 @@ public class DataAnalyse {
 
         public void setConfidence(Double confidence) {
             this.confidence = confidence;
+        }
+
+        public Double getVariance() {
+            return variance;
+        }
+
+        public void setVariance(Double variance) {
+            this.variance = variance;
         }
 
         public void setOnResult(IntervalConfidenceResult result){

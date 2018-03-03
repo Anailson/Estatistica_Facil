@@ -1,5 +1,7 @@
 package com.sharktech.projectprob.analyse;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import static com.sharktech.projectprob.analyse.DataAnalyse.Average;
@@ -118,6 +120,30 @@ class DataAnalyseCalc {
         float deviation = (float) Math.sqrt((success * fail) / values.sampleSize);
         double error = z * deviation;
         values.onSuccess((success - error), (success + error), error, z, values);
+    }
+
+    static void intervalVariance(DataAnalyse.IntervalConfidenceValues values){
+        if(values.isEmpty()){
+            values.onError();
+            return;
+        }
+
+        float limitInf = (float) ((100 - values.confidence) / 2);
+        float limitSup = (float) (limitInf + values.confidence);
+        int n = values.sampleSize.intValue() - 1;
+
+        Log.e("Qui-Quadratic", "limitInf: " + limitInf + " limitSup " + limitSup);
+        float quiInf = TableDistribution.quiQuadratic(limitInf / 100, n); // limitInf == 0.05, quiInf == 16.919
+        float quiSup = TableDistribution.quiQuadratic(limitSup / 100, n); // limitSup == 0.95, quiSup == 3.3251
+
+        Log.e("Qui-Quadratic", "n: " + n + " variance  " + values.variance + " quiInf " + quiInf + " quiSup " + quiSup);
+        if(quiInf < 0 || quiSup < 0){
+            values.onError();
+            return;
+        }
+
+        double prod = n * values.variance;
+        values.onSuccess((prod / quiInf), (prod / quiSup), prod, -1, values);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

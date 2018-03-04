@@ -43,6 +43,7 @@
     <string name="txt_tab_description">Descrição</string>
     <string name="txt_var_as_sample">Usar variáveis como amostra</string>
     <string name="txt_confidence_level">Nível de confiança(%) &#947;:</string>
+    <string name="txt_hypothesis">Hipótese H&#8320;:</string>
     <string name="txt_sample_data">Dados amostrais</string>
     <string name="txt_sample_avg">Média x&#772;:</string>
     <string name="txt_sample_size">Tamanho n:</string>

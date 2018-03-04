@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/medium_gap">
+            android:paddingBottom="@dimen/minimum_gap">
 
             <Switch
                 android:id="@+id/swt_var_sample"
@@ -28,13 +28,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/medium_gap">
+            android:paddingBottom="@dimen/minimum_gap">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/medium_gap">
+                android:paddingBottom="@dimen/minimum_gap">
 
                 <TextView
                     style="@style/TextViewColored"
@@ -78,12 +78,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/minimum_gap">
 
             <TextView
                 style="@style/TextViewColored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="@dimen/minimum_gap"
                 android:text="@string/txt_population_data" />
 
             <com.sharktech.projectprob.customview.ItemConfidenceInterval
@@ -106,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/medium_gap">
+            android:paddingTop="@dimen/minimum_gap">
 
             <TextView
                 android:id="@+id/txt_value_ic_avg"

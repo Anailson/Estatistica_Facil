@@ -54,7 +54,7 @@ public class InferenceController {
         mCurrentMenu = menuId;
 
         Fragment fragment = (layoutId == R.id.tab_interval)
-                        ? (menuId == R.id.menu_average) ? new IntervalAverageView()
+                ? (menuId == R.id.menu_average) ? new IntervalAverageView()
                         : (menuId == R.id.menu_proportion) ? new IntervalProportionView()
                         : (menuId == R.id.menu_variance) ? new IntervalVarianceView()
                         : null

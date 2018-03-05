@@ -27,8 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/minimum_gap">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,6 +39,7 @@
                     style="@style/TextViewColored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/minimum_gap"
                     android:text="@string/txt_sample_data" />
             </LinearLayout>
 
@@ -47,8 +47,7 @@
                 android:id="@+id/lay_var_sample"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/minimum_gap">
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextViewColored"
@@ -79,14 +78,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/minimum_gap">
+            android:orientation="vertical">
 
             <TextView
                 style="@style/TextViewColored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/minimum_gap"
+                android:paddingBottom="@dimen/medium_gap"
                 android:text="@string/txt_population_data" />
 
             <com.sharktech.projectprob.customview.ItemConfidenceInterval

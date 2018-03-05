@@ -27,8 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/minimum_gap">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,6 +39,7 @@
                     style="@style/TextViewColored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/minimum_gap"
                     android:text="@string/txt_sample_data" />
             </LinearLayout>
 
@@ -47,7 +47,8 @@
                 android:id="@+id/lay_var_sample"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"
@@ -65,12 +66,12 @@
             </LinearLayout>
 
             <com.sharktech.projectprob.customview.ItemConfidenceInterval
-                android:id="@+id/ci_sample_avg"
+                android:id="@+id/ci_sample_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.sharktech.projectprob.customview.ItemConfidenceInterval
-                android:id="@+id/ci_sample_size"
+                android:id="@+id/ci_sample_avg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -78,14 +79,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/minimum_gap">
+            android:orientation="vertical">
 
             <TextView
                 style="@style/TextViewColored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/minimum_gap"
+                android:paddingBottom="@dimen/medium_gap"
                 android:text="@string/txt_population_data" />
 
             <com.sharktech.projectprob.customview.ItemConfidenceInterval

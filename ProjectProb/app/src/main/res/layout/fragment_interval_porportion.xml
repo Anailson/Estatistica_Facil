@@ -27,8 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/minimum_gap">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,6 +39,7 @@
                     style="@style/TextViewColored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/minimum_gap"
                     android:text="@string/txt_sample_data" />
             </LinearLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/minimum_gap">
+                android:paddingBottom="@dimen/medium_gap">
 
                 <TextView
                     style="@style/TextViewColored"

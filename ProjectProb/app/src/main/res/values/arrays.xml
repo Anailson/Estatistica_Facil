@@ -8,4 +8,10 @@
         <item>@string/txt_box_chart</item>
         <item>@string/txt_histogram_chart</item>
     </string-array>
+
+    <string-array name="conditions">
+        <item>@string/sym_equals</item>
+        <item>@string/sym_more_equals</item>
+        <item>@string/sym_less_equals</item>
+    </string-array>
 </resources>

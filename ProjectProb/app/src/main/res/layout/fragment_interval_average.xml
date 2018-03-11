@@ -39,7 +39,6 @@
                     style="@style/TextViewColored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/minimum_gap"
                     android:text="@string/txt_sample_data" />
             </LinearLayout>
 
@@ -48,20 +47,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/medium_gap">
+                android:paddingBottom="@dimen/minimum_gap">
 
                 <TextView
                     style="@style/TextViewColored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/txt_variable" />
 
                 <Spinner
                     android:id="@+id/spn_var_sample"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:foregroundGravity="right"
-                    android:gravity="end"
+                    style="@style/Platform.Widget.AppCompat.Spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:spinnerMode="dialog" />
             </LinearLayout>
 

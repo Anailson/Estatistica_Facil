@@ -9,6 +9,7 @@ import com.sharktech.projectprob.analyse.DataAnalyse;
 import com.sharktech.projectprob.customtable.CustomTable;
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
+import com.sharktech.projectprob.models.CellValue;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
 
@@ -81,13 +82,17 @@ public class DataTableController {
 
     private VariableString stringVar(int title, final ArrayList<TableCell.ICell> cells){
         VariableString variable = new VariableString(mFragment.getString(title));
-        variable.add(cells);
+        for(TableCell.ICell cell : cells){
+            variable.add(new CellValue(cell.getTitle()));
+        }
         return variable;
     }
 
     private VariableNumber numericVar(int title, ArrayList<TableCell.ICell> cells){
         VariableNumber variable = new VariableNumber(mFragment.getString(title));
-        variable.add(cells);
+        for(TableCell.ICell cell : cells){
+            variable.add(new CellValue(cell.getTitle()));
+        }
         return variable;
     }
 }

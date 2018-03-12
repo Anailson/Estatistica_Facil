@@ -1,48 +1,65 @@
 package com.sharktech.projectprob.models;
 
-
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class VariableNumber implements TableColumn.IVariable {
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-    private String mTitle;
-    private ArrayList<TableCell.ICell> mValues;
+public class VariableNumber extends RealmObject implements TableColumn.IVariable {
+
+    private String title;
+    private RealmList<CellValue> values;
+
+    public VariableNumber() {
+        this("No VarNumber-title");
+    }
 
     public VariableNumber(String title) {
-        this.mTitle = title;
-        this.mValues = new ArrayList<>();
+        this.title = title;
+        this.values = new RealmList<>();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public RealmList<CellValue> getValues() {
+        return values;
+    }
+
+    public void setValues(RealmList<CellValue> values) {
+        this.values = values;
     }
 
     public void add(Number value){
-        add(new ValueInteger(value));
+        add(new CellValue(value.doubleValue()));
     }
 
-    public void add(ValueInteger value){
-        mValues.add(value);
+    public void add(CellValue value){
+        values.add(value);
     }
 
     public void add(Number [] values){
         for(Number num : values){
-            mValues.add(new ValueInteger(num));
+            this.values.add(new CellValue(num.doubleValue()));
         }
     }
 
-    public void add(ArrayList<TableCell.ICell> values){
-        mValues.addAll(values);
+    public void add(ArrayList<CellValue> values){
+        this.values.addAll(values);
     }
 
     @Override
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     @Override
     public int nElements() {
-        return mValues.size();
+        return values.size();
     }
     @Override
 
@@ -51,20 +68,25 @@ public class VariableNumber implements TableColumn.IVariable {
     }
 
     @Override
-    public ArrayList<TableCell.ICell> getElements() {
-        return mValues;
+    public RealmList<TableCell.ICell> getElements() {
+
+        RealmList<TableCell.ICell> cells = new RealmList<>();
+        cells.addAll(values);
+        return cells;
     }
 
     @Override
     public TableCell.ICell getElement(int index) {
-        return mValues.get(index);
+        return values.get(index);
     }
 
     @Override
     public void setElement(TableCell.ICell value, int index) {
-        mValues.set(index, value);
+        CellValue cell = new CellValue();
+        cell.setValue(value.getTitle());
+        values.set(index, cell);
     }
-
+/*
     public static class ValueInteger implements TableCell.ICell {
 
         private Number mValue;
@@ -94,4 +116,5 @@ public class VariableNumber implements TableColumn.IVariable {
             return getTitle();
         }
     }
+    */
 }

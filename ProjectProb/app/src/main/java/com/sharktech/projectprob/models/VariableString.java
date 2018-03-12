@@ -1,24 +1,47 @@
 package com.sharktech.projectprob.models;
 
-
-import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableCell.ICell;
 import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 
 import java.util.ArrayList;
 
-public class VariableString implements IVariable {
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-    private String mTitle;
-    private ArrayList<ICell> mValues;
+public class VariableString extends RealmObject implements IVariable {
+
+    private String title;
+    private RealmList<CellValue> values;
+
+    public VariableString() {
+        this("No var-title");
+    }
 
     public VariableString(String title) {
-        this.mTitle = title;
-        this.mValues = new ArrayList<>();
+        this.title = title;
+        this.values = new RealmList<>();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public RealmList<CellValue> getValues() {
+        return values;
+    }
+
+    public void setValues(RealmList<CellValue> values) {
+        this.values = values;
+    }
+
+    public void add(CellValue value){
+        values.add(value);
     }
 
     public void add(String value){
-        mValues.add(new ValueString(value));
+        CellValue cell = new CellValue();
+        cell.setValue(value);
+        values.add(cell);
     }
 
     public void add(Character value){
@@ -47,18 +70,18 @@ public class VariableString implements IVariable {
         }
     }
 
-    public void add(ArrayList<TableCell.ICell> values){
-        mValues.addAll(values);
+    public void add(ArrayList<CellValue> values){
+        this.values.addAll(values);
     }
 
     @Override
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     @Override
     public int nElements() {
-        return mValues.size();
+        return values.size();
     }
 
     @Override
@@ -67,41 +90,21 @@ public class VariableString implements IVariable {
     }
 
     @Override
-    public ArrayList<ICell> getElements() {
-        return mValues;
+    public RealmList<ICell> getElements() {
+        RealmList<ICell> cells = new RealmList<>();
+        cells.addAll(values);
+        return cells;
     }
 
     @Override
     public ICell getElement(int index) {
-        return mValues.get(index);
+        return values.get(index);
     }
 
     @Override
     public void setElement(ICell value, int index) {
-        mValues.set(index,  value);
-    }
-
-    public static class ValueString implements ICell {
-
-        private String value;
-
-        public ValueString(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getTitle() {
-            return value;
-        }
-
-        @Override
-        public Double asNumber() {
-            return 1d;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
+        CellValue cell = new CellValue();
+        cell.setValue(value.getTitle());
+        values.set(index, cell);
     }
 }

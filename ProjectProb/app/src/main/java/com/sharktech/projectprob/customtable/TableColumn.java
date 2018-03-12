@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.sharktech.projectprob.R;
-import com.sharktech.projectprob.models.VariableString;
+import com.sharktech.projectprob.models.CellValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import io.realm.RealmList;
 
 public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
@@ -25,7 +27,7 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
 
         boolean isNumber();
 
-        ArrayList<TableCell.ICell> getElements();
+        RealmList<TableCell.ICell> getElements();
 
         TableCell.ICell getElement(int index);
 
@@ -65,13 +67,9 @@ public class TableColumn<E extends TableColumn.IVariable> extends LinearLayout {
         }
     }
 
-    protected int nElements(){
-        return mVariable.nElements();
-    }
-
     protected TableColumn build() {
 
-        TableCell cellTitle = new TableCell(getContext(), new VariableString.ValueString(mVariable.getTitle()), mVariable.isNumber());
+        TableCell cellTitle = new TableCell(getContext(), new CellValue(mVariable.getTitle()), mVariable.isNumber());
         cellTitle.setCol(mPosition);
         addView(cellTitle);
 

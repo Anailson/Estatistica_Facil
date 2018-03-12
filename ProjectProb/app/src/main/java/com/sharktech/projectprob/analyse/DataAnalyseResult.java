@@ -2,6 +2,7 @@ package com.sharktech.projectprob.analyse;
 
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
+import com.sharktech.projectprob.models.CellValue;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
 
@@ -120,7 +121,7 @@ public class DataAnalyseResult {
             addToList(ValueKey.SQRT_VAL, mSum.get(Sum.SUM_SQRT_VAL));
             addToList(ValueKey.PROD_SQRT_VAL_FREQ, mSum.get(Sum.SUM_SQRT_VAL_MULTI_FREQ));
         } else {
-            addToList(ValueKey.DATA, new VariableString.ValueString("- - -"));
+            addToList(ValueKey.DATA, new CellValue(" - - - "));
         }
     }
 
@@ -171,7 +172,7 @@ public class DataAnalyseResult {
     }
 
     private void addToList(ValueKey key, Double value) {
-        addToList(key, new VariableNumber.ValueInteger(value));
+        addToList(key, new CellValue(value));
     }
 
     private void addToList(ValueKey key, TableCell.ICell cell) {

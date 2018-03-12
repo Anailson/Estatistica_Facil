@@ -2,6 +2,7 @@ package com.sharktech.projectprob.parser;
 
 import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
+import com.sharktech.projectprob.models.CellValue;
 import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
 import com.sharktech.projectprob.persistence.VariablePersistence;
@@ -90,14 +91,9 @@ class VariableOperation {
 
         lastToken = parser.getValue(Token.VAL);
         VariableParser.Error error = type(lastToken, variable);
-        TableCell.ICell cell = null;
-
-        if(error == VariableParser.Error.MATCH_NUMBER) {
-            Integer valNum = Integer.parseInt(lastToken.getText());
-            cell = new VariableNumber.ValueInteger(valNum);
-        } else if(error == VariableParser.Error.MATCH_TEXT) {
-            cell = new VariableString.ValueString(lastToken.getText());
-        }
+        TableCell.ICell cell = error == VariableParser.Error.MATCH_NUMBER ? new CellValue(Double.valueOf(lastToken.getText()))
+                : error == VariableParser.Error.MATCH_TEXT ? new CellValue(lastToken.getText())
+                : null;
 
         if(cell != null) {
             variable.setElement(cell, row);

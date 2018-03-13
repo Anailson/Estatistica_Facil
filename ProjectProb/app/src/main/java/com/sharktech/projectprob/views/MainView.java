@@ -7,15 +7,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rustamg.filedialogs.FileDialog;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.MainController;
 
+import java.io.File;
+
 public class MainView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FileDialog.OnFileSelectedListener {
 
     private MainController controller;
 
@@ -23,7 +27,7 @@ public class MainView extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         controller = new MainController(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -39,6 +43,7 @@ public class MainView extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         controller.selectMenu(R.id.nav_variables);
+        controller.verifyStoragePermission();
     }
 
     @Override
@@ -61,6 +66,16 @@ public class MainView extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         controller.selectMenu(item.getItemId());
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        controller.permissionResult(requestCode, grantResults);
+    }
+
+    @Override
+    public void onFileSelected(FileDialog dialog, File file) {
+        controller.selectedFile(dialog.getTag(), file.getName(), file.getParentFile());
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

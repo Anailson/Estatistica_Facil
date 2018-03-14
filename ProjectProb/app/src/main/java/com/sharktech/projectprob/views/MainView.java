@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.rustamg.filedialogs.FileDialog;
 import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.controllers.MainController;
+import com.sharktech.projectprob.persistence.VariablePersistence;
 
 import java.io.File;
 
@@ -44,6 +45,12 @@ public class MainView extends AppCompatActivity
 
         controller.selectMenu(R.id.nav_variables);
         controller.verifyStoragePermission();
+
+        VariablePersistence.initDatabase(this);
+    }
+
+    public void resume(){
+        super.onResume();
     }
 
     @Override
@@ -54,12 +61,6 @@ public class MainView extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_vars_table, menu);
-        return true;
     }
 
     @Override

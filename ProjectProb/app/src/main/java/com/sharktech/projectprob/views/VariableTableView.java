@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +23,7 @@ public class VariableTableView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
         FragmentActivity activity = getActivity();
         if(activity != null) activity.setTitle(getString(R.string.txt_variables));
 
@@ -41,5 +44,11 @@ public class VariableTableView extends Fragment {
         ViewGroup table = mController.buildTable();
         mContentTable.addView(table);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_vars_table, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -28,6 +28,7 @@ import com.sharktech.projectprob.models.CellValue;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 import com.sharktech.projectprob.views.CommandLineView;
 import com.sharktech.projectprob.views.DataAnalyseView;
+import com.sharktech.projectprob.views.FormulaView;
 import com.sharktech.projectprob.views.InferenceView;
 import com.sharktech.projectprob.views.MainView;
 import com.sharktech.projectprob.views.VariableTableView;
@@ -104,7 +105,7 @@ public class MainController {
             case R.id.nav_data_analyse: fragment = new DataAnalyseView(); break;
             case R.id.nav_inference: fragment = new InferenceView(); break;
             case R.id.nav_probability: showToast("Probabilidade: Em desenvolvimento"); break;
-            case R.id.nav_formula: showToast("Fórmula: Em desenvolvimento"); break;
+            case R.id.nav_formula: fragment = new FormulaView(); break;
             case R.id.nav_cmd_line: fragment = new CommandLineView(); break;
             default: return false;
         }

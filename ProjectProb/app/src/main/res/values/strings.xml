@@ -87,6 +87,26 @@
     <string name="cmd_text_desc">Representa um valor textual (aceita apenas letras, numeros, _ e -)</string>
     <string name="cmd_values_desc">Representa um valor numerico ou textual (separe por vírgula para mais de um valor)</string>
 
+    <!-- Formulas -->
+    <string name="fml_default"> </string>
+    <string name="fml_arithmetic_avg_txt">Média Aritmética</string>
+    <string name="fml_arithmetic_avg_pnd_txt">Média Aritmética Ponderada</string>
+    <string name="fml_geometric_avg_txt">Média Geométrica</string>
+    <string name="fml_geometric_avg_pnd_txt">Média Geométrica Ponderada</string>
+    <string name="fml_weighted_avg_txt">Média Harmônica</string>
+    <string name="fml_weighted_avg_pnd_txt">Média Harmônica Ponderada</string>
+    <string name="fml_quadratic_avg_txt">Média Harmônica</string>
+    <string name="fml_quadratic_avg_pnd_txt">Média Harmônica Ponderada</string>
+    <string name="fml_deviation_txt">Desvio padrão</string>
+    <string name="fml_fst_quart_txt">Primeiro Quartil</string>
+    <string name="fml_snd_quart_txt">Segundo Quartil</string>
+    <string name="fml_trd_quart_txt">Terceiro Quartil</string>
+    <string name="fml_fst_tenth_txt">Primeiro Decil</string>
+    <string name="fml_nth_tenth_txt">Nono Decil</string>
+    <string name="fml_confidence_interval_avg_txt">Intervalo de Confiança: Média</string>
+    <string name="fml_confidence_interval_prop_txt">Intervalo de Confiança: Proporção</string>
+    <string name="fml_confidence_interval_var_txt">Intervalo de Confiança: Variância</string>
+
     <!-- Buttons -->
     <string name="btn_cmd">&#62;</string>
     <string name="btn_ok">OK</string>
@@ -108,6 +128,16 @@
     <string name="sym_asymmetry_quart">A = (Q&#8323; + Q&#8321; - 2Q&#8322;) / (Q&#8323; - Q&#8321;)</string>
     <string name="sym_asymmetry_percent">A = (P&#8329;&#8320; + P&#8321;&#8320; - 2P&#8325;&#8320;) / (P&#8329;&#8320; - P&#8321;&#8320;)</string>
     <string name="sym_standard_deviation">E = &#8730;{E(&#967;&#161; ^ 2) - [E(&#967;&#161;)] ^ 2}</string>
+    <string name="sym_fst_quart">Q&#8321; = (n + 1) / 4</string>
+    <string name="sym_snd_quart">Q&#8322; = (n + 1) / 2</string>
+    <string name="sym_trd_quart">Q&#8323; = 3 * (n + 1) / 4</string>
+    <string name="sym_fst_tenth">D&#8321; = (n + 1) / 10</string>
+    <string name="sym_nth_tenth">D&#8329; = 9 * (n + 1) / 10</string>
+
+    <string name="sym_interval_avg">Q&#8323; = 3 * (n + 1) / 4</string>
+    <string name="sym_interval_prop">D&#8321; = (n + 1) / 10</string>
+    <string name="sym_interval_var">D&#8329; = 9 * (n + 1) / 10</string>
+
     <string name="sym_p_hat">p&#0302;</string>
     <string name="sym_q_hat">q&#0302;</string>
     <string name="sym_mu">&#956;</string>
@@ -168,3 +198,4 @@
     <string name="title_notifications">Notifications</string>
 
 </resources>
+

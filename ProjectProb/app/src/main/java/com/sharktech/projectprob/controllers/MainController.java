@@ -26,6 +26,7 @@ import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.models.CellValue;
 import com.sharktech.projectprob.persistence.VariablePersistence;
+import com.sharktech.projectprob.views.CommandLineView;
 import com.sharktech.projectprob.views.DataAnalyseView;
 import com.sharktech.projectprob.views.InferenceView;
 import com.sharktech.projectprob.views.MainView;
@@ -104,6 +105,7 @@ public class MainController {
             case R.id.nav_inference: fragment = new InferenceView(); break;
             case R.id.nav_probability: showToast("Probabilidade: Em desenvolvimento"); break;
             case R.id.nav_formula: showToast("Fórmula: Em desenvolvimento"); break;
+            case R.id.nav_cmd_line: fragment = new CommandLineView(); break;
             default: return false;
         }
         return replaceFragment(fragment) > 0;

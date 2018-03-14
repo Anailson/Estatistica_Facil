@@ -25,9 +25,17 @@
     <item android:title="@string/txt_about">
         <menu>
             <item
+                android:id="@+id/nav_about"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="@string/txt_about" />
+            <item
                 android:id="@+id/nav_formula"
                 android:icon="@mipmap/ic_forumla"
                 android:title="@string/menu_formula" />
+            <item
+                android:id="@+id/nav_cmd_line"
+                android:icon="@mipmap/ic_cmd_line"
+                android:title="@string/txt_cmd_line" />
         </menu>
     </item>
 

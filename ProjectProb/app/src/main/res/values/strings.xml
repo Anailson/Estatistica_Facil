@@ -54,6 +54,39 @@
     <string name="txt_population_size">Tamanho N:</string>
     <string name="txt_population_deviation">Desvio padrão &#963;:</string>
 
+    <!-- Commando Line Description -->
+    <string name="cmd_default"> </string>
+    <string name="cmd_list">Lista de comandos para manipualção das variáveis</string>
+    <string name="cmd_description">Explicação dos comandos</string>
+    <string name="cmd_detail">Detalhamento dos comandos</string>
+    <string name="cmd_new">Criar uma nova variável</string>
+    <string name="cmd_new_detail">new var {text} val {number, text, values}</string>
+    <string name="cmd_add">Adiciona um novo elemento na variável</string>
+    <string name="cmd_add_detail">del col {number} val {number, text, values}</string>
+    <string name="cmd_edt">Edita um elemento na variável</string>
+    <string name="cmd_edt_detail">edt col {number} row {number}</string>
+    <string name="cmd_del_var">Deleta uma variável</string>
+    <string name="cmd_del_var_detail">del col {number}</string>
+    <string name="cmd_del_el">Deleta um elemento da variável</string>
+    <string name="cmd_del_el_detail">del col {number} row {number}</string>
+    <string name="cmd_primary">Comandos que executam uma ação específica</string>
+    <string name="cmd_primary_detail">new, add, del e edt</string>
+    <string name="cmd_secondary">Comandos para definição de variáves </string>
+    <string name="cmd_secondary_detail">var, col, row e val</string>
+    <string name="cmd_variables">Tipos de valores aceitos nas variveis</string>
+    <string name="cmd_variables_detail">number, text, values</string>
+    <string name="cmd_new_desc">Inicia o comando para criar uma variável</string>
+    <string name="cmd_add_desc">Inicia o comando para adicionar um novo valor na variável</string>
+    <string name="cmd_edt_desc">Inicia o comando para editar um valor na variável</string>
+    <string name="cmd_del_desc">Inicia o comando para deletar uma variável ou um valor na variável</string>
+    <string name="cmd_var_desc">Indica o nome da variável</string>
+    <string name="cmd_col_desc">Indica o numero de uma coluna (inteiro maior que 0)</string>
+    <string name="cmd_row_desc">Indica o numero de uma linha (inteiro maior que 0)</string>
+    <string name="cmd_val_desc">Indica os valores que serão atribuídos a um (ou mais) elementos</string>
+    <string name="cmd_number_desc">Representa um valor numérico, (inteiro ou decimal)</string>
+    <string name="cmd_text_desc">Representa um valor textual (aceita apenas letras, numeros, _ e -)</string>
+    <string name="cmd_values_desc">Representa um valor numerico ou textual (separe por vírgula para mais de um valor)</string>
+
     <!-- Buttons -->
     <string name="btn_cmd">&#62;</string>
     <string name="btn_ok">OK</string>

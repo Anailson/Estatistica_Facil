@@ -36,7 +36,7 @@ public class ItemDataDetail extends LinearLayout {
         setPadding(0, 0, 0, bottom);
 
         mTxtTitle = new TextView(context);
-        mTxtTitle.setText(R.string.txt_default);
+        //mTxtTitle.setText(R.string.txt_default);
         mTxtTitle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mTxtTitle.setTextAppearance(context, R.style.TextViewColored);
 
@@ -45,12 +45,12 @@ public class ItemDataDetail extends LinearLayout {
         content.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mTxtEquation = new TextView(context);
-        mTxtEquation.setText(R.string.txt_default);
+        //mTxtEquation.setText(R.string.txt_default);
         mTxtEquation.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mTxtEquation.setTextAppearance(context, R.style.TextViewSmallColored);
 
         mTxtValue = new TextView(context, null, R.style.TextViewSmallColored);
-        mTxtValue.setText(R.string.txt_default);
+        //mTxtValue.setText(R.string.txt_default);
         mTxtValue.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mTxtValue.setTextAppearance(context, R.style.TextViewSmallColored);
         mTxtValue.setGravity(Gravity.END);

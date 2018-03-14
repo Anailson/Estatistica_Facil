@@ -91,7 +91,9 @@ public class DataTableController {
     private VariableNumber numericVar(int title, ArrayList<TableCell.ICell> cells){
         VariableNumber variable = new VariableNumber(mFragment.getString(title));
         for(TableCell.ICell cell : cells){
-            variable.add(new CellValue(cell.getTitle()));
+            CellValue cellValue = new CellValue(cell.getTitle());
+            cellValue.setNumber(true);
+            variable.add(cellValue);
         }
         return variable;
     }

@@ -21,16 +21,21 @@
 
             <TextView
                 style="@style/TextViewColored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="@string/txt_charts" />
 
             <Spinner
                 android:id="@+id/spn_graphs"
-                android:layout_width="match_parent"
+                style="@style/Platform.Widget.AppCompat.Spinner"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:gravity="end" />
+                android:layout_weight="2"
+                android:gravity="end"
+                android:spinnerMode="dialog" />
         </LinearLayout>
 
         <RelativeLayout

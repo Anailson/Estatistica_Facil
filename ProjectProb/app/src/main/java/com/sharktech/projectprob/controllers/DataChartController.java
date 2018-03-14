@@ -64,7 +64,10 @@ public class DataChartController {
                 Chart chart = null;
                 Context context = mFragment.getContext();
                 String title = mVariable.getTitle();
-                DataAnalyseResult values = new DataAnalyse(mVariable).getValues();
+                DataAnalyse analyse = new DataAnalyse(mVariable);
+                analyse.init();
+                DataAnalyseResult values = analyse.getValues();
+
                 switch (chartIndex) {
                     case ChartFactory.PIE: chart = ChartFactory.newPieChart(context, title, values); break;
                     case ChartFactory.BAR: chart = ChartFactory.newBarChart(context, title, values); break;

@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class VariableNumber extends RealmObject implements TableColumn.IVariable {
 
+    @PrimaryKey
     private String title;
     private RealmList<CellValue> values;
 

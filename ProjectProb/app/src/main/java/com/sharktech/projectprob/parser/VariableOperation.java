@@ -7,6 +7,7 @@ import com.sharktech.projectprob.models.VariableNumber;
 import com.sharktech.projectprob.models.VariableString;
 import com.sharktech.projectprob.persistence.VariablePersistence;
 
+import io.realm.RealmList;
 import lexer.Token;
 import parser.ParserAdd;
 import parser.ParserDelete;
@@ -35,15 +36,16 @@ class VariableOperation {
         TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(col);
         VariableParser.Error err = type(lastToken, variable);
 
-        if (err == VariableParser.Error.MATCH_NUMBER) addNumber(variable, lastToken.getText());
-        else if (err == VariableParser.Error.MATCH_TEXT) addString(variable, lastToken.getText());
-        else if (err == VariableParser.Error.MATCH_MANY_VALUES) {
+        if (err == VariableParser.Error.MATCH_NUMBER
+                || err == VariableParser.Error.MATCH_TEXT) {
+            CellValue cell = new CellValue(lastToken.getText());
+            cell.setNumber(err == VariableParser.Error.MATCH_NUMBER);
+            VariablePersistence.getInstance().addCell(col, cell);
+        } else if (err == VariableParser.Error.MATCH_MANY_VALUES) {
 
             String[] values = lastToken.getText().replaceAll(" ", "").split(",");
-            VariableParser.Error type = type(values, variable);
-            if ((err = type) == VariableParser.Error.MATCH_NUMBER) addNumber(variable, values);
-            else if ((err = type) == VariableParser.Error.MATCH_TEXT) addString(variable, values);
-            else err = VariableParser.Error.ERR_GENERAL;
+            RealmList<CellValue> cells = asRealmList(variable.isNumber(), values);
+            VariablePersistence.getInstance().addCell(col, cells);
         }
 
         result(lastToken, err);
@@ -56,17 +58,11 @@ class VariableOperation {
         String[] values = lastToken.getText().split(",");
         VariableParser.Error type = type(values);
 
-        TableColumn.IVariable var = null;
-        if(type == VariableParser.Error.MATCH_NUMBER) {
-            var = new VariableNumber(title);
-            addNumber(var, values);
-        } else if(type == VariableParser.Error.MATCH_TEXT) {
-            var = new VariableString(title);
-            addString(var, values);
-        }
+        boolean isNumber = type == VariableParser.Error.MATCH_NUMBER;
+        RealmList<CellValue> cells = asRealmList(isNumber, values);
 
         if(type == VariableParser.Error.MATCH_NUMBER || type == VariableParser.Error.MATCH_TEXT) {
-            VariablePersistence.getInstance().add(var);
+            VariablePersistence.getInstance().newVariable(title, isNumber, cells);
         }
 
         result(lastToken, type);
@@ -137,25 +133,23 @@ class VariableOperation {
         }
     }
 
-    private void addNumber(TableColumn.IVariable variable, String value) {
-        ((VariableNumber) variable).add(Integer.valueOf(value));
-    }
-
-    private void addNumber(TableColumn.IVariable variable, String[] values) {
-        Number[] ints = new Number[values.length];
-        int index = 0;
-        for (String s : values) {
-            ints[index++] = Integer.parseInt(s);
+    private void addCell(TableColumn.IVariable variable, String value) {
+        if(variable.isNumber()) {
+            ((VariableNumber) variable).add(Integer.valueOf(value));
+        }else{
+            ((VariableString) variable).add(value);
         }
-        ((VariableNumber) variable).add(ints);
     }
 
-    private void addString(TableColumn.IVariable variable, String value) {
-        ((VariableString) variable).add(value);
-    }
+    private RealmList<CellValue> asRealmList(boolean isNumber, String[] values) {
 
-    private void addString(TableColumn.IVariable variable, String[] values) {
-        ((VariableString) variable).add(values);
+        RealmList<CellValue> cells = new RealmList<>();
+        for (String s : values) {
+            CellValue cell = new CellValue(s);
+            cell.setNumber(isNumber);
+            cells.add(cell);
+        }
+        return cells;
     }
 
     private VariableParser.Error type(String[] values) {

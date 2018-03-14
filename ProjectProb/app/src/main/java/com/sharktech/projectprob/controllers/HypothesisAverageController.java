@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.sharktech.projectprob.R;
 import com.sharktech.projectprob.analyse.DataAnalyse;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.customview.ItemConfidenceInterval;
@@ -33,15 +32,15 @@ public class HypothesisAverageController {
     }
 
     private void setVarsAsSample(boolean isChecked){
-        setItemValue(R.id.ht_sample_size,"");
-        setItemValue(R.id.ht_sample_avg,"");
+        //setItemValue(R.id.ht_sample_size,"");
+        //setItemValue(R.id.ht_sample_avg,"");
 
         FragmentActivity activity = mFragment.getActivity();
 
         if (activity != null) {
             int height = isChecked ? LinearLayout.LayoutParams.WRAP_CONTENT : 0;
-            LinearLayout layout = activity.findViewById(R.id.lay_ht_var_sample);
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
+            //LinearLayout layout = activity.findViewById(R.id.lay_ht_var_sample);
+            //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
         }
     }
 
@@ -58,8 +57,8 @@ public class HypothesisAverageController {
             size = variable.nElements() + "";
         }
 
-        setItemValue(R.id.ht_sample_avg, avg);
-        setItemValue(R.id.ht_sample_size, size);
+        //setItemValue(R.id.ht_sample_avg, avg);
+        //setItemValue(R.id.ht_sample_size, size);
     }
 
     private Double asDouble(String s){
@@ -69,7 +68,7 @@ public class HypothesisAverageController {
     private void calculate(){
         FragmentActivity activity = mFragment.getActivity();
         if (activity != null) {
-
+/*
             ItemConfidenceInterval sampleAvg = activity.findViewById(R.id.ht_sample_avg);
             ItemConfidenceInterval sampleSize = activity.findViewById(R.id.ht_sample_size);
             ItemConfidenceInterval populationSize = activity.findViewById(R.id.ht_population_deviation);
@@ -85,6 +84,7 @@ public class HypothesisAverageController {
             values.setConfidence(confidenceLevel.isChecked() ? asDouble(confidenceLevel.getValue()) : null);
 
             DataAnalyse.intervalAverage(values);
+            */
         }
     }
 
@@ -124,6 +124,7 @@ public class HypothesisAverageController {
         //DataAnalyse.IntervalConfidenceResult
         @Override
         public void onSuccess(Double min, Double max, Double error, float z, DataAnalyse.IntervalConfidenceValues values) {
+            /*
             String text = "z = " + z + "\n\n";
             text += String.format(Locale.getDefault(), "P = (%s < %s < %s) = %s",
                     format(min), mFragment.getString(R.string.sym_mu), format(max), format(values.getConfidence().intValue() / 100d));
@@ -131,9 +132,10 @@ public class HypothesisAverageController {
             text += String.format(Locale.getDefault(), "IC (%s, %s) = (%s; %s)",
                     mFragment.getString(R.string.sym_mu), asPercent(values.getConfidence()), format(min), format(max));
             text += "\n\n" + String.format(Locale.getDefault(),"Erro de estimação e = %s", format(error));
-
+*/
             FragmentActivity activity = mFragment.getActivity();
             if(activity != null) {
+                /*
                 TextView valueInterval = activity.findViewById(R.id.txt_ht_value);
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) valueInterval.getLayoutParams();
@@ -141,6 +143,7 @@ public class HypothesisAverageController {
 
                 valueInterval.setLayoutParams(params);
                 valueInterval.setText(text);
+                */
             }
         }
 

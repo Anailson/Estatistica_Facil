@@ -27,7 +27,7 @@ public class HypothesisAverageView extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_hypothesis_average, container, false);
         HypothesisAverageController controller = new HypothesisAverageController(this);
-
+/*
         ((ItemConfidenceInterval) view.findViewById(R.id.ht_sample_size)).setTitle(R.string.txt_sample_size);
         ((ItemConfidenceInterval) view.findViewById(R.id.ht_sample_avg)).setTitle(R.string.txt_sample_avg);
         ((ItemConfidenceInterval) view.findViewById(R.id.ht_population_deviation)).setTitle(R.string.txt_population_deviation);
@@ -48,7 +48,7 @@ public class HypothesisAverageView extends Fragment {
         swtVarSample.setOnCheckedChangeListener(controller.getListeners());
         spnVarSample.setOnItemSelectedListener(controller.getListeners());
         btnCalculate.setOnClickListener(controller.getListeners());
-
+*/
         return view;
     }
 }

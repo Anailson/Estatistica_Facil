@@ -3,7 +3,11 @@
     android:id="@+id/content_data_analyse"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Teste de Hipótese: média"/>
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -162,5 +166,5 @@
 
         </LinearLayout>
     </LinearLayout>
-
+-->
 </ScrollView>

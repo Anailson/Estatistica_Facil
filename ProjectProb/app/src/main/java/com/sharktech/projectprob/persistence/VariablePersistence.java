@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.sharktech.projectprob.customtable.TableCell;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.customtable.TableColumn.IVariable;
 import com.sharktech.projectprob.models.CellValue;
@@ -15,49 +16,16 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 public class VariablePersistence {
 
     private static VariablePersistence mPersistence;
     private static final String INITIALIZED = "INITIALIZED";
+    private static final String TITLE = "title";
 
-    private VariablePersistence() {
-        try {
-            //init();
-        }catch (RealmPrimaryKeyConstraintException e){
-            Log.e("RealmPrimaryKey", e.getMessage());
-        }
-    }
-
-    private void init() throws RealmPrimaryKeyConstraintException {
-
-        Realm realm = beginTransaction();
-
-        VariableNumber flts = realm.createObject(VariableNumber.class, "Float");
-        //flts.setTitle("Float");
-        flts.add(new Float[]{1.3f, 2.2f, 1.3f, 4.4f, 2.3f, 4.3f, 7.4f, 7.2f, 2.2f, 2.5f});
-        flts.add(new Float[]{1.2f, 1.2f, 7.3f, 4.9f, 1.3f, 7.3f, 8.4f, 7.0f, 4.2f, 2.7f});
-        flts.add(new Float[]{9.2f, 2.6f, 5.3f, 4.2f, 8.3f, 7.5f, 3.4f, 7.6f, 2.2f, 2.0f});
-        flts.add(new Float[]{9.7f, 4.6f, 5.8f, 9.2f, 2.3f, 7.9f, 2.4f, 7.3f, 5.2f, 2.5f});
-        flts.add(new Float[]{6.7f, 0.6f, 2.8f, 1.2f, 2.7f, 4.9f, 9.4f, 7.8f, 1.2f, 2.0f});
-
-        VariableString strs = realm.createObject(VariableString.class, "String");
-        //strs.setTitle("String");
-        strs.add(new String[]{"Um", "Dois", "Três", "Dois", "Cinco", "Um", "Sete"});
-
-        VariableNumber example = realm.createObject(VariableNumber.class, "Example_1");
-        //example.setTitle("Example_1");
-        example.add(new Integer[]{48, 48, 49, 50, 50, 50, 50, 52, 53, 53});
-        example.add(new Integer[]{54, 55, 56, 58, 58, 60, 65, 67, 70, 70});
-        example.add(new Integer[]{70, 71, 72, 74, 75, 75, 76, 77, 77, 77});
-        example.add(new Integer[]{78, 79, 80, 80, 81, 82, 83, 83, 85, 89});
-
-        realm.copyToRealmOrUpdate(flts);
-        realm.copyToRealmOrUpdate(strs);
-        realm.copyToRealmOrUpdate(example);
-        realm.commitTransaction();
-    }
+    private VariablePersistence() {}
 
     public static VariablePersistence getInstance(){
         if(mPersistence == null){
@@ -156,7 +124,45 @@ public class VariablePersistence {
     }
 
     public void remove(int index){
-        //mVariables.remove(index);
+        IVariable variable = getVariable(index);
+        Class<? extends RealmObject> cls = variable.isNumber() ? VariableNumber.class : VariableString.class;
+
+        Realm realm = beginTransaction();
+        RealmObject object = realm.where(cls).equalTo(TITLE, variable.getTitle()).findFirst();
+        if(object != null) object.deleteFromRealm();
+        realm.commitTransaction();
+    }
+
+    public void remove(int indexCol, int indexRow){
+        final IVariable variable = getVariable(indexCol);
+        Class<? extends RealmObject> cls = variable.isNumber() ? VariableNumber.class : VariableString.class;
+
+        Realm realm = beginTransaction();
+        RealmObject object = realm.where(cls).equalTo(TITLE, variable.getTitle()).findFirst();
+        if(object != null){
+            CellValue cell = (CellValue) ((VariableString) object).getElement(indexRow);
+            cell.deleteFromRealm();
+        }
+        realm.commitTransaction();
+    }
+
+    public void edit(int indexCol, int indexRow, TableCell.ICell cell){
+        IVariable variable = getVariable(indexCol);
+        Realm realm = beginTransaction();
+        CellValue oldValue;
+
+        if(variable.isNumber()) {
+            VariableNumber num = (VariableNumber) variable;
+            oldValue = (CellValue) num.getElement(indexRow);
+            oldValue.setValue(cell.getTitle());
+            realm.copyToRealmOrUpdate(num);
+        } else {
+            VariableString str = (VariableString) variable;
+            oldValue = (CellValue) str.getElement(indexRow);
+            oldValue.setValue(cell.getTitle());
+            realm.copyToRealmOrUpdate(str);
+        }
+        realm.commitTransaction();
     }
 
     private Realm beginTransaction(){

@@ -33,25 +33,26 @@ class VariableOperation {
         }
         lastToken = parser.getValue(Token.VAL);
 
-        TableColumn.IVariable variable = VariablePersistence.getInstance().getVariable(col);
+        TableColumn.IVariable variable = persistence.getVariable(col);
         VariableParser.Error err = type(lastToken, variable);
 
         if (err == VariableParser.Error.MATCH_NUMBER
                 || err == VariableParser.Error.MATCH_TEXT) {
             CellValue cell = new CellValue(lastToken.getText());
             cell.setNumber(err == VariableParser.Error.MATCH_NUMBER);
-            VariablePersistence.getInstance().addCell(col, cell);
+            persistence.addCell(col, cell);
         } else if (err == VariableParser.Error.MATCH_MANY_VALUES) {
 
             String[] values = lastToken.getText().replaceAll(" ", "").split(",");
-            RealmList<CellValue> cells = asRealmList(variable.isNumber(), values);
-            VariablePersistence.getInstance().addCell(col, cells);
+            RealmList<CellValue> cells = persistence.newCellValueList(values, variable.isNumber());
+            persistence.addCell(col, cells);
         }
 
         result(lastToken, err);
     }
 
     void finish(ParserNew parser){
+        VariablePersistence persistence = VariablePersistence.getInstance();
         String title = parser.getValue(Token.TEXT).getText();
         Token lastToken = parser.getValue(Token.VAL);
 
@@ -59,10 +60,10 @@ class VariableOperation {
         VariableParser.Error type = type(values);
 
         boolean isNumber = type == VariableParser.Error.MATCH_NUMBER;
-        RealmList<CellValue> cells = asRealmList(isNumber, values);
+        RealmList<CellValue> cells = persistence.newCellValueList(values, isNumber);
 
         if(type == VariableParser.Error.MATCH_NUMBER || type == VariableParser.Error.MATCH_TEXT) {
-            VariablePersistence.getInstance().newVariable(title, isNumber, cells);
+            persistence.newVariable(title, isNumber, cells);
         }
 
         result(lastToken, type);
@@ -87,12 +88,13 @@ class VariableOperation {
 
         lastToken = parser.getValue(Token.VAL);
         VariableParser.Error error = type(lastToken, variable);
+
         TableCell.ICell cell = error == VariableParser.Error.MATCH_NUMBER ? new CellValue(Double.valueOf(lastToken.getText()))
                 : error == VariableParser.Error.MATCH_TEXT ? new CellValue(lastToken.getText())
                 : null;
 
         if(cell != null) {
-            variable.setElement(cell, row);
+            persistence.edit(col, row, cell);
         }
         result(lastToken, error);
     }
@@ -115,7 +117,7 @@ class VariableOperation {
                 result(lastToken, VariableParser.Error.ERR_ROW_INDEX);
                 return;
             }
-            variable.getElements().remove(row);
+            persistence.remove(col, row);
         }else{
             lastToken = parser.getValue(Token.COLUMN);
             persistence.remove(col);
@@ -141,7 +143,7 @@ class VariableOperation {
         }
     }
 
-    private RealmList<CellValue> asRealmList(boolean isNumber, String[] values) {
+    private RealmList<CellValue> asRealmList(VariablePersistence persistence, boolean isNumber, String[] values) {
 
         RealmList<CellValue> cells = new RealmList<>();
         for (String s : values) {
@@ -176,7 +178,7 @@ class VariableOperation {
 
     private VariableParser.Error type(Token token, TableColumn.IVariable var) {
         int type = token.getType();
-        Class cls = var.getClass();
+        Class cls = var.isNumber() ? VariableNumber.class : VariableString.class;
 
         if (type == Token.NUMBER && cls == VariableNumber.class) return VariableParser.Error.MATCH_NUMBER;
         else if (type == Token.TEXT && cls == VariableString.class) return VariableParser.Error.MATCH_TEXT;

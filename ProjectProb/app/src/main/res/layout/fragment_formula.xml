@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_formula"
             android:paddingBottom="@dimen/minimum_gap"
+            android:textStyle="bold"
             style="@style/TextViewLargeColored"/>
 
         <com.sharktech.projectprob.customview.ItemDataDetail

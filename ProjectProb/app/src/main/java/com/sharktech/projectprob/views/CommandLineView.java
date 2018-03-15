@@ -41,6 +41,9 @@ public class CommandLineView extends Fragment{
         ItemDataDetail cmdNumberDesc = view.findViewById(R.id.cmd_number_desc);
         ItemDataDetail cmdTextDesc = view.findViewById(R.id.cmd_text_desc);
         ItemDataDetail cmdValuesDesc = view.findViewById(R.id.cmd_values_desc);
+        ItemDataDetail cmdFloatNum = view.findViewById(R.id.cmd_obs_float_num);
+        ItemDataDetail cmdVarType = view.findViewById(R.id.cmd_obs_var_type);
+        ItemDataDetail cmdValueType = view.findViewById(R.id.cmd_obs_value_type);
 
         cmdNew.setTexts(R.string.cmd_add, R.string.cmd_add_detail, R.string.cmd_default);
         cmdAdd.setTexts(R.string.cmd_new, R.string.cmd_new_detail, R.string.cmd_default);
@@ -50,7 +53,6 @@ public class CommandLineView extends Fragment{
         cmdPri.setTexts(R.string.cmd_primary, R.string.cmd_primary_detail, R.string.cmd_default);
         cmdSec.setTexts(R.string.cmd_secondary, R.string.cmd_secondary_detail, R.string.cmd_default);
         cmdVars.setTexts(R.string.cmd_variables, R.string.cmd_variables_detail, R.string.cmd_default);
-
         cmdNewDesc.setTitleText("new");
         cmdNewDesc.setEquationText(R.string.cmd_new_desc);
         cmdAddDesc.setTitleText("add");
@@ -73,6 +75,12 @@ public class CommandLineView extends Fragment{
         cmdTextDesc.setEquationText(R.string.cmd_text_desc);
         cmdValuesDesc.setTitleText("values");
         cmdValuesDesc.setEquationText(R.string.cmd_values_desc);
+        cmdFloatNum.setTitleText("Número decimal");
+        cmdFloatNum.setEquationText(R.string.cmd_obs_float_num);
+        cmdVarType.setTitleText("Tipo da variável");
+        cmdVarType.setEquationText(R.string.cmd_obs_var_type);
+        cmdValueType.setTitleText("Tipo do valor");
+        cmdValueType.setEquationText(R.string.cmd_obs_value_type);
 
         return view;
     }

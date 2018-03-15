@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:text="@string/cmd_list"
             android:paddingBottom="@dimen/minimum_gap"
-            style="@style/TextViewLargeColored"/>
+            android:textStyle="bold"
+            style="@style/TextViewColored"/>
 
         <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_add"
@@ -48,9 +49,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cmd_description"
-            android:paddingTop="@dimen/medium_gap"
+            android:paddingTop="@dimen/large_gap"
             android:paddingBottom="@dimen/minimum_gap"
-            style="@style/TextViewLargeColored"/>
+            android:textStyle="bold"
+            style="@style/TextViewColored"/>
 
         <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_primary"
@@ -74,9 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cmd_detail"
-            android:paddingTop="@dimen/medium_gap"
-            android:paddingBottom="@dimen/medium_gap"
-            style="@style/TextViewLargeColored"/>
+            android:paddingTop="@dimen/large_gap"
+            android:paddingBottom="@dimen/minimum_gap"
+            android:textStyle="bold"
+            style="@style/TextViewColored"/>
 
         <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_new_desc"
@@ -140,6 +143,33 @@
 
         <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_values_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_gap"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cmd_obs"
+            android:paddingTop="@dimen/large_gap"
+            android:paddingBottom="@dimen/minimum_gap"
+            android:textStyle="bold"
+            style="@style/TextViewColored"/>
+
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/cmd_obs_float_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_gap"/>
+
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/cmd_obs_var_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_gap"/>
+
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/cmd_obs_value_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/minimum_gap"/>

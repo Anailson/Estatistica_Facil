@@ -110,15 +110,41 @@ public class VariablePersistence {
     public void addCell(int index, CellValue cell){
         IVariable variable = getVariable(index);
         Realm realm = beginTransaction();
-        variable.getElements().add(cell);
+
+        if (variable.isNumber()) {
+            VariableNumber num = (VariableNumber) variable;
+            RealmList<CellValue> cells = num.getValues();
+            cells.add(cell);
+            num.setValues(cells);
+            realm.copyToRealmOrUpdate(num);
+        } else {
+            VariableString str = (VariableString) variable;
+            RealmList<CellValue> cells = str.getValues();
+            cells.add(cell);
+            str.setValues(cells);
+            realm.copyToRealmOrUpdate(str);
+        }
         realm.commitTransaction();
     }
 
     public void addCell(int index, RealmList<CellValue> cells){
         IVariable variable = getVariable(index);
         Realm realm = beginTransaction();
-        for(CellValue cell : cells){
-            variable.getElements().add(cell);
+
+
+        if (variable.isNumber()) {
+
+            VariableNumber num = (VariableNumber) variable;
+            RealmList<CellValue> elements = num.getValues();
+            elements.addAll(cells);
+            num.setValues(elements);
+            realm.copyToRealmOrUpdate(num);
+        } else {
+            VariableString str = (VariableString) variable;
+            RealmList<CellValue> elements = str.getValues();
+            elements.addAll(cells);
+            str.setValues(elements);
+            realm.copyToRealmOrUpdate(str);
         }
         realm.commitTransaction();
     }

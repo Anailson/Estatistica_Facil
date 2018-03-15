@@ -45,6 +45,7 @@ class VariableOperation {
 
             String[] values = lastToken.getText().replaceAll(" ", "").split(",");
             RealmList<CellValue> cells = persistence.newCellValueList(values, variable.isNumber());
+            err = variable.isNumber() ? VariableParser.Error.MATCH_NUMBER : VariableParser.Error.MATCH_TEXT;
             persistence.addCell(col, cells);
         }
 
@@ -135,43 +136,11 @@ class VariableOperation {
         }
     }
 
-    private void addCell(TableColumn.IVariable variable, String value) {
-        if(variable.isNumber()) {
-            ((VariableNumber) variable).add(Integer.valueOf(value));
-        }else{
-            ((VariableString) variable).add(value);
-        }
-    }
-
-    private RealmList<CellValue> asRealmList(VariablePersistence persistence, boolean isNumber, String[] values) {
-
-        RealmList<CellValue> cells = new RealmList<>();
-        for (String s : values) {
-            CellValue cell = new CellValue(s);
-            cell.setNumber(isNumber);
-            cells.add(cell);
-        }
-        return cells;
-    }
-
     private VariableParser.Error type(String[] values) {
         if (values.length > 0) {
             return isNumber(values[0])
                     ? VariableParser.Error.MATCH_NUMBER
                     : VariableParser.Error.MATCH_TEXT;
-        }
-        return VariableParser.Error.ERR_GENERAL;
-    }
-
-    private VariableParser.Error type(String[] values, TableColumn.IVariable variable) {
-        if (values.length > 0) {
-            boolean isNumber = isNumber(values[0]);
-            Class cls = variable.getClass();
-
-            if(isNumber && cls == VariableNumber.class) return VariableParser.Error.MATCH_NUMBER;
-            else if(!isNumber && cls == VariableString.class) return VariableParser.Error.MATCH_TEXT;
-            else if(isNumber && cls != VariableNumber.class) return VariableParser.Error.ERR_NUMBER_TEXT;
-            else if(!isNumber && cls != VariableString.class) return VariableParser.Error.ERR_TEXT_NUMBER;
         }
         return VariableParser.Error.ERR_GENERAL;
     }

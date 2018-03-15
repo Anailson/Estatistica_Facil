@@ -87,60 +87,72 @@ class DataAnalyseCalc {
     }
 
     static void intervalAverage(DataAnalyse.IntervalConfidenceValues values){
-        if(values.isEmpty()){
+        try {
+            if (values.isEmpty()) {
+                values.onError();
+                return;
+            }
+            double correction = 1;
+            if (!values.isNull(values.populationSize) && !values.isNull(values.sampleSize) && values.sampleSize > 0) {
+                double dif = (values.populationSize - values.sampleSize) / (values.populationSize - 1);
+                correction = Math.sqrt(dif);
+            }
+            float z = TableDistribution.normal((float) (values.confidence / 200));
+            if (z < 0) {
+                values.onError();
+                return;
+            }
+            double error = z * (values.deviation / (Math.sqrt(values.sampleSize)) * correction);
+            values.onSuccess(values.sampleAvg - error, values.sampleAvg + error, error, z, values);
+        }catch(Exception e){
             values.onError();
-            return;
         }
-        double correction = 1;
-        if(!values.isNull(values.populationSize) && !values.isNull(values.sampleSize) && values.sampleSize > 0){
-            double dif = (values.populationSize - values.sampleSize) / (values.populationSize - 1 );
-            correction = Math.sqrt(dif);
-        }
-        float z = TableDistribution.normal((float) (values.confidence / 200));
-        if(z < 0){
-            values.onError();
-            return;
-        }
-        double error = z * (values.deviation / (Math.sqrt(values.sampleSize)) * correction);
-        values.onSuccess(values.sampleAvg - error, values.sampleAvg + error, error, z, values);
     }
 
     static void intervalProportion(DataAnalyse.IntervalConfidenceValues values){
-        if(values.isEmpty()){
+        try {
+            if (values.isEmpty()) {
+                values.onError();
+                return;
+            }
+            float z = TableDistribution.normal((float) (values.confidence / 200));
+            if (z < 0) {
+                values.onError();
+                return;
+            }
+            float success = (float) (values.success / values.sampleSize);
+            float fail = 1f - success;
+            float deviation = (float) Math.sqrt((success * fail) / values.sampleSize);
+            double error = z * deviation;
+            values.onSuccess((success - error), (success + error), error, z, values);
+        } catch(Exception e) {
             values.onError();
-            return;
         }
-        float z = TableDistribution.normal((float) (values.confidence / 200));
-        if(z < 0){
-            values.onError();
-            return;
-        }
-        float success = (float) (values.success / values.sampleSize);
-        float fail = 1f - success;
-        float deviation = (float) Math.sqrt((success * fail) / values.sampleSize);
-        double error = z * deviation;
-        values.onSuccess((success - error), (success + error), error, z, values);
     }
 
     static void intervalVariance(DataAnalyse.IntervalConfidenceValues values){
-        if(values.isEmpty()){
+        try {
+            if (values.isEmpty()) {
+                values.onError();
+                return;
+            }
+
+            float limitInf = (float) ((100 - values.confidence) / 2) / 100f;
+            float limitSup = limitInf + (float) (values.confidence / 100);
+            int degree = values.sampleSize.intValue() - 1;
+
+            float quiInf = TableDistribution.quiQuadratic(limitInf, degree);
+            float quiSup = TableDistribution.quiQuadratic(limitSup, degree);
+            if (quiInf < 0 || quiSup < 0) {
+                values.onError();
+                return;
+            }
+
+            double prod = (degree * values.variance.floatValue());
+            values.onSuccess((prod / quiInf), (prod / quiSup), prod, -1, values);
+        } catch (Exception e){
             values.onError();
-            return;
         }
-
-        float limitInf = (float) ((100 - values.confidence) / 2) / 100f;
-        float limitSup = limitInf + (float)(values.confidence / 100);
-        int degree = values.sampleSize.intValue() - 1;
-
-        float quiInf = TableDistribution.quiQuadratic(limitInf, degree);
-        float quiSup = TableDistribution.quiQuadratic(limitSup, degree);
-        if(quiInf < 0 || quiSup < 0){
-            values.onError();
-            return;
-        }
-
-        double prod = (degree * values.variance.floatValue());
-        values.onSuccess((prod / quiInf), (prod / quiSup), prod, -1, values);
     }
 
     private static double sumFrequency(ArrayList<DataAnalyseValue> values) {

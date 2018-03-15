@@ -11,6 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.sharktech.projectprob.R;
+import com.sharktech.projectprob.alert.DefaultAlert;
 import com.sharktech.projectprob.analyse.DataAnalyse;
 import com.sharktech.projectprob.customtable.TableColumn;
 import com.sharktech.projectprob.customview.ItemConfidenceInterval;
@@ -146,6 +147,11 @@ public class IntervalAverageController {
         @Override
         public void onError() {
 
+            DefaultAlert alert = new DefaultAlert(mFragment.getActivity());
+            alert.setTitle("Erro")
+                    .setMessage("Não foi possível realizar o cálculo.\nVerifique os valores informados e tente novamente")
+                    .setPositiveListener("OK", (dialog, which) -> dialog.dismiss());
+            alert.show();
         }
 
         private String format(Double d){

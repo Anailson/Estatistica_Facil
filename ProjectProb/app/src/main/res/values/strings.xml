@@ -61,8 +61,10 @@
     <string name="cmd_detail">Detalhamento dos comandos</string>
     <string name="cmd_obs">Observação</string>
     <string name="cmd_obs_float_num">Números decimais devem ser separados por ponto (.)</string>
+    <string name="cmd_obs_text_value">Todos os valores textuais devem começar obrigatoriamente com uma letra (e serem seguidos de letras, numeros, _ ou -)</string>
     <string name="cmd_obs_var_type">Uma variável recebe seu tipo (numérico ou textual) assim que ela é criada e seu tipo nunca poderá ser alterado</string>
     <string name="cmd_obs_value_type">Os tipos dos valores dos elementos deverão respeitar o tipo da variável (numérico ou textual).</string>
+    <string name="cmd_obs_words">Não é possível nomear as variáveis ou atribuir valores textuais com os comandos listados.</string>
     <string name="cmd_new">Criar uma nova variável</string>
     <string name="cmd_new_detail">new var {text} val {number, text, values}</string>
     <string name="cmd_add">Adiciona um novo elemento na variável</string>

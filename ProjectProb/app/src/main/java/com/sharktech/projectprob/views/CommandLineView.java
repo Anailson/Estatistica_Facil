@@ -42,8 +42,10 @@ public class CommandLineView extends Fragment{
         ItemDataDetail cmdTextDesc = view.findViewById(R.id.cmd_text_desc);
         ItemDataDetail cmdValuesDesc = view.findViewById(R.id.cmd_values_desc);
         ItemDataDetail cmdFloatNum = view.findViewById(R.id.cmd_obs_float_num);
+        ItemDataDetail cmdTextVal = view.findViewById(R.id.cmd_obs_text_value);
         ItemDataDetail cmdVarType = view.findViewById(R.id.cmd_obs_var_type);
         ItemDataDetail cmdValueType = view.findViewById(R.id.cmd_obs_value_type);
+        ItemDataDetail cmdWords = view.findViewById(R.id.cmd_obs_words);
 
         cmdNew.setTexts(R.string.cmd_add, R.string.cmd_add_detail, R.string.cmd_default);
         cmdAdd.setTexts(R.string.cmd_new, R.string.cmd_new_detail, R.string.cmd_default);
@@ -77,10 +79,14 @@ public class CommandLineView extends Fragment{
         cmdValuesDesc.setEquationText(R.string.cmd_values_desc);
         cmdFloatNum.setTitleText("Número decimal");
         cmdFloatNum.setEquationText(R.string.cmd_obs_float_num);
+        cmdTextVal.setTitleText("Valor textual");
+        cmdTextVal.setEquationText(R.string.cmd_obs_text_value);
         cmdVarType.setTitleText("Tipo da variável");
         cmdVarType.setEquationText(R.string.cmd_obs_var_type);
         cmdValueType.setTitleText("Tipo do valor");
         cmdValueType.setEquationText(R.string.cmd_obs_value_type);
+        cmdWords.setTitleText("Palavras reservadas");
+        cmdWords.setEquationText(R.string.cmd_obs_words);
 
         return view;
     }

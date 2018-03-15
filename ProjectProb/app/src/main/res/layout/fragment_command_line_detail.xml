@@ -163,6 +163,12 @@
             android:paddingBottom="@dimen/minimum_gap"/>
 
         <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/cmd_obs_text_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_gap"/>
+
+        <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_obs_var_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,6 +176,12 @@
 
         <com.sharktech.projectprob.customview.ItemDataDetail
             android:id="@+id/cmd_obs_value_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_gap"/>
+
+        <com.sharktech.projectprob.customview.ItemDataDetail
+            android:id="@+id/cmd_obs_words"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/minimum_gap"/>

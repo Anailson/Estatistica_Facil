@@ -69,12 +69,22 @@ public class MainController {
     }
 
     public void verifyStoragePermission() {
-        int selPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && selPermission != PackageManager.PERMISSION_GRANTED) {
+        int readPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writePermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int granted = PackageManager.PERMISSION_GRANTED;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && (readPermission != granted || writePermission != granted)) {
             String[] requests = new String[PERMISSIONS];
             requests[INDEX_READ_STORAGE] = Manifest.permission.READ_EXTERNAL_STORAGE;
             requests[INDEX_WRITE_STORAGE] = Manifest.permission.WRITE_EXTERNAL_STORAGE;
             ActivityCompat.requestPermissions(activity, requests, REQ_STORAGE_PERMISSION);
+
+        } else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
+            editor.putBoolean(CAN_READ, readPermission == granted);
+            editor.putBoolean(CAN_WRITE, writePermission == granted);
+            editor.apply();
         }
     }
 
@@ -133,6 +143,8 @@ public class MainController {
             dialog.setArguments(bundle);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme_NoActionBar);
             dialog.show(activity.getSupportFragmentManager(), TAG_EXPORT_FILE);
+        } else {
+            showToast("Não foi possível iniciar a exportação de arquivos");
         }
     }
 
@@ -145,6 +157,8 @@ public class MainController {
             dialog.setArguments(bundle);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
             dialog.show(activity.getSupportFragmentManager(), TAG_IMPORT_FILE);
+        } else {
+            showToast("Não foi possível iniciar a importação de arquivos");
         }
     }
 

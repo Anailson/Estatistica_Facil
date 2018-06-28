@@ -88,35 +88,4 @@ public class VariableNumber extends RealmObject implements TableColumn.IVariable
         cell.setValue(value.getTitle());
         values.set(index, cell);
     }
-/*
-    public static class ValueInteger implements TableCell.ICell {
-
-        private Number mValue;
-
-        public ValueInteger(Number value) {
-            this.mValue = value;
-        }
-
-        @Override
-        public String getTitle() {
-            double ceil = Math.ceil(mValue.doubleValue());
-
-            return ceil - mValue.doubleValue() != 0
-                    ? String.format(Locale.getDefault(), "%.6f", mValue.doubleValue())
-                    : mValue.doubleValue() > mValue.longValue()
-                    ? String.valueOf(mValue.doubleValue())
-                    : String.valueOf(mValue.longValue());
-        }
-
-        @Override
-        public Double asNumber() {
-            return mValue.doubleValue();
-        }
-
-        @Override
-        public String toString() {
-            return getTitle();
-        }
-    }
-    */
 }
